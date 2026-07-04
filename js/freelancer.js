@@ -119,6 +119,34 @@ $(function() {
         }
     });
 
+    $('.yeardream-menu-link').on('click', function(event) {
+        event.preventDefault();
+
+        var $link = $(this);
+        var $modal = $link.closest('.yeardream-modal');
+        var $main = $modal.find('.yeardream-main');
+        var $panel = $main.find('.yeardream-content-panel');
+        var title = $link.attr('data-title') || $.trim($link.text());
+        var week = $link.attr('data-week') || '커리큘럼';
+        var summary = $link.attr('data-summary') || week + '의 ' + title + ' 내용을 표시합니다.';
+
+        $modal.find('.yeardream-menu-link')
+            .removeClass('is-active')
+            .removeAttr('aria-current');
+
+        $link
+            .addClass('is-active')
+            .attr('aria-current', 'page');
+
+        $panel.find('.yeardream-content-week').text(week);
+        $panel.find('.yeardream-content-title').text(title);
+        $panel.find('.yeardream-content-summary').text(summary);
+        $panel.removeAttr('hidden');
+        $main.addClass('is-showing-content');
+
+        scheduleYeardreamSidebarSync($link.closest('.portfolio-modal'));
+    });
+
     $('.portfolio-modal').on('shown.bs.modal', function() {
         scheduleYeardreamSidebarSync(this);
     });

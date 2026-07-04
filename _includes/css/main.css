@@ -599,6 +599,26 @@ footer .footer-below {
     line-height: 1.35;
 }
 
+.portfolio-modal .yeardream-menu-link {
+    display: block;
+    border-radius: 4px;
+    color: #34495e;
+    text-decoration: none;
+}
+
+.portfolio-modal .yeardream-menu-link:hover,
+.portfolio-modal .yeardream-menu-link:focus,
+.portfolio-modal .yeardream-menu-link.is-active {
+    color: #{{ site.color.secondary }};
+    background: #e9eef3;
+    text-decoration: none;
+}
+
+.portfolio-modal .yeardream-menu-week.yeardream-menu-link {
+    padding: 3px 4px;
+    color: #{{ site.color.secondary }};
+}
+
 .portfolio-modal .yeardream-submenu {
     padding-left: 12px;
     border-left: 2px solid #d9e0e7;
@@ -612,15 +632,65 @@ footer .footer-below {
     word-break: keep-all;
 }
 
+.portfolio-modal .yeardream-submenu .yeardream-menu-link {
+    padding: 2px 4px;
+}
+
 .portfolio-modal .yeardream-main {
     flex: 1 1 auto;
     min-width: 0;
+    position: relative;
     text-align: center;
+}
+
+.portfolio-modal .yeardream-main.is-showing-content .yeardream-main-image {
+    visibility: hidden;
 }
 
 .portfolio-modal .yeardream-main img {
     margin-right: auto;
     margin-left: auto;
+}
+
+.portfolio-modal .yeardream-content-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 30px;
+    left: 0;
+    overflow: auto;
+    padding: 48px;
+    border: 1px solid #e6eaee;
+    border-radius: 8px;
+    color: #{{ site.color.secondary }};
+    background: #f8fafc;
+    text-align: left;
+}
+
+.portfolio-modal .yeardream-content-panel[hidden] {
+    display: none;
+}
+
+.portfolio-modal .yeardream-content-week {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: #7a8a99;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.portfolio-modal .yeardream-content-title {
+    margin: 0 0 18px;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.portfolio-modal .yeardream-content-summary {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
 }
 
 @media(max-width:767px) {
