@@ -513,18 +513,20 @@ footer .footer-below {
     display: flex;
     flex-direction: column;
     position: relative;
+    box-sizing: border-box;
     overflow: hidden;
     padding: 16px;
     border: 1px solid #e6eaee;
     border-radius: 8px;
     background: #f8fafc;
-    -webkit-transition: flex-basis .2s ease, padding .2s ease;
-    -moz-transition: flex-basis .2s ease, padding .2s ease;
-    transition: flex-basis .2s ease, padding .2s ease;
+    -webkit-transition: flex-basis .2s ease, height .2s ease, padding .2s ease;
+    -moz-transition: flex-basis .2s ease, height .2s ease, padding .2s ease;
+    transition: flex-basis .2s ease, height .2s ease, padding .2s ease;
 }
 
 .portfolio-modal .yeardream-sidebar.is-collapsed {
     flex-basis: 56px;
+    height: 56px !important;
     padding: 10px;
     overflow: hidden;
 }

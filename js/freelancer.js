@@ -53,14 +53,19 @@ $(function() {
                 return;
             }
 
+            if ($sidebar.hasClass('is-collapsed')) {
+                $sidebar.css('height', '');
+                return;
+            }
+
             if ($(window).width() < 768) {
                 $sidebar.css('height', '');
                 return;
             }
 
-            var imageHeight = $image.outerHeight();
+            var imageHeight = $image[0].getBoundingClientRect().height;
             if (imageHeight > 0) {
-                $sidebar.css('height', imageHeight + 'px');
+                $sidebar.css('height', Math.floor(imageHeight) + 'px');
             }
         });
     }
@@ -72,6 +77,12 @@ $(function() {
 
         $button.attr('aria-expanded', !isCollapsed);
         $button.find('.sr-only').text(isCollapsed ? '메뉴 펼치기' : '메뉴 접기');
+
+        if (isCollapsed) {
+            $sidebar.css('height', '');
+        } else {
+            syncYeardreamSidebarHeight($button.closest('.portfolio-modal'));
+        }
     });
 
     $('.portfolio-modal').on('shown.bs.modal', function() {
