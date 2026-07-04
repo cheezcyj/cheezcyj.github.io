@@ -123,6 +123,19 @@ $(function() {
         });
     }
 
+    function syncYeardreamMenuTitles(context) {
+        var $scope = context ? $(context) : $(document);
+
+        $scope.find('.yeardream-submenu .yeardream-menu-link').each(function() {
+            var $link = $(this);
+            var title = $link.attr('data-title') || $.trim($link.text());
+
+            $link.attr('title', title);
+        });
+    }
+
+    syncYeardreamMenuTitles(document);
+
     $('.yeardream-sidebar-toggle').on('click', function() {
         var $button = $(this);
         var $sidebar = $button.closest('.yeardream-sidebar');
@@ -172,6 +185,7 @@ $(function() {
     });
 
     $('.portfolio-modal').on('show.bs.modal', function() {
+        syncYeardreamMenuTitles(this);
         resetYeardreamSelection(this);
     });
 

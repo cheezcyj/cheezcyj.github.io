@@ -637,8 +637,12 @@ footer .footer-below {
 }
 
 .portfolio-modal .yeardream-submenu .yeardream-menu-link {
+    max-width: 100%;
+    overflow: hidden;
     padding: 2px 4px;
     font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .portfolio-modal .yeardream-main {
