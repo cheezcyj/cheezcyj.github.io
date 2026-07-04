@@ -39,15 +39,80 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-          <div class="modal-body">
-            {% if post.posting-title %}
+        <div class="{% if post.posting-title == 'yeardreamschool6th' %}col-lg-12{% else %}col-lg-8 col-lg-offset-2{% endif %}">
+          <div class="modal-body{% if post.posting-title == 'yeardreamschool6th' %} yeardream-modal{% endif %}">
+            {% if post.posting-title == 'yeardreamschool6th' %}
+            <div class="yeardream-header">
+              <h2>{{ post.posting-title }}</h2>
+              <hr class="star-primary">
+            </div>
+            <div class="yeardream-layout">
+              <aside class="yeardream-sidebar" aria-label="yeardreamschool6th curriculum">
+                <button type="button" class="yeardream-sidebar-toggle" aria-expanded="true" aria-controls="yeardreamSidebarMenu-{{ post.modal-id }}">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  <span class="sr-only">메뉴 접기</span>
+                </button>
+                <nav id="yeardreamSidebarMenu-{{ post.modal-id }}" class="yeardream-sidebar-menu">
+                  <ul class="yeardream-menu-list">
+                    <li>
+                      <span class="yeardream-menu-week">1주차</span>
+                      <ul class="yeardream-submenu">
+                        <li>01_IT리터러시</li>
+                        <li>02_핵심운영체제와리눅스기초</li>
+                        <li>03_네트워크</li>
+                        <li>04_파이썬기본문법1</li>
+                        <li>05_파이썬기본문법2</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="yeardream-menu-week">2주차</span>
+                      <ul class="yeardream-submenu">
+                        <li>01_파이썬중급문법2</li>
+                        <li>02_파이썬라이브러리활용</li>
+                        <li>03_생성형AI기초</li>
+                        <li>04_SQL시작하기</li>
+                        <li>05_SQL함수와서브쿼리</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="yeardream-menu-week">3주차</span>
+                      <ul class="yeardream-submenu">
+                        <li>01_집합연산자와계층형질의</li>
+                        <li>02_JOIN및서브쿼리심화</li>
+                        <li>03_그룹함수_윈도우함수</li>
+                        <li>04_데이터베이스개요</li>
+                        <li>05_데이터모델링과데이터베이스구현</li>
+                      </ul>
+                    </li>
+                    <li>
+                      <span class="yeardream-menu-week">4주차</span>
+                      <ul class="yeardream-submenu">
+                        <li>01_데이터리터러시와NumPy기초</li>
+                        <li>02_pandas와데이터시각화</li>
+                        <li>03_통계자료요약</li>
+                        <li>04_확률과통계적추론</li>
+                      </ul>
+                    </li>
+                    <li><span class="yeardream-menu-week">AI실무기본_1주차</span></li>
+                    <li><span class="yeardream-menu-week">AI실무기본_2주차</span></li>
+                    <li><span class="yeardream-menu-week">AI실무기본_3주차</span></li>
+                    <li><span class="yeardream-menu-week">AI실무기본_4주차</span></li>
+                  </ul>
+                </nav>
+              </aside>
+              <div class="yeardream-main">
+                <img src="{{ '/img/portfolio/' | append: post.img | relative_url }}" class="img-responsive img-centered" alt="{{ post.alt }}">
+              </div>
+            </div>
+            {% elsif post.posting-title %}
             <h2>{{ post.posting-title }}</h2>
-            {% else %}
-            <h2>posting {{ post.modal-id }}</h2>
-            {% endif %}
             <hr class="star-primary">
             <img src="{{ '/img/portfolio/' | append: post.img | relative_url }}" class="img-responsive img-centered" alt="{{ post.alt }}">
+            {% else %}
+            <h2>posting {{ post.modal-id }}</h2>
+            <hr class="star-primary">
+            <img src="{{ '/img/portfolio/' | append: post.img | relative_url }}" class="img-responsive img-centered" alt="{{ post.alt }}">
+            {% endif %}
             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i>
               Close</button>
           </div>

@@ -489,6 +489,125 @@ footer .footer-below {
     margin: 30px 0;
 }
 
+.portfolio-modal .yeardream-modal {
+    text-align: left;
+}
+
+.portfolio-modal .yeardream-header {
+    text-align: center;
+}
+
+.portfolio-modal .yeardream-layout {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+
+.portfolio-modal .yeardream-sidebar {
+    flex: 0 0 320px;
+    max-height: 70vh;
+    overflow: auto;
+    padding: 16px;
+    border: 1px solid #e6eaee;
+    border-radius: 8px;
+    background: #f8fafc;
+    -webkit-transition: flex-basis .2s ease, padding .2s ease;
+    -moz-transition: flex-basis .2s ease, padding .2s ease;
+    transition: flex-basis .2s ease, padding .2s ease;
+}
+
+.portfolio-modal .yeardream-sidebar.is-collapsed {
+    flex-basis: 56px;
+    padding: 12px 10px;
+    overflow: hidden;
+}
+
+.portfolio-modal .yeardream-sidebar-toggle {
+    display: block;
+    width: 34px;
+    height: 34px;
+    margin: 0 0 14px auto;
+    border: 0;
+    border-radius: 6px;
+    color: #fff;
+    background: #{{ site.color.secondary }};
+}
+
+.portfolio-modal .yeardream-sidebar-toggle i {
+    -webkit-transition: transform .2s ease;
+    -moz-transition: transform .2s ease;
+    transition: transform .2s ease;
+}
+
+.portfolio-modal .yeardream-sidebar.is-collapsed .yeardream-sidebar-toggle i {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.portfolio-modal .yeardream-sidebar.is-collapsed .yeardream-sidebar-menu {
+    display: none;
+}
+
+.portfolio-modal .yeardream-menu-list,
+.portfolio-modal .yeardream-submenu {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.portfolio-modal .yeardream-menu-list > li {
+    margin-bottom: 14px;
+}
+
+.portfolio-modal .yeardream-menu-week {
+    display: block;
+    margin-bottom: 8px;
+    color: #{{ site.color.secondary }};
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.portfolio-modal .yeardream-submenu {
+    padding-left: 12px;
+    border-left: 2px solid #d9e0e7;
+}
+
+.portfolio-modal .yeardream-submenu li {
+    margin: 6px 0;
+    color: #34495e;
+    font-size: 14px;
+    line-height: 1.45;
+    word-break: keep-all;
+}
+
+.portfolio-modal .yeardream-main {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: center;
+}
+
+.portfolio-modal .yeardream-main img {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media(max-width:767px) {
+    .portfolio-modal .yeardream-layout {
+        display: block;
+    }
+
+    .portfolio-modal .yeardream-sidebar,
+    .portfolio-modal .yeardream-sidebar.is-collapsed {
+        width: 100%;
+        max-height: none;
+        margin-bottom: 24px;
+    }
+}
+
 .portfolio-modal .close-modal {
     position: absolute;
     top: 25px;

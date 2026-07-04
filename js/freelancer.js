@@ -39,6 +39,18 @@ $(function() {
     });
 });
 
+// Toggle the yeardreamschool6th posting sidebar
+$(function() {
+    $('.yeardream-sidebar-toggle').on('click', function() {
+        var $button = $(this);
+        var $sidebar = $button.closest('.yeardream-sidebar');
+        var isCollapsed = $sidebar.toggleClass('is-collapsed').hasClass('is-collapsed');
+
+        $button.attr('aria-expanded', !isCollapsed);
+        $button.find('.sr-only').text(isCollapsed ? '메뉴 펼치기' : '메뉴 접기');
+    });
+});
+
 // Highlight the top nav as scrolling occurs
 $('body').scrollspy({
     target: '.navbar-fixed-top'
