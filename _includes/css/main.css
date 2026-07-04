@@ -189,6 +189,16 @@ header .intro-text .skills {
     color: #{{ site.color.primary }};
 }
 
+.navbar .navbar-brand,
+.navbar .navbar-brand:focus,
+.navbar .navbar-brand:active {
+    color: #fff;
+}
+
+.navbar .navbar-brand:hover {
+    color: #{{ site.color.primary }};
+}
+
 .navbar-default,
 .navbar-inverse {
     border: 0;
