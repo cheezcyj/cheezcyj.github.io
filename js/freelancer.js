@@ -101,6 +101,28 @@ $(function() {
         }, 300);
     }
 
+    function resetYeardreamSelection(context) {
+        var $scope = context ? $(context) : $(document);
+
+        $scope.find('.yeardream-modal').each(function() {
+            var $modal = $(this);
+            var $main = $modal.find('.yeardream-main');
+            var $panel = $main.find('.yeardream-content-panel');
+
+            $modal.find('.yeardream-menu-link')
+                .removeClass('is-active')
+                .removeAttr('aria-current');
+
+            $main.removeClass('is-showing-content');
+            $panel
+                .removeClass('is-active')
+                .attr({
+                    hidden: 'hidden',
+                    'aria-hidden': 'true'
+                });
+        });
+    }
+
     $('.yeardream-sidebar-toggle').on('click', function() {
         var $button = $(this);
         var $sidebar = $button.closest('.yeardream-sidebar');
@@ -151,8 +173,16 @@ $(function() {
         scheduleYeardreamSidebarSync($link.closest('.portfolio-modal'));
     });
 
+    $('.portfolio-modal').on('show.bs.modal', function() {
+        resetYeardreamSelection(this);
+    });
+
     $('.portfolio-modal').on('shown.bs.modal', function() {
         scheduleYeardreamSidebarSync(this);
+    });
+
+    $('.portfolio-modal').on('hidden.bs.modal', function() {
+        resetYeardreamSelection(this);
     });
 
     $('.yeardream-main img').on('load', function() {
