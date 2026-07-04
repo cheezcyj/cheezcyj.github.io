@@ -1,0 +1,27 @@
+.DS_Store
+Thumbs.db
+
+# Local Codex/workspace metadata
+.agents/
+.codex/
+
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+
+Gemfile.lock
+.bundle/
+vendor/bundle/
+
+# Local environment and secret material
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_dsa*
+*.log
