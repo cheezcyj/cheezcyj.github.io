@@ -54,18 +54,28 @@ $(function() {
             }
 
             if ($sidebar.hasClass('is-collapsed')) {
-                $sidebar.css('height', '');
+                $sidebar.css({
+                    height: '',
+                    maxHeight: ''
+                });
                 return;
             }
 
             if ($(window).width() < 768) {
-                $sidebar.css('height', '');
+                $sidebar.css({
+                    height: '',
+                    maxHeight: ''
+                });
                 return;
             }
 
             var imageHeight = $image[0].getBoundingClientRect().height;
             if (imageHeight > 0) {
-                $sidebar.css('height', Math.floor(imageHeight) + 'px');
+                var sidebarHeight = Math.floor(imageHeight);
+                $sidebar.css({
+                    height: sidebarHeight + 'px',
+                    maxHeight: sidebarHeight + 'px'
+                });
             }
         });
     }
@@ -79,7 +89,10 @@ $(function() {
         $button.find('.sr-only').text(isCollapsed ? '메뉴 펼치기' : '메뉴 접기');
 
         if (isCollapsed) {
-            $sidebar.css('height', '');
+            $sidebar.css({
+                height: '',
+                maxHeight: ''
+            });
         } else {
             syncYeardreamSidebarHeight($button.closest('.portfolio-modal'));
         }
