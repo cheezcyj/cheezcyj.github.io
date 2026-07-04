@@ -6,14 +6,24 @@
 
 // jQuery for page scrolling feature - requires jQuery Easing plugin
 $(function() {
+    var $page = $('html, body');
+    var cancelScrollEvents = 'wheel.navScroll mousewheel.navScroll DOMMouseScroll.navScroll touchstart.navScroll keydown.navScroll';
+
     $('.page-scroll a').on('click', function(event) {
         var target = $(this).attr('href');
         if (!target || target.charAt(0) !== '#' || !$(target).length) {
             return;
         }
-        $('html, body').stop(true).animate({
+
+        $(document).off(cancelScrollEvents).one(cancelScrollEvents, function() {
+            $page.stop(true);
+        });
+
+        $page.stop(true).animate({
             scrollTop: $(target).offset().top
-        }, 600, 'swing');
+        }, 600, 'swing', function() {
+            $(document).off(cancelScrollEvents);
+        });
         event.preventDefault();
     });
 });
