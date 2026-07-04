@@ -624,6 +624,10 @@ footer .footer-below {
     border-left: 2px solid #d9e0e7;
 }
 
+.portfolio-modal .yeardream-submenu .yeardream-submenu {
+    margin-top: 6px;
+}
+
 .portfolio-modal .yeardream-submenu li {
     margin: 6px 0;
     color: #34495e;
@@ -634,6 +638,10 @@ footer .footer-below {
 
 .portfolio-modal .yeardream-submenu .yeardream-menu-link {
     padding: 2px 4px;
+}
+
+.portfolio-modal .yeardream-menu-topic {
+    font-weight: 700;
 }
 
 .portfolio-modal .yeardream-main {
