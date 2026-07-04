@@ -490,7 +490,7 @@ footer .footer-below {
 }
 
 .portfolio-modal .yeardream-modal {
-    text-align: left;
+    text-align: center;
 }
 
 .portfolio-modal .yeardream-header {
@@ -503,6 +503,7 @@ footer .footer-below {
     display: flex;
     gap: 28px;
     align-items: flex-start;
+    text-align: left;
 }
 
 .portfolio-modal .yeardream-sidebar {
@@ -520,7 +521,7 @@ footer .footer-below {
 
 .portfolio-modal .yeardream-sidebar.is-collapsed {
     flex-basis: 56px;
-    padding: 12px 10px;
+    padding: 10px;
     overflow: hidden;
 }
 
@@ -549,6 +550,10 @@ footer .footer-below {
 
 .portfolio-modal .yeardream-sidebar.is-collapsed .yeardream-sidebar-menu {
     display: none;
+}
+
+.portfolio-modal .yeardream-sidebar.is-collapsed .yeardream-sidebar-toggle {
+    margin: 0 auto;
 }
 
 .portfolio-modal .yeardream-menu-list,
