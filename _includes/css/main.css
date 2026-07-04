@@ -658,6 +658,10 @@ footer .footer-below {
     right: 0;
     bottom: 30px;
     left: 0;
+    z-index: 2;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
     overflow: auto;
     padding: 48px;
     border: 1px solid #e6eaee;
@@ -669,6 +673,10 @@ footer .footer-below {
 
 .portfolio-modal .yeardream-content-panel[hidden] {
     display: none;
+}
+
+.portfolio-modal .yeardream-content-panel.is-active {
+    display: flex;
 }
 
 .portfolio-modal .yeardream-content-week {

@@ -119,7 +119,7 @@ $(function() {
         }
     });
 
-    $('.yeardream-menu-link').on('click', function(event) {
+    $(document).on('click', '.yeardream-menu-link', function(event) {
         event.preventDefault();
 
         var $link = $(this);
@@ -128,7 +128,8 @@ $(function() {
         var $panel = $main.find('.yeardream-content-panel');
         var title = $link.attr('data-title') || $.trim($link.text());
         var week = $link.attr('data-week') || '커리큘럼';
-        var summary = $link.attr('data-summary') || week + '의 ' + title + ' 내용을 표시합니다.';
+        var path = week === '커리큘럼' ? title : week + ' / ' + title;
+        var summary = $link.attr('data-summary') || '선택한 항목: ' + path;
 
         $modal.find('.yeardream-menu-link')
             .removeClass('is-active')
@@ -141,7 +142,10 @@ $(function() {
         $panel.find('.yeardream-content-week').text(week);
         $panel.find('.yeardream-content-title').text(title);
         $panel.find('.yeardream-content-summary').text(summary);
-        $panel.removeAttr('hidden');
+        $panel
+            .removeAttr('hidden')
+            .addClass('is-active')
+            .attr('aria-hidden', 'false');
         $main.addClass('is-showing-content');
 
         scheduleYeardreamSidebarSync($link.closest('.portfolio-modal'));
