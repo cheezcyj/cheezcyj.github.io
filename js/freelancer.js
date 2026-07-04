@@ -129,7 +129,7 @@ $(function() {
         var title = $link.attr('data-title') || $.trim($link.text());
         var week = $link.attr('data-week') || '커리큘럼';
         var path = week === '커리큘럼' ? title : week + ' / ' + title;
-        var summary = $link.attr('data-summary') || '선택한 항목: ' + path;
+        var summary = $link.attr('data-summary') || path;
 
         $modal.find('.yeardream-menu-link')
             .removeClass('is-active')
