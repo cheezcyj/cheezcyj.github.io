@@ -41,6 +41,30 @@ $(function() {
 
 // Toggle the yeardreamschool6th posting sidebar
 $(function() {
+    function syncYeardreamSidebarHeight(context) {
+        var $scope = context ? $(context) : $(document);
+
+        $scope.find('.yeardream-modal').each(function() {
+            var $modal = $(this);
+            var $sidebar = $modal.find('.yeardream-sidebar');
+            var $image = $modal.find('.yeardream-main img');
+
+            if (!$sidebar.length || !$image.length) {
+                return;
+            }
+
+            if ($(window).width() < 768) {
+                $sidebar.css('height', '');
+                return;
+            }
+
+            var imageHeight = $image.outerHeight();
+            if (imageHeight > 0) {
+                $sidebar.css('height', imageHeight + 'px');
+            }
+        });
+    }
+
     $('.yeardream-sidebar-toggle').on('click', function() {
         var $button = $(this);
         var $sidebar = $button.closest('.yeardream-sidebar');
@@ -48,6 +72,18 @@ $(function() {
 
         $button.attr('aria-expanded', !isCollapsed);
         $button.find('.sr-only').text(isCollapsed ? '메뉴 펼치기' : '메뉴 접기');
+    });
+
+    $('.portfolio-modal').on('shown.bs.modal', function() {
+        syncYeardreamSidebarHeight(this);
+    });
+
+    $('.yeardream-main img').on('load', function() {
+        syncYeardreamSidebarHeight($(this).closest('.portfolio-modal'));
+    });
+
+    $(window).on('resize.yeardreamSidebar', function() {
+        syncYeardreamSidebarHeight($('.portfolio-modal.in'));
     });
 });
 
