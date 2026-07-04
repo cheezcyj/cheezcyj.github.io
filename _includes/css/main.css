@@ -175,6 +175,20 @@ header .intro-text .skills {
     outline: 0;
 }
 
+.navbar .navbar-nav > li > a,
+.navbar .navbar-nav > li > a:focus,
+.navbar .navbar-nav > li > a:active,
+.navbar .navbar-nav > .active > a,
+.navbar .navbar-nav > .active > a:focus,
+.navbar .navbar-nav > .active > a:active {
+    color: #fff;
+}
+
+.navbar .navbar-nav > li > a:hover,
+.navbar .navbar-nav > .active > a:hover {
+    color: #{{ site.color.primary }};
+}
+
 .navbar-default,
 .navbar-inverse {
     border: 0;
