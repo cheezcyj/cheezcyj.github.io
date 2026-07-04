@@ -80,6 +80,27 @@ $(function() {
         });
     }
 
+    function scheduleYeardreamSidebarSync(context) {
+        syncYeardreamSidebarHeight(context);
+
+        if (window.requestAnimationFrame) {
+            requestAnimationFrame(function() {
+                syncYeardreamSidebarHeight(context);
+                requestAnimationFrame(function() {
+                    syncYeardreamSidebarHeight(context);
+                });
+            });
+        }
+
+        setTimeout(function() {
+            syncYeardreamSidebarHeight(context);
+        }, 100);
+
+        setTimeout(function() {
+            syncYeardreamSidebarHeight(context);
+        }, 300);
+    }
+
     $('.yeardream-sidebar-toggle').on('click', function() {
         var $button = $(this);
         var $sidebar = $button.closest('.yeardream-sidebar');
@@ -94,21 +115,31 @@ $(function() {
                 maxHeight: ''
             });
         } else {
-            syncYeardreamSidebarHeight($button.closest('.portfolio-modal'));
+            scheduleYeardreamSidebarSync($button.closest('.portfolio-modal'));
         }
     });
 
     $('.portfolio-modal').on('shown.bs.modal', function() {
-        syncYeardreamSidebarHeight(this);
+        scheduleYeardreamSidebarSync(this);
     });
 
     $('.yeardream-main img').on('load', function() {
-        syncYeardreamSidebarHeight($(this).closest('.portfolio-modal'));
+        scheduleYeardreamSidebarSync($(this).closest('.portfolio-modal'));
     });
 
     $(window).on('resize.yeardreamSidebar', function() {
-        syncYeardreamSidebarHeight($('.portfolio-modal.in'));
+        scheduleYeardreamSidebarSync($('.portfolio-modal.in'));
     });
+
+    if (window.ResizeObserver) {
+        $('.yeardream-main img').each(function() {
+            var image = this;
+            var observer = new ResizeObserver(function() {
+                scheduleYeardreamSidebarSync($(image).closest('.portfolio-modal'));
+            });
+            observer.observe(image);
+        });
+    }
 });
 
 // Highlight the top nav as scrolling occurs
