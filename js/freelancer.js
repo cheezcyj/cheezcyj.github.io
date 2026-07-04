@@ -150,8 +150,6 @@ $(function() {
         var $panel = $main.find('.yeardream-content-panel');
         var title = $link.attr('data-title') || $.trim($link.text());
         var week = $link.attr('data-week') || '커리큘럼';
-        var path = week === '커리큘럼' ? title : week + ' / ' + title;
-        var summary = $link.attr('data-summary') || path;
 
         $modal.find('.yeardream-menu-link')
             .removeClass('is-active')
@@ -163,7 +161,7 @@ $(function() {
 
         $panel.find('.yeardream-content-week').text(week);
         $panel.find('.yeardream-content-title').text(title);
-        $panel.find('.yeardream-content-summary').text(summary);
+        $panel.find('.yeardream-content-summary').empty();
         $panel
             .removeAttr('hidden')
             .addClass('is-active')

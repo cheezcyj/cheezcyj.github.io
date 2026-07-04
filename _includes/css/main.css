@@ -661,7 +661,7 @@ footer .footer-below {
     z-index: 2;
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: auto;
     padding: 48px;
     border: 1px solid #e6eaee;
@@ -689,13 +689,14 @@ footer .footer-below {
 }
 
 .portfolio-modal .yeardream-content-title {
-    margin: 0 0 18px;
+    margin: 0;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 28px;
     font-weight: 700;
 }
 
 .portfolio-modal .yeardream-content-summary {
+    display: none;
     margin: 0;
     font-size: 17px;
     line-height: 1.7;
