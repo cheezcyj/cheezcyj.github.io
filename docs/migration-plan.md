@@ -506,3 +506,9 @@ main이 아닌 feature branch에서만 진행한다.
 - Astro 공식 Content Collections: https://docs.astro.build/en/guides/content-collections/
 - Astro 공식 GitHub Pages 배포: https://docs.astro.build/en/guides/deploy/github/
 - v0 참조 템플릿: https://v0.app/templates/graphic-designer-portfolio-OEGmoMu1hHL
+
+## 13. Phase 4A 구현 메모
+
+2026-07-16에 Content Collections foundation을 구현하면서 계획의 공식 `glob` loader와 `**/*.{md,mdx}` pattern은 그대로 적용했다. 다만 현재 Windows + pnpm isolated node linker + Astro 7/Vite 8 조합에서 loader의 CommonJS `picomatch`를 Vite module runner가 평가할 때 `require is not defined`가 발생했다.
+
+공식 loader를 자체 loader로 교체하지 않기 위해 `picomatch`를 직접 devDependency로 선언하고 `scripts/picomatch-interop.mjs`를 Vite alias로 연결했다. 이 래퍼는 build-time Node interop에만 사용된다. 또한 독립 frontmatter 검증 script를 위해 `yaml`을 devDependency로 명시했다. 두 변경 모두 콘텐츠 모델이나 공개 정책을 바꾸지 않으며 Next.js/React 의존성은 추가하지 않는다.
