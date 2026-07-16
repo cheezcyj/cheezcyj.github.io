@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string
+  description: string
+  actionHref?: string
+  actionLabel?: string
+}
+
+const { title, description, actionHref, actionLabel } = Astro.props
+const hasAction = Boolean(actionHref && actionLabel)
+---
+
+<div class="empty-state">
+  <div class="max-w-xl">
+    <h3 class="text-site-lg font-semibold text-site-text">{title}</h3>
+    <p class="mt-2 text-pretty leading-relaxed">{description}</p>
+    {
+      hasAction && (
+        <a
+          class="mt-5 inline-flex min-h-11 items-center rounded-site-md px-4 font-semibold text-site-accent underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current"
+          href={actionHref}
+        >
+          {actionLabel}
+        </a>
+      )
+    }
+  </div>
+</div>

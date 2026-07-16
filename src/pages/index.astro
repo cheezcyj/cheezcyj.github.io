@@ -3,39 +3,51 @@ import CursorSpotlight from '../components/effects/CursorSpotlight.astro'
 import Hero from '../components/home/Hero.astro'
 import SiteFooter from '../components/layout/SiteFooter.astro'
 import SiteHeader from '../components/layout/SiteHeader.astro'
+import EmptyState from '../components/ui/EmptyState.astro'
 import SectionHeading from '../components/ui/SectionHeading.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import { getFeaturedEntries, getPublishedEntries } from '../utils/content'
 
-const sections = [
+const [designEntries, projectEntries, studyEntries, postEntries] =
+  await Promise.all([
+    getFeaturedEntries('design'),
+    getPublishedEntries('projects'),
+    getPublishedEntries('study'),
+    getPublishedEntries('posts'),
+  ])
+
+const contentSections = [
   {
     id: 'design',
     eyebrow: 'Selected Work',
     title: 'Featured Design',
-    message: '검증된 디자인 포트폴리오가 다음 단계에서 연결됩니다.',
+    emptyTitle: '검증된 작업을 정리 중입니다.',
+    emptyDescription: '공개 기준을 통과한 디자인 작업만 소개합니다.',
+    entries: designEntries,
   },
   {
     id: 'projects',
     eyebrow: 'Frontend Engineering',
     title: 'Development Projects',
-    message: '검증된 개발 프로젝트가 다음 단계에서 연결됩니다.',
+    emptyTitle: '개발 프로젝트를 정리 중입니다.',
+    emptyDescription: '검증된 설명과 링크를 갖춘 프로젝트만 소개합니다.',
+    entries: projectEntries,
   },
   {
     id: 'study',
     eyebrow: 'Learning Archive',
     title: 'Recent Study Notes',
-    message: '학습 기록 구조와 콘텐츠가 다음 단계에서 연결됩니다.',
+    emptyTitle: '학습 기록을 정리 중입니다.',
+    emptyDescription: '완료 상태와 본문을 확인한 학습 기록만 소개합니다.',
+    entries: studyEntries,
   },
   {
     id: 'posts',
     eyebrow: 'Writing',
     title: 'Other Posts',
-    message: '검증된 기타 글이 다음 단계에서 연결됩니다.',
-  },
-  {
-    id: 'about',
-    eyebrow: 'About',
-    title: 'About Preview',
-    message: '소개 콘텐츠가 다음 단계에서 연결됩니다.',
+    emptyTitle: '글을 준비 중입니다.',
+    emptyDescription: '내용과 출처를 검증한 글만 소개합니다.',
+    entries: postEntries,
   },
 ] as const
 ---
@@ -47,14 +59,10 @@ const sections = [
     <main id="main-content" data-site-main tabindex="-1">
       <Hero />
       {
-        sections.map((section, index) => (
+        contentSections.map((section) => (
           <section
             id={section.id}
-            class:list={[
-              'section-shell',
-              index === sections.length - 1 &&
-                'border-y border-site-border bg-site-navy-deep/40',
-            ]}
+            class="section-shell"
             aria-labelledby={`${section.id}-title`}
           >
             <div class="site-container">
@@ -64,13 +72,43 @@ const sections = [
                   title={section.title}
                 />
               </div>
-              <div class="empty-state">
-                <p class="max-w-lg text-pretty">{section.message}</p>
-              </div>
+              {section.entries.length === 0 ? (
+                <EmptyState
+                  title={section.emptyTitle}
+                  description={section.emptyDescription}
+                />
+              ) : (
+                <ul class="divide-y divide-site-border border-y border-site-border">
+                  {section.entries.map((entry) => (
+                    <li class="py-6">
+                      <h3 class="text-site-lg font-semibold text-site-text">
+                        {entry.data.title}
+                      </h3>
+                      <p class="mt-2 max-w-2xl text-site-muted">
+                        {entry.data.description}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </section>
         ))
       }
+      <section
+        id="about"
+        class="section-shell border-y border-site-border bg-site-navy-deep/40"
+        aria-labelledby="about-title"
+      >
+        <div class="site-container">
+          <div id="about-title">
+            <SectionHeading eyebrow="About" title="About Preview" />
+          </div>
+          <p class="max-w-2xl text-pretty leading-relaxed text-site-muted">
+            소개 콘텐츠가 다음 단계에서 연결됩니다.
+          </p>
+        </div>
+      </section>
     </main>
     <SiteFooter />
   </div>

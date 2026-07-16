@@ -78,10 +78,8 @@ svg {
   min-height: 10rem;
   display: grid;
   place-items: center;
-  border: var(--site-border-thin) solid var(--site-color-border);
-  border-radius: var(--site-radius-xl);
-  background: linear-gradient(145deg, rgb(13 21 36 / 88%), rgb(19 28 44 / 58%));
-  padding: 2rem;
+  border-block: var(--site-border-thin) solid var(--site-color-border);
+  padding: 2rem 1rem;
   color: var(--site-color-text-muted);
   text-align: center;
 }

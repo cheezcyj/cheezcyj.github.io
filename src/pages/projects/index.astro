@@ -1,0 +1,62 @@
+---
+import SiteFooter from '../../components/layout/SiteFooter.astro'
+import SiteHeader from '../../components/layout/SiteHeader.astro'
+import EmptyState from '../../components/ui/EmptyState.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getPublishedEntries } from '../../utils/content'
+
+const entries = await getPublishedEntries('projects')
+const description =
+  '프론트엔드 구현 과정과 기술 선택, 역할과 결과를 확인할 수 있는 개발 프로젝트 목록입니다.'
+---
+
+<BaseLayout title="Development Projects" description={description}>
+  <div class="relative z-[var(--site-z-content)] min-h-screen">
+    <SiteHeader />
+    <main id="main-content" data-site-main tabindex="-1">
+      <section class="section-shell" aria-labelledby="page-title">
+        <div class="site-container">
+          <header class="mb-10 max-w-3xl">
+            <p
+              class="mb-2 text-site-xs font-semibold tracking-[0.2em] text-site-accent uppercase"
+            >
+              Frontend Engineering
+            </p>
+            <h1
+              id="page-title"
+              class="text-site-section leading-tight font-bold tracking-tight text-site-text"
+            >
+              Development Projects
+            </h1>
+            <p class="mt-4 text-site-base leading-relaxed text-site-muted">
+              {description}
+            </p>
+          </header>
+
+          {
+            entries.length === 0 ? (
+              <EmptyState
+                title="개발 프로젝트를 정리 중입니다."
+                description="검증된 저장소와 설명, 링크를 갖춘 프로젝트만 공개합니다."
+              />
+            ) : (
+              <ul class="divide-y divide-site-border border-y border-site-border">
+                {entries.map((entry) => (
+                  <li class="py-6">
+                    <h2 class="text-site-lg font-semibold text-site-text">
+                      {entry.data.title}
+                    </h2>
+                    <p class="mt-2 max-w-2xl text-site-muted">
+                      {entry.data.description}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
