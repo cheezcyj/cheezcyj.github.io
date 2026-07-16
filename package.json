@@ -9,8 +9,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "format": "prettier --write \"src/**/*.{astro,ts,css}\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md",
-    "format:check": "prettier --check \"src/**/*.{astro,ts,css}\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md"
+    "verify:assets": "node scripts/verify-assets.mjs",
+    "format": "prettier --write \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md docs/asset-migration-manifest.md docs/asset-migration-manifest.json docs/asset-preservation-report.md",
+    "format:check": "prettier --check \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md docs/asset-migration-manifest.md docs/asset-migration-manifest.json docs/asset-preservation-report.md"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",
