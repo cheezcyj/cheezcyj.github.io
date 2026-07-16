@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -11,8 +14,8 @@
     "check": "astro check",
     "verify:assets": "node scripts/verify-assets.mjs",
     "verify:content": "node scripts/verify-content.mjs",
-    "format": "prettier --write \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md docs/asset-migration-manifest.md docs/asset-migration-manifest.json docs/asset-preservation-report.md docs/content-foundation-report.md",
-    "format:check": "prettier --check \"src/**/*.{astro,ts,css}\" \"scripts/**/*.mjs\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md docs/asset-migration-manifest.md docs/asset-migration-manifest.json docs/asset-preservation-report.md docs/content-foundation-report.md"
+    "format": "prettier --no-error-on-unmatched-pattern --write \"src/**/*.{astro,ts,mts,css,mjs}\" \"src/content/**/*.{md,mdx}\" \"scripts/**/*.mjs\" \"docs/**/*.{md,json}\" \"*.{json,mjs}\" .prettierrc.mjs \".github/**/*.{yml,yaml}\"",
+    "format:check": "prettier --no-error-on-unmatched-pattern --check \"src/**/*.{astro,ts,mts,css,mjs}\" \"src/content/**/*.{md,mdx}\" \"scripts/**/*.mjs\" \"docs/**/*.{md,json}\" \"*.{json,mjs}\" .prettierrc.mjs \".github/**/*.{yml,yaml}\""
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",

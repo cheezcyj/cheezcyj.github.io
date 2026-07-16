@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: .node-version
           cache: pnpm
 
       - name: Install dependencies
@@ -33,6 +33,12 @@ jobs:
 
       - name: Check formatting
         run: pnpm format:check
+
+      - name: Verify preserved assets
+        run: pnpm verify:assets
+
+      - name: Verify content publication policy
+        run: pnpm verify:content
 
       - name: Build static site
         run: pnpm build
