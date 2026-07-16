@@ -147,9 +147,23 @@ v0 메인 디자인 작업을 포함한 전체 리디자인 작업의 시작 기
 - `draft: true` → `draft: false`
 - `featured` 활성화 여부 결정
 - 승인된 `cover`와 alt 추가
+- 승인된 `gallery`와 각 alt 추가
 - 향후 demo 등 추가 링크가 생기면 실제 목적지 검증
-- 프로젝트 카드와 상세 route 구현
 - Linux CI 결과 확인
+- GitHub Pages 배포와 최종 공개 승인
+
+## 15. Phase 4B-2 UI 구현 상태
+
+- [x] v0 기반 프로젝트 카드 구현
+- [x] 홈 수평 레일 구현
+- [x] 반응형 프로젝트 목록 grid 구현
+- [x] collection-relative ID 기반 상세 route 구현
+- [x] 개발 환경 전용 draft 카드·상세 미리보기 구현
+- [x] draft 상세 `noindex, nofollow` 적용
+- [x] 실제 이미지가 없을 때 neutral media fallback 적용
+- [x] cover와 gallery 요구사항 문서화
+
+production에서는 기존 `getPublishedEntries('projects')`를 그대로 사용하므로 `draft: true`인 현재 프로젝트가 홈과 목록 HTML 또는 상세 route에 포함되지 않는다. 상세 route와 미리보기 UI 구현은 콘텐츠 공개 승인을 의미하지 않는다.
 
 ## 검토 체크리스트
 
@@ -164,10 +178,13 @@ v0 메인 디자인 작업을 포함한 전체 리디자인 작업의 시작 기
 - [x] `sourceStatus: verified` 전환 승인
 - [ ] 대표 이미지 승인
 - [ ] 상세 이미지 승인
+- [x] media 요구사항 문서화
 - [ ] 공개 가능한 성과 확인
 - [ ] `featured` 여부 결정
 - [ ] `draft` 해제
 - [ ] Linux CI 확인
-- [ ] 프로젝트 카드 구현
-- [ ] 상세 route 구현
+- [x] 프로젝트 카드 구현
+- [x] 상세 route 구현
+- [x] dev-only draft 미리보기 구현
+- [ ] GitHub Pages 배포
 - [ ] 최종 공개 승인
