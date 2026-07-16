@@ -3,54 +3,20 @@ import {
   type CollectionEntry,
   type CollectionKey,
 } from 'astro:content'
+import {
+  getProjectDateIssues,
+  isPlaceholderAsset,
+  isPlaceholderLink,
+  isPlaceholderText,
+  isValidDateValue,
+  isValidLegacyUrl,
+} from '../config/content-policy.mjs'
 
 export type SiteCollection = CollectionKey
 export type SiteEntry = CollectionEntry<SiteCollection>
 
-const legacyPlaceholderAssets = new Set([
-  '/img/profile.png',
-  '/img/profile2.png',
-  '/img/portfolio/cabin.png',
-  '/img/portfolio/cake.png',
-  '/img/portfolio/circus.png',
-  '/img/portfolio/game.png',
-  '/img/portfolio/safe.png',
-  '/img/portfolio/submarine.png',
-  '/screenshot.png',
-])
-
-const v0SampleAssetPattern =
-  /\/(?:design-(?:analytics-dashboard-dark|aurora-banking-app-dark-ui|creative-studio-landing-page|editorial-magazine-website-layout|skincare-brand-landing-page)|frontend-(?:component-library-storybook|kanban-board-app|weather-dashboard-charts)|placeholder(?:-logo|-user)?|apple-icon|icon(?:-dark-32x32|-light-32x32)?)\.(?:png|jpe?g|svg)$/i
-
-const placeholderTextPattern =
-  /(?:lorem ipsum|start bootstrap|hello@choeyoojeong\.dev)/i
-
 function isNonEmpty(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0
-}
-
-function isValidDate(value: unknown): value is Date {
-  return value instanceof Date && !Number.isNaN(value.getTime())
-}
-
-function isPlaceholderLink(value: string): boolean {
-  if (value === '#') return true
-
-  try {
-    const url = new URL(value)
-    const hostname = url.hostname.toLowerCase()
-
-    return (
-      !['http:', 'https:'].includes(url.protocol) ||
-      (hostname === 'github.com' && url.pathname === '/') ||
-      hostname === 'localhost' ||
-      hostname.endsWith('.localhost') ||
-      hostname === 'example.com' ||
-      hostname.endsWith('.example.com')
-    )
-  } catch {
-    return true
-  }
 }
 
 function getImages(entry: SiteEntry): Array<{ src: string; alt: string }> {
@@ -78,27 +44,24 @@ export function getPublicationIssues(entry: SiteEntry): string[] {
   const issues: string[] = []
   const { data } = entry
 
-  if (data.draft) issues.push('draft')
+  if (data.draft !== false) issues.push('draft-not-explicitly-false')
   if (data.sourceStatus !== 'verified') issues.push('source-not-verified')
 
   if (!isNonEmpty(data.title)) issues.push('empty-title')
   if (!isNonEmpty(data.description)) issues.push('empty-description')
 
   if (
-    placeholderTextPattern.test(
+    isPlaceholderText(
       `${data.title} ${data.description} ${entry.body ?? ''}`,
     ) ||
-    /^project\s*\d+$/i.test(data.title)
+    isPlaceholderText(data.title)
   ) {
     issues.push('placeholder-text')
   }
 
   for (const image of getImages(entry)) {
     if (!isNonEmpty(image.alt)) issues.push('empty-image-alt')
-    if (
-      legacyPlaceholderAssets.has(image.src.toLowerCase()) ||
-      v0SampleAssetPattern.test(image.src)
-    ) {
+    if (isPlaceholderAsset(image.src)) {
       issues.push('placeholder-image')
     }
   }
@@ -107,7 +70,11 @@ export function getPublicationIssues(entry: SiteEntry): string[] {
     if (isPlaceholderLink(link)) issues.push('placeholder-link')
   }
 
-  if (data.updatedAt && !isValidDate(data.updatedAt)) {
+  for (const legacyUrl of data.legacyUrls) {
+    if (!isValidLegacyUrl(legacyUrl)) issues.push('invalid-legacy-url')
+  }
+
+  if (data.updatedAt && !isValidDateValue(data.updatedAt)) {
     issues.push('invalid-updated-date')
   }
 
@@ -120,24 +87,25 @@ export function getPublicationIssues(entry: SiteEntry): string[] {
       break
     case 'projects':
       if (entry.data.stack.length === 0) issues.push('empty-stack')
-      if (entry.data.startedAt && !isValidDate(entry.data.startedAt)) {
+      if (entry.data.startedAt && !isValidDateValue(entry.data.startedAt)) {
         issues.push('invalid-started-date')
       }
-      if (entry.data.completedAt && !isValidDate(entry.data.completedAt)) {
+      if (entry.data.completedAt && !isValidDateValue(entry.data.completedAt)) {
         issues.push('invalid-completed-date')
       }
+      issues.push(...getProjectDateIssues(entry.data))
       break
     case 'study':
       if (entry.data.contentStatus !== 'complete') {
         issues.push('study-not-complete')
       }
       if (!isNonEmpty(entry.data.program)) issues.push('empty-program')
-      if (entry.data.learnedAt && !isValidDate(entry.data.learnedAt)) {
+      if (entry.data.learnedAt && !isValidDateValue(entry.data.learnedAt)) {
         issues.push('invalid-learned-date')
       }
       break
     case 'posts':
-      if (!isValidDate(entry.data.publishedAt)) {
+      if (!isValidDateValue(entry.data.publishedAt)) {
         issues.push('invalid-published-date')
       }
       if (entry.data.authors.length === 0) issues.push('empty-authors')
