@@ -6,13 +6,19 @@ import '../styles/global.css'
 interface Props {
   title?: string
   description?: string
+  canonicalPath?: string
+  robots?: string
 }
 
-const { title = siteConfig.title, description = siteConfig.description } =
-  Astro.props
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  canonicalPath,
+  robots,
+} = Astro.props
 const pageTitle =
   title === siteConfig.title ? title : `${title} — ${siteConfig.title}`
-const canonical = new URL(Astro.url.pathname, siteConfig.url)
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, siteConfig.url)
 ---
 
 <!doctype html>
@@ -21,6 +27,7 @@ const canonical = new URL(Astro.url.pathname, siteConfig.url)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
     <meta name="theme-color" content="#070b16" />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
