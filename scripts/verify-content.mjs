@@ -2,6 +2,15 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse } from 'yaml'
+import {
+  getProjectDateIssues,
+  isPlaceholderAsset,
+  isPlaceholderLink,
+  isPlaceholderText,
+  isValidDateValue,
+  isValidLegacyUrl,
+  normalizeLegacyUrl,
+} from '../src/config/content-policy.mjs'
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -23,34 +32,15 @@ const dateFields = {
   posts: ['updatedAt', 'publishedAt'],
 }
 
-const legacyPlaceholderAssets = new Set([
-  '/img/profile.png',
-  '/img/profile2.png',
-  '/img/portfolio/cabin.png',
-  '/img/portfolio/cake.png',
-  '/img/portfolio/circus.png',
-  '/img/portfolio/game.png',
-  '/img/portfolio/safe.png',
-  '/img/portfolio/submarine.png',
-  '/screenshot.png',
-])
-
-const v0SampleAssetPattern =
-  /\/(?:design-(?:analytics-dashboard-dark|aurora-banking-app-dark-ui|creative-studio-landing-page|editorial-magazine-website-layout|skincare-brand-landing-page)|frontend-(?:component-library-storybook|kanban-board-app|weather-dashboard-charts)|placeholder(?:-logo|-user)?|apple-icon|icon(?:-dark-32x32|-light-32x32)?)\.(?:png|jpe?g|svg)$/i
-const placeholderTextPattern =
-  /(?:lorem ipsum|start bootstrap|hello@choeyoojeong\.dev)/i
-
 function isNonEmpty(value) {
   return typeof value === 'string' && value.trim().length > 0
 }
 
-function normalizeId(relativePath, data) {
-  const fromPath = relativePath
+function normalizeId(relativePath) {
+  return relativePath
     .replace(/\\/g, '/')
     .replace(/\.(?:md|mdx)$/i, '')
-  const candidate = isNonEmpty(data.slug) ? data.slug : fromPath
-
-  return candidate.replace(/^\/+|\/+$/g, '').toLowerCase()
+    .replace(/^\/+|\/+$/g, '')
 }
 
 function normalizePublicUrl(value) {
@@ -58,40 +48,6 @@ function normalizePublicUrl(value) {
   const normalized = `/${pathname.replace(/^\/+|\/+$/g, '')}/`
 
   return normalized.replace(/\/{2,}/g, '/').toLowerCase()
-}
-
-function isValidDate(value) {
-  if (value instanceof Date) return !Number.isNaN(value.getTime())
-  if (typeof value !== 'string' && typeof value !== 'number') return false
-
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return false
-
-  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return date.toISOString().slice(0, 10) === value
-  }
-
-  return true
-}
-
-function isPlaceholderLink(value) {
-  if (value === '#') return true
-
-  try {
-    const url = new URL(value)
-    const hostname = url.hostname.toLowerCase()
-
-    return (
-      !['http:', 'https:'].includes(url.protocol) ||
-      (hostname === 'github.com' && url.pathname === '/') ||
-      hostname === 'localhost' ||
-      hostname.endsWith('.localhost') ||
-      hostname === 'example.com' ||
-      hostname.endsWith('.example.com')
-    )
-  } catch {
-    return true
-  }
 }
 
 function imagesFor(collection, data) {
@@ -110,27 +66,28 @@ function linksFor(collection, data) {
 
 function publicationIssues(collection, data, source) {
   const issues = []
-  const sourceStatus = data.sourceStatus ?? 'verified'
 
-  if (data.draft === true) issues.push('draft')
-  if (sourceStatus !== 'verified') issues.push('source-not-verified')
+  if (data.draft === undefined) issues.push('missing-draft')
+  else if (data.draft !== false) issues.push('draft-not-explicitly-false')
+
+  if (data.sourceStatus === undefined) issues.push('missing-sourceStatus')
+  else if (data.sourceStatus !== 'verified') {
+    issues.push('source-not-verified')
+  }
+
   if (!isNonEmpty(data.title)) issues.push('empty-title')
   if (!isNonEmpty(data.description)) issues.push('empty-description')
 
   if (
-    placeholderTextPattern.test(source) ||
-    (isNonEmpty(data.title) && /^project\s*\d+$/i.test(data.title))
+    isPlaceholderText(source) ||
+    (isNonEmpty(data.title) && isPlaceholderText(data.title))
   ) {
     issues.push('placeholder-text')
   }
 
   for (const image of imagesFor(collection, data)) {
     if (!isNonEmpty(image.alt)) issues.push('empty-image-alt')
-    if (
-      isNonEmpty(image.src) &&
-      (legacyPlaceholderAssets.has(image.src.toLowerCase()) ||
-        v0SampleAssetPattern.test(image.src))
-    ) {
+    if (isNonEmpty(image.src) && isPlaceholderAsset(image.src)) {
       issues.push('placeholder-image')
     }
   }
@@ -142,9 +99,17 @@ function publicationIssues(collection, data, source) {
   }
 
   for (const field of dateFields[collection]) {
-    if (data[field] !== undefined && !isValidDate(data[field])) {
+    if (data[field] !== undefined && !isValidDateValue(data[field])) {
       issues.push(`invalid-date:${field}`)
     }
+  }
+
+  if (Array.isArray(data.legacyUrls)) {
+    for (const legacyUrl of data.legacyUrls) {
+      if (!isValidLegacyUrl(legacyUrl)) issues.push('invalid-legacy-url')
+    }
+  } else if (data.legacyUrls !== undefined) {
+    issues.push('invalid-legacy-urls')
   }
 
   if (collection === 'posts' && data.publishedAt === undefined) {
@@ -153,12 +118,11 @@ function publicationIssues(collection, data, source) {
   if (collection === 'study' && data.contentStatus !== 'complete') {
     issues.push('study-not-complete')
   }
+  if (collection === 'projects') {
+    issues.push(...getProjectDateIssues(data))
+  }
 
   return [...new Set(issues)]
-}
-
-function isPublishable(collection, data, source = '') {
-  return publicationIssues(collection, data, source).length === 0
 }
 
 function parseContentFile(source, relativePath) {
@@ -197,24 +161,70 @@ function runSelfTests() {
     description: 'A complete project record.',
     draft: false,
     sourceStatus: 'verified',
+    status: 'completed',
+    startedAt: '2026-01-01',
+    completedAt: '2026-02-01',
     stack: ['Astro'],
     repositoryUrl: 'https://github.com/cheezcyj/verified-project',
   }
 
   const cases = [
-    ['valid project', 'projects', validProject, true],
-    ['draft project', 'projects', { ...validProject, draft: true }, false],
+    ['valid project', 'projects', validProject, true, undefined],
     [
-      'nonverified project',
+      'draft project',
       'projects',
-      { ...validProject, sourceStatus: 'inventory-only' },
+      { ...validProject, draft: true },
       false,
+      'draft-not-explicitly-false',
+    ],
+    [
+      'missing draft',
+      'projects',
+      { ...validProject, draft: undefined },
+      false,
+      'missing-draft',
+    ],
+    [
+      'missing sourceStatus',
+      'projects',
+      { ...validProject, sourceStatus: undefined },
+      false,
+      'missing-sourceStatus',
     ],
     [
       'root GitHub link',
       'projects',
       { ...validProject, repositoryUrl: 'https://github.com/' },
       false,
+      'placeholder-link',
+    ],
+    [
+      'completed without completedAt',
+      'projects',
+      { ...validProject, completedAt: undefined },
+      false,
+      'completed-missing-completedAt',
+    ],
+    [
+      'completedAt before startedAt',
+      'projects',
+      { ...validProject, completedAt: '2025-12-31' },
+      false,
+      'completed-before-started',
+    ],
+    [
+      'planned with completedAt',
+      'projects',
+      { ...validProject, status: 'planned' },
+      false,
+      'planned-has-completedAt',
+    ],
+    [
+      'invalid legacyUrl',
+      'projects',
+      { ...validProject, legacyUrls: ['javascript:alert(1)'] },
+      false,
+      'invalid-legacy-url',
     ],
     [
       'incomplete study',
@@ -227,6 +237,7 @@ function runSelfTests() {
         contentStatus: 'inventory-only',
       },
       false,
+      'study-not-complete',
     ],
     [
       'complete study',
@@ -239,13 +250,47 @@ function runSelfTests() {
         contentStatus: 'complete',
       },
       true,
+      undefined,
     ],
   ]
 
-  for (const [name, collection, data, expected] of cases) {
-    if (isPublishable(collection, data, JSON.stringify(data)) !== expected) {
+  for (const [name, collection, data, expected, expectedIssue] of cases) {
+    const issues = publicationIssues(collection, data, JSON.stringify(data))
+    if ((issues.length === 0) !== expected) {
       throw new Error(`publication self-test failed: ${name}`)
     }
+    if (expectedIssue && !issues.includes(expectedIssue)) {
+      throw new Error(`publication self-test missed ${expectedIssue}: ${name}`)
+    }
+  }
+
+  if (normalizeId('nested/Entry.mdx') !== 'nested/Entry') {
+    throw new Error('collection id self-test failed: path-based canonical id')
+  }
+
+  for (const value of ['/legacy/path/', '#legacy-section']) {
+    if (!isValidLegacyUrl(value)) {
+      throw new Error(`legacy URL self-test rejected valid value: ${value}`)
+    }
+  }
+
+  for (const value of [
+    '',
+    'https://example.com/legacy',
+    'javascript:alert(1)',
+    '//example.com/legacy',
+    '/legacy path',
+    '#',
+  ]) {
+    if (isValidLegacyUrl(value)) {
+      throw new Error(`legacy URL self-test accepted invalid value: ${value}`)
+    }
+  }
+
+  if (
+    normalizeLegacyUrl('/Legacy/Path/') !== normalizeLegacyUrl('/legacy/path')
+  ) {
+    throw new Error('legacy URL self-test failed: normalized duplicate key')
   }
 }
 
@@ -269,10 +314,10 @@ try {
 
       try {
         const data = parseContentFile(source, repositoryPath)
-        const id = normalizeId(relativePath, data)
-        const idKey = `${collection}:${id}`
+        const id = normalizeId(relativePath)
+        const idKey = `${collection}:${id.toLowerCase()}`
         const publicUrl = normalizePublicUrl(`/${collection}/${id}/`)
-        const sourceStatus = data.sourceStatus ?? 'verified'
+        const sourceStatus = data.sourceStatus
 
         if (!id) errors.push(`${repositoryPath}: empty collection id`)
         if (collectionIds.has(idKey)) {
@@ -291,7 +336,15 @@ try {
           publicUrls.set(publicUrl, repositoryPath)
         }
 
-        if (!sourceStatuses.has(sourceStatus)) {
+        if (!Object.hasOwn(data, 'draft')) {
+          errors.push(`${repositoryPath}: missing required draft`)
+        } else if (typeof data.draft !== 'boolean') {
+          errors.push(`${repositoryPath}: draft must be a boolean`)
+        }
+
+        if (!Object.hasOwn(data, 'sourceStatus')) {
+          errors.push(`${repositoryPath}: missing required sourceStatus`)
+        } else if (!sourceStatuses.has(sourceStatus)) {
           errors.push(`${repositoryPath}: invalid sourceStatus ${sourceStatus}`)
         }
         if (collection === 'study' && !studyStatuses.has(data.contentStatus)) {
@@ -312,8 +365,7 @@ try {
           if (
             sourceStatus === 'verified' &&
             isNonEmpty(image.src) &&
-            (legacyPlaceholderAssets.has(image.src.toLowerCase()) ||
-              v0SampleAssetPattern.test(image.src))
+            isPlaceholderAsset(image.src)
           ) {
             errors.push(
               `${repositoryPath}: verified entry uses a blocked placeholder image`,
@@ -322,7 +374,7 @@ try {
         }
 
         for (const field of dateFields[collection]) {
-          if (data[field] !== undefined && !isValidDate(data[field])) {
+          if (data[field] !== undefined && !isValidDateValue(data[field])) {
             errors.push(`${repositoryPath}: invalid date in ${field}`)
           }
         }
@@ -330,29 +382,40 @@ try {
           errors.push(`${repositoryPath}: missing publishedAt`)
         }
 
-        for (const legacyUrl of data.legacyUrls ?? []) {
-          if (!isNonEmpty(legacyUrl)) {
-            errors.push(`${repositoryPath}: empty legacyUrl`)
-            continue
+        if (collection === 'projects') {
+          for (const issue of getProjectDateIssues(data)) {
+            errors.push(`${repositoryPath}: invalid project dates (${issue})`)
           }
+        }
 
-          const key = legacyUrl.trim().toLowerCase()
-          if (legacyUrls.has(key)) {
-            errors.push(
-              `${repositoryPath}: duplicate legacyUrl with ${legacyUrls.get(key)}`,
-            )
-          } else {
-            legacyUrls.set(key, repositoryPath)
-          }
+        const entryLegacyUrls = data.legacyUrls ?? []
+        if (!Array.isArray(entryLegacyUrls)) {
+          errors.push(`${repositoryPath}: legacyUrls must be an array`)
+        } else {
+          for (const legacyUrl of entryLegacyUrls) {
+            if (!isValidLegacyUrl(legacyUrl)) {
+              errors.push(`${repositoryPath}: invalid legacyUrl ${legacyUrl}`)
+              continue
+            }
 
-          if (legacyUrl.startsWith('/') && !legacyUrl.includes('#')) {
-            const candidate = normalizePublicUrl(legacyUrl)
-            if (publicUrls.has(candidate)) {
+            const key = normalizeLegacyUrl(legacyUrl)
+            if (legacyUrls.has(key)) {
               errors.push(
-                `${repositoryPath}: legacyUrl conflicts with public URL candidate from ${publicUrls.get(candidate)}`,
+                `${repositoryPath}: duplicate legacyUrl with ${legacyUrls.get(key)}`,
               )
             } else {
-              publicUrls.set(candidate, repositoryPath)
+              legacyUrls.set(key, repositoryPath)
+            }
+
+            if (legacyUrl.startsWith('/')) {
+              const candidate = normalizePublicUrl(legacyUrl)
+              if (publicUrls.has(candidate)) {
+                errors.push(
+                  `${repositoryPath}: legacyUrl conflicts with public URL candidate from ${publicUrls.get(candidate)}`,
+                )
+              } else {
+                publicUrls.set(candidate, repositoryPath)
+              }
             }
           }
         }
@@ -360,16 +423,20 @@ try {
         const issues = publicationIssues(collection, data, source)
         const published = issues.length === 0
         const publicCandidate =
-          data.draft !== true &&
+          data.draft === false &&
           sourceStatus === 'verified' &&
           (collection !== 'study' || data.contentStatus === 'complete')
 
         if (publicCandidate) {
           for (const issue of issues.filter(
             (issue) =>
-              !['draft', 'source-not-verified', 'study-not-complete'].includes(
-                issue,
-              ),
+              ![
+                'draft-not-explicitly-false',
+                'missing-draft',
+                'source-not-verified',
+                'missing-sourceStatus',
+                'study-not-complete',
+              ].includes(issue),
           )) {
             errors.push(
               `${repositoryPath}: public candidate failed validation (${issue})`,
@@ -377,8 +444,10 @@ try {
           }
         }
 
-        if (published && data.draft === true) {
-          errors.push(`${repositoryPath}: draft entry reached published query`)
+        if (published && data.draft !== false) {
+          errors.push(
+            `${repositoryPath}: entry without explicit draft false reached published query`,
+          )
         }
         if (published && sourceStatus !== 'verified') {
           errors.push(
