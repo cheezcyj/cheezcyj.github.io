@@ -1,13 +1,23 @@
 ---
+import { getCollection } from 'astro:content'
+import ProjectCard from '../../components/cards/ProjectCard.astro'
 import SiteFooter from '../../components/layout/SiteFooter.astro'
 import SiteHeader from '../../components/layout/SiteHeader.astro'
 import EmptyState from '../../components/ui/EmptyState.astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
-import { getPublishedEntries } from '../../utils/content'
+import {
+  getPublishedEntries,
+  isPublishableEntry,
+  sortEntries,
+} from '../../utils/content'
 
-const entries = await getPublishedEntries('projects')
+const entries = import.meta.env.DEV
+  ? sortEntries(await getCollection('projects'))
+  : await getPublishedEntries('projects')
 const description =
   '프론트엔드 구현 과정과 기술 선택, 역할과 결과를 확인할 수 있는 개발 프로젝트 목록입니다.'
+const hasDraftPreviews =
+  import.meta.env.DEV && entries.some((entry) => !isPublishableEntry(entry))
 ---
 
 <BaseLayout title="Development Projects" description={description}>
@@ -34,21 +44,31 @@ const description =
           </header>
 
           {
+            hasDraftPreviews && (
+              <p class="projects-preview-note">
+                <strong>Local Draft Preview</strong>
+                비공개 프로젝트를 개발 환경에서만 표시하고 있습니다.
+              </p>
+            )
+          }
+
+          {
             entries.length === 0 ? (
               <EmptyState
                 title="개발 프로젝트를 정리 중입니다."
                 description="검증된 저장소와 설명, 링크를 갖춘 프로젝트만 공개합니다."
               />
             ) : (
-              <ul class="divide-y divide-site-border border-y border-site-border">
+              <ul class="projects-grid">
                 {entries.map((entry) => (
-                  <li class="py-6">
-                    <h2 class="text-site-lg font-semibold text-site-text">
-                      {entry.data.title}
-                    </h2>
-                    <p class="mt-2 max-w-2xl text-site-muted">
-                      {entry.data.description}
-                    </p>
+                  <li>
+                    <ProjectCard
+                      entry={entry}
+                      headingLevel="h2"
+                      preview={
+                        import.meta.env.DEV && !isPublishableEntry(entry)
+                      }
+                    />
                   </li>
                 ))}
               </ul>
@@ -60,3 +80,48 @@ const description =
     <SiteFooter />
   </div>
 </BaseLayout>
+
+<style>
+  .projects-preview-note {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin: 0 0 1.5rem;
+    border-left: 2px solid var(--site-color-accent);
+    padding: 0.75rem 1rem;
+    background: color-mix(in srgb, var(--site-color-accent) 7%, transparent);
+    color: var(--site-color-text-muted);
+    font-size: var(--site-text-sm);
+  }
+
+  .projects-preview-note strong {
+    color: var(--site-color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .projects-grid > li {
+    min-width: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .projects-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .projects-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

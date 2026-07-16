@@ -1,0 +1,175 @@
+---
+interface Props {
+  id: string
+  label: string
+  showControls?: boolean
+}
+
+const { id, label, showControls = true } = Astro.props
+---
+
+<div class="horizontal-rail" data-horizontal-rail>
+  {
+    showControls && (
+      <div class="horizontal-rail__controls" data-rail-controls hidden>
+        <button
+          type="button"
+          data-rail-previous
+          aria-label={`${label} 이전 카드`}
+          aria-controls={id}
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+        <button
+          type="button"
+          data-rail-next
+          aria-label={`${label} 다음 카드`}
+          aria-controls={id}
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    )
+  }
+
+  <div
+    id={id}
+    class="horizontal-rail__viewport"
+    data-rail-viewport
+    role="region"
+    aria-label={label}
+    tabindex="0"
+  >
+    <ul class="horizontal-rail__track" data-rail-track>
+      <slot />
+    </ul>
+  </div>
+</div>
+
+<script>
+  import '../../scripts/horizontal-rail'
+</script>
+
+<style>
+  .horizontal-rail {
+    position: relative;
+  }
+
+  .horizontal-rail__controls[hidden] {
+    display: none;
+  }
+
+  .horizontal-rail__controls:not([hidden]) {
+    display: none;
+  }
+
+  .horizontal-rail__controls button {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: var(--site-border-thin) solid var(--site-color-border);
+    border-radius: var(--site-radius-pill);
+    background: var(--site-color-surface);
+    color: var(--site-color-text);
+    cursor: pointer;
+    transition:
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      color var(--site-duration-fast) var(--site-ease-out),
+      opacity var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  .horizontal-rail__controls button:hover:not(:disabled),
+  .horizontal-rail__controls button:focus-visible {
+    border-color: var(--site-color-accent);
+    color: var(--site-color-accent);
+  }
+
+  .horizontal-rail__controls button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .horizontal-rail__viewport {
+    margin-inline: calc(var(--site-space-page-inline) * -1);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0 var(--site-space-page-inline) 1rem;
+    scroll-padding-inline: var(--site-space-page-inline);
+    scroll-snap-type: x proximity;
+    scrollbar-color: var(--site-color-text-muted)
+      var(--site-color-surface-muted);
+    scrollbar-width: thin;
+    touch-action: pan-x pan-y;
+  }
+
+  .horizontal-rail__viewport::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+
+  .horizontal-rail__viewport::-webkit-scrollbar-track {
+    border-radius: var(--site-radius-pill);
+    background: var(--site-color-surface-muted);
+  }
+
+  .horizontal-rail__viewport::-webkit-scrollbar-thumb {
+    border-radius: var(--site-radius-pill);
+    background: var(--site-color-text-muted);
+  }
+
+  .horizontal-rail__viewport::-webkit-scrollbar-thumb:hover {
+    background: var(--site-color-accent);
+  }
+
+  .horizontal-rail__track {
+    --rail-card-width: min(
+      18rem,
+      calc(100vw - (var(--site-space-page-inline) * 2))
+    );
+    display: grid;
+    width: max-content;
+    min-width: 100%;
+    grid-auto-columns: var(--rail-card-width);
+    grid-auto-flow: column;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .horizontal-rail__track > :global(*) {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  @media (min-width: 40rem) {
+    .horizontal-rail__track {
+      --rail-card-width: 20rem;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .horizontal-rail__controls:not([hidden]) {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .horizontal-rail__track {
+      --rail-card-width: 24rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .horizontal-rail__viewport {
+      scroll-behavior: auto;
+      scroll-snap-type: none;
+    }
+
+    .horizontal-rail__controls button {
+      transition: none;
+    }
+  }
+</style>

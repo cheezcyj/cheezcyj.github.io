@@ -8,13 +8,11 @@
 }
 
 html {
-  min-width: 20rem;
   scroll-behavior: smooth;
   background: var(--site-color-background);
 }
 
 body {
-  min-width: 20rem;
   min-height: 100vh;
   margin: 0;
   overflow-x: clip;

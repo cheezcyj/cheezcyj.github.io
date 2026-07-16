@@ -1,17 +1,27 @@
 ---
+import { getCollection } from 'astro:content'
+import ProjectCard from '../components/cards/ProjectCard.astro'
 import CursorSpotlight from '../components/effects/CursorSpotlight.astro'
 import Hero from '../components/home/Hero.astro'
 import SiteFooter from '../components/layout/SiteFooter.astro'
 import SiteHeader from '../components/layout/SiteHeader.astro'
 import EmptyState from '../components/ui/EmptyState.astro'
+import HorizontalRail from '../components/ui/HorizontalRail.astro'
 import SectionHeading from '../components/ui/SectionHeading.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { getFeaturedEntries, getPublishedEntries } from '../utils/content'
+import {
+  getFeaturedEntries,
+  getPublishedEntries,
+  isPublishableEntry,
+  sortEntries,
+} from '../utils/content'
 
 const [designEntries, projectEntries, studyEntries, postEntries] =
   await Promise.all([
     getFeaturedEntries('design'),
-    getPublishedEntries('projects'),
+    import.meta.env.DEV
+      ? getCollection('projects').then((entries) => sortEntries(entries))
+      : getPublishedEntries('projects'),
     getPublishedEntries('study'),
     getPublishedEntries('posts'),
   ])
@@ -67,16 +77,39 @@ const contentSections = [
           >
             <div class="site-container">
               <div id={`${section.id}-title`}>
-                <SectionHeading
-                  eyebrow={section.eyebrow}
-                  title={section.title}
-                />
+                <SectionHeading eyebrow={section.eyebrow} title={section.title}>
+                  {section.id === 'projects' && (
+                    <a
+                      slot="action"
+                      class="inline-flex min-h-11 items-center gap-2 rounded-site-md font-semibold text-site-muted underline decoration-transparent underline-offset-4 transition-colors hover:text-site-accent hover:decoration-current focus-visible:text-site-accent"
+                      href="/projects/"
+                    >
+                      View All <span aria-hidden="true">→</span>
+                    </a>
+                  )}
+                </SectionHeading>
               </div>
               {section.entries.length === 0 ? (
                 <EmptyState
                   title={section.emptyTitle}
                   description={section.emptyDescription}
                 />
+              ) : section.id === 'projects' ? (
+                <HorizontalRail
+                  id="home-projects-rail"
+                  label="Development Projects"
+                >
+                  {projectEntries.map((entry) => (
+                    <li data-rail-item>
+                      <ProjectCard
+                        entry={entry}
+                        preview={
+                          import.meta.env.DEV && !isPublishableEntry(entry)
+                        }
+                      />
+                    </li>
+                  ))}
+                </HorizontalRail>
               ) : (
                 <ul class="divide-y divide-site-border border-y border-site-border">
                   {section.entries.map((entry) => (
