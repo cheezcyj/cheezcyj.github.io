@@ -1,0 +1,68 @@
+---
+import { siteConfig } from '../../config/site'
+---
+
+<section
+  class="site-container pt-hero-top pb-section"
+  aria-labelledby="hero-title"
+>
+  <ul
+    class="flex list-none flex-wrap items-center gap-x-3 gap-y-2 p-0"
+    aria-label="주요 직무"
+  >
+    {
+      siteConfig.roles.map((role, index) => (
+        <li class="flex items-center gap-3">
+          {index > 0 && (
+            <span
+              class="size-1 rounded-full bg-site-accent"
+              aria-hidden="true"
+            />
+          )}
+          <span class="text-site-xs font-semibold tracking-[0.2em] text-site-muted uppercase sm:text-site-sm">
+            {role}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h1
+    id="hero-title"
+    class="mt-8 text-site-hero-name leading-[0.95] font-extrabold tracking-[-0.045em] text-balance text-site-text"
+  >
+    {siteConfig.title}
+  </h1>
+
+  <p
+    class="mt-6 text-site-hero-tagline leading-[1.05] font-light tracking-tight text-balance text-site-text/90"
+  >
+    Designing Interfaces,<br />
+    Building <span class="text-site-accent">Experiences.</span>
+  </p>
+
+  <p
+    class="mt-8 max-w-2xl text-site-base leading-relaxed text-pretty text-site-muted sm:text-site-lg"
+  >
+    웹디자인, 웹퍼블리싱, 프론트엔드 프로젝트와<br class="hidden sm:block" /> 배운
+    내용을 기록하는 개인 포트폴리오 아카이브.
+  </p>
+
+  <nav
+    class="mt-10 flex flex-wrap items-center gap-4"
+    aria-label="소개 바로가기"
+  >
+    <a
+      href="/design/"
+      class="inline-flex items-center gap-2 rounded-site-pill bg-site-accent px-6 py-3 text-site-sm font-bold text-site-bg transition-colors duration-200 hover:bg-site-accent-strong"
+    >
+      작업 보기 <span aria-hidden="true">↓</span>
+    </a>
+    <a
+      href="/about/"
+      class="inline-flex items-center rounded-site-pill border border-site-border px-6 py-3 text-site-sm font-bold text-site-text transition-colors duration-200 hover:border-site-accent hover:text-site-accent"
+    >
+      소개
+    </a>
+  </nav>
+</section>

@@ -1,0 +1,77 @@
+---
+import CursorSpotlight from '../components/effects/CursorSpotlight.astro'
+import Hero from '../components/home/Hero.astro'
+import SiteFooter from '../components/layout/SiteFooter.astro'
+import SiteHeader from '../components/layout/SiteHeader.astro'
+import SectionHeading from '../components/ui/SectionHeading.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const sections = [
+  {
+    id: 'design',
+    eyebrow: 'Selected Work',
+    title: 'Featured Design',
+    message: '검증된 디자인 포트폴리오가 다음 단계에서 연결됩니다.',
+  },
+  {
+    id: 'projects',
+    eyebrow: 'Frontend Engineering',
+    title: 'Development Projects',
+    message: '검증된 개발 프로젝트가 다음 단계에서 연결됩니다.',
+  },
+  {
+    id: 'study',
+    eyebrow: 'Learning Archive',
+    title: 'Recent Study Notes',
+    message: '학습 기록 구조와 콘텐츠가 다음 단계에서 연결됩니다.',
+  },
+  {
+    id: 'posts',
+    eyebrow: 'Writing',
+    title: 'Other Posts',
+    message: '검증된 기타 글이 다음 단계에서 연결됩니다.',
+  },
+  {
+    id: 'about',
+    eyebrow: 'About',
+    title: 'About Preview',
+    message: '소개 콘텐츠가 다음 단계에서 연결됩니다.',
+  },
+] as const
+---
+
+<BaseLayout>
+  <CursorSpotlight />
+  <div class="relative z-[var(--site-z-content)] min-h-screen">
+    <SiteHeader />
+    <main id="main-content" data-site-main tabindex="-1">
+      <Hero />
+      {
+        sections.map((section, index) => (
+          <section
+            id={section.id}
+            class:list={[
+              'section-shell',
+              index === sections.length - 1 &&
+                'border-y border-site-border bg-site-navy-deep/40',
+            ]}
+            aria-labelledby={`${section.id}-title`}
+          >
+            <div class="site-container">
+              <div id={`${section.id}-title`}>
+                <SectionHeading
+                  eyebrow={section.eyebrow}
+                  title={section.title}
+                />
+              </div>
+              <div class="empty-state">
+                <p class="max-w-lg text-pretty">{section.message}</p>
+              </div>
+            </div>
+          </section>
+        ))
+      }
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

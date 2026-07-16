@@ -1,0 +1,224 @@
+---
+import { navigation, siteConfig } from '../../config/site'
+
+const currentPath = Astro.url.pathname
+const isCurrent = (href: string) => href !== '/' && currentPath.startsWith(href)
+---
+
+<header class="site-header" data-site-header>
+  <div
+    class="site-container flex min-h-16 items-center justify-between gap-6 py-3"
+  >
+    <a
+      href="/"
+      class="rounded-site-sm text-site-lg font-extrabold tracking-tight text-site-text transition-colors hover:text-site-accent"
+    >
+      {siteConfig.title}
+    </a>
+
+    <nav class="hidden md:block" aria-label="주요 메뉴">
+      <ul
+        class="flex list-none items-center gap-7 p-0 text-site-sm font-semibold"
+      >
+        {
+          navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                target={
+                  'external' in item && item.external ? '_blank' : undefined
+                }
+                rel={
+                  'external' in item && item.external
+                    ? 'noopener noreferrer'
+                    : undefined
+                }
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+                class:list={[
+                  'rounded-site-sm py-1 transition-colors',
+                  isCurrent(item.href)
+                    ? 'text-site-accent'
+                    : 'text-site-muted hover:text-site-text',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <button
+      type="button"
+      class="menu-toggle md:hidden"
+      aria-label="메뉴 열기"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  class="mobile-menu md:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="사이트 메뉴"
+  aria-hidden="true"
+  data-mobile-menu
+  hidden
+>
+  <div
+    class="flex min-h-16 items-center justify-between border-b border-site-border px-4 py-3 sm:px-6"
+  >
+    <span class="text-site-lg font-extrabold tracking-tight text-site-text"
+      >{siteConfig.title}</span
+    >
+    <button
+      type="button"
+      class="menu-close"
+      aria-label="메뉴 닫기"
+      data-menu-close
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <nav class="flex flex-1 items-center px-6 py-10" aria-label="모바일 메뉴">
+    <ul class="flex list-none flex-col gap-1 p-0">
+      {
+        navigation.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              target={
+                'external' in item && item.external ? '_blank' : undefined
+              }
+              rel={
+                'external' in item && item.external
+                  ? 'noopener noreferrer'
+                  : undefined
+              }
+              aria-current={isCurrent(item.href) ? 'page' : undefined}
+              class:list={[
+                'block rounded-site-md py-2 text-3xl font-bold tracking-tight transition-colors sm:text-4xl',
+                isCurrent(item.href)
+                  ? 'text-site-accent'
+                  : 'text-site-text hover:text-site-accent',
+              ]}
+              data-menu-link
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<script>
+  import '../../scripts/site-header'
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--site-z-header);
+    border-bottom: var(--site-border-thin) solid var(--site-color-border);
+    background: rgb(7 11 22 / 82%);
+    backdrop-filter: blur(14px);
+  }
+
+  .menu-toggle,
+  .menu-close {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-content: center;
+    border: 0;
+    border-radius: var(--site-radius-md);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .menu-toggle {
+    gap: 0.3rem;
+  }
+
+  .menu-toggle span {
+    width: 1.5rem;
+    height: 2px;
+    border-radius: var(--site-radius-pill);
+    background: var(--site-color-text);
+  }
+
+  .menu-close {
+    position: relative;
+  }
+
+  .menu-close span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.5rem;
+    height: 2px;
+    border-radius: var(--site-radius-pill);
+    background: var(--site-color-text);
+  }
+
+  .menu-close span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .menu-close span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: var(--site-z-menu);
+    display: flex;
+    flex-direction: column;
+    background: var(--site-color-background);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--site-duration-base) var(--site-ease-out),
+      visibility var(--site-duration-base) step-end;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity var(--site-duration-base) var(--site-ease-out),
+      visibility 0s step-start;
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  @media (min-width: 48rem) {
+    .menu-toggle,
+    .mobile-menu {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu {
+      transition: none;
+    }
+  }
+</style>
