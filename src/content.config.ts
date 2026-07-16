@@ -1,6 +1,15 @@
 import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
+import {
+  getProjectDateIssues,
+  isPlaceholderAsset,
+  isPlaceholderLink,
+  isPlaceholderText,
+  isValidLegacyUrl,
+  normalizeLegacyUrl,
+  type ProjectDateIssue,
+} from './config/content-policy.mjs'
 
 const sourceStatus = z.enum([
   'verified',
@@ -17,16 +26,39 @@ const cover = z.object({
   height: z.number().int().positive().optional(),
 })
 
+const legacyUrl = z.string().min(1).refine(isValidLegacyUrl, {
+  message: 'Use a root-relative path or a non-empty fragment without spaces.',
+})
+
+const legacyUrls = z
+  .array(legacyUrl)
+  .superRefine((values, context) => {
+    const seen = new Set<string>()
+
+    values.forEach((value, index) => {
+      const normalized = normalizeLegacyUrl(value)
+      if (seen.has(normalized)) {
+        context.addIssue({
+          code: 'custom',
+          path: [index],
+          message: 'Duplicate normalized legacy URL.',
+        })
+      }
+      seen.add(normalized)
+    })
+  })
+  .default([])
+
 const common = {
   title: nonEmptyString,
   description: nonEmptyString,
-  draft: z.boolean().default(false),
+  draft: z.boolean(),
   featured: z.boolean().default(false),
   order: z.number().int().nonnegative().optional(),
   tags: z.array(nonEmptyString).default([]),
   cover: cover.optional(),
-  legacyUrls: z.array(nonEmptyString).default([]),
-  sourceStatus: sourceStatus.default('verified'),
+  legacyUrls,
+  sourceStatus,
   updatedAt: z.coerce.date().optional(),
 }
 
@@ -40,44 +72,6 @@ type PublicationCandidate = {
   externalUrl?: string
   repositoryUrl?: string
   demoUrl?: string
-}
-
-const legacyPlaceholderAssets = new Set([
-  '/img/profile.png',
-  '/img/profile2.png',
-  '/img/portfolio/cabin.png',
-  '/img/portfolio/cake.png',
-  '/img/portfolio/circus.png',
-  '/img/portfolio/game.png',
-  '/img/portfolio/safe.png',
-  '/img/portfolio/submarine.png',
-  '/screenshot.png',
-])
-
-const v0SampleAssetPattern =
-  /\/(?:design-(?:analytics-dashboard-dark|aurora-banking-app-dark-ui|creative-studio-landing-page|editorial-magazine-website-layout|skincare-brand-landing-page)|frontend-(?:component-library-storybook|kanban-board-app|weather-dashboard-charts)|placeholder(?:-logo|-user)?|apple-icon|icon(?:-dark-32x32|-light-32x32)?)\.(?:png|jpe?g|svg)$/i
-
-const placeholderTextPattern =
-  /(?:lorem ipsum|start bootstrap|hello@choeyoojeong\.dev)/i
-
-function isPlaceholderLink(value: string): boolean {
-  if (value === '#') return true
-
-  try {
-    const url = new URL(value)
-    const hostname = url.hostname.toLowerCase()
-
-    return (
-      !['http:', 'https:'].includes(url.protocol) ||
-      (hostname === 'github.com' && url.pathname === '/') ||
-      hostname === 'localhost' ||
-      hostname.endsWith('.localhost') ||
-      hostname === 'example.com' ||
-      hostname.endsWith('.example.com')
-    )
-  } catch {
-    return true
-  }
 }
 
 function validatePublicationCandidate(
@@ -97,10 +91,7 @@ function validatePublicationCandidate(
     ...(data.gallery ?? []),
   ].entries()) {
     if (!image) continue
-    if (
-      legacyPlaceholderAssets.has(image.src.toLowerCase()) ||
-      v0SampleAssetPattern.test(image.src)
-    ) {
+    if (isPlaceholderAsset(image.src)) {
       context.addIssue({
         code: 'custom',
         path: index === 0 ? ['cover', 'src'] : ['gallery', index - 1, 'src'],
@@ -113,8 +104,8 @@ function validatePublicationCandidate(
   if (!eligible || data.draft) return
 
   if (
-    placeholderTextPattern.test(`${data.title} ${data.description}`) ||
-    /^project\s*\d+$/i.test(data.title)
+    isPlaceholderText(`${data.title} ${data.description}`) ||
+    isPlaceholderText(data.title)
   ) {
     context.addIssue({
       code: 'custom',
@@ -134,6 +125,24 @@ function validatePublicationCandidate(
       })
     }
   }
+}
+
+const projectDateIssueDetails: Record<
+  ProjectDateIssue,
+  { path: ['completedAt']; message: string }
+> = {
+  'completed-before-started': {
+    path: ['completedAt'],
+    message: 'completedAt must be on or after startedAt.',
+  },
+  'completed-missing-completedAt': {
+    path: ['completedAt'],
+    message: 'Completed projects require completedAt.',
+  },
+  'planned-has-completedAt': {
+    path: ['completedAt'],
+    message: 'Planned projects cannot define completedAt.',
+  },
 }
 
 const designSchema = z
@@ -166,11 +175,16 @@ const projectSchema = z
     demoUrl: z.url().optional(),
     highlights: z.array(nonEmptyString).default([]),
   })
-  .superRefine((data, context) =>
+  .superRefine((data, context) => {
     validatePublicationCandidate(data, context, {
       linkFields: ['repositoryUrl', 'demoUrl'],
-    }),
-  )
+    })
+
+    for (const issue of getProjectDateIssues(data)) {
+      const details = projectDateIssueDetails[issue]
+      context.addIssue({ code: 'custom', ...details })
+    }
+  })
 
 const studySchema = z
   .object({
