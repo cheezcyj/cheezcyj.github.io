@@ -2,7 +2,7 @@
 
 작성일: 2026-07-16
 대상 브랜치: `redesign/astro-v0`
-공개 상태: 비공개 초안
+공개 상태: 사실관계 Owner 승인 완료, `draft: true` 유지
 
 ## 1. 생성한 entry 경로
 
@@ -22,8 +22,9 @@ tags:
   - TypeScript
   - Tailwind CSS
   - GitHub Pages
-sourceStatus: inventory-only
+sourceStatus: verified
 status: in-progress
+startedAt: 2026-07-15
 stack:
   - Astro
   - TypeScript
@@ -37,14 +38,14 @@ roles:
 repositoryUrl: 'https://github.com/cheezcyj/cheezcyj.github.io'
 highlights:
   - v0 디자인의 시각 언어를 Astro 정적 컴포넌트와 디자인 토큰으로 전환
-  - 기존 Jekyll PNG 9개의 공개 URL과 SHA-256 무결성 보존
-  - design, projects, study, posts 타입 기반 Content Collections 설계
-  - draft와 sourceStatus를 필수로 하는 공개 차단 정책 구성
-  - focus trap과 Escape 종료를 포함한 접근 가능한 모바일 내비게이션 구현
-  - 자산 및 콘텐츠 자동 검증 스크립트 구성
+  - 기존 Jekyll 자산 9개의 URL과 SHA-256 무결성 보존
+  - 네 가지 타입 기반 Content Collections 설계
+  - draft와 sourceStatus 기반 콘텐츠 공개 정책 구성
+  - 키보드 접근 가능한 모바일 내비게이션 구현
+  - 자산 및 콘텐츠 자동 검증 구성
 ```
 
-의도적으로 제외한 필드는 `cover`, `gallery`, `demoUrl`, `startedAt`, `completedAt`, `legacyUrls`다.
+의도적으로 제외한 필드는 `cover`, `gallery`, `demoUrl`, `completedAt`, `legacyUrls`, `slug`다. `draft: true`와 `featured: false`는 공개 보류 상태로 유지한다.
 
 ## 3. 저장소에서 직접 확인한 사실
 
@@ -72,7 +73,7 @@ highlights:
 
 ## 5. 추측하지 않고 생략한 정보
 
-- 프로젝트의 정확한 시작일과 완료일
+- 프로젝트 완료일
 - 성능 개선 수치와 Lighthouse 점수
 - 방문자 또는 사용자 수
 - 수상 내역
@@ -81,39 +82,34 @@ highlights:
 - 존재하지 않거나 검증되지 않은 demo URL
 - 승인된 cover와 gallery 이미지
 
-## 6. Owner가 확인해야 하는 문장
+## 6. Owner 승인 문장
 
-- 프로젝트 제목에 `CHEEZCYJ`를 사용하는 것이 최종 브랜드 표기와 일치하는가?
-- 한 줄 설명이 프로젝트의 실제 범위를 정확히 나타내는가?
-- 기존 Jekyll 콘텐츠와 URL 문제에 대한 설명이 사실관계와 의도에 맞는가?
-- v0의 시각적 분위기를 Astro로 전환했다는 설명 범위가 적절한가?
-- 현재 상태와 향후 작업이 실제 공개 계획과 일치하는가?
-- 배운 점의 기술적 판단이 소유자의 실제 경험을 정확히 반영하는가?
+- 프로젝트 제목 `CHEEZCYJ Portfolio Redesign`을 승인했다.
+- 한 줄 설명과 본문 사실관계를 승인했다.
+- 기존 Jekyll 콘텐츠와 URL 문제에 대한 설명을 승인했다.
+- v0의 시각적 분위기를 Astro로 전환했다는 설명 범위를 승인했다.
+- 현재 상태와 향후 작업에 사용한 공개용 문구를 승인했다.
+- 배운 점에 정리한 기술적 판단을 승인했다.
 
-## 7. 역할 표현 검토 항목
+## 7. 역할 표현 승인 항목
 
-- `Web Design`, `Web Publishing`, `Frontend Development`, `Content Architecture`를 모두 공개 역할로 표시해도 되는가?
-- 사이트 개편 방향, 콘텐츠 구조와 공개 정책 결정이 소유자의 실제 역할을 정확히 설명하는가?
-- 반응형 화면과 접근성 검수 역할을 프로젝트 소개에 포함해도 되는가?
-- 구현 자동화의 비중을 고려했을 때 각 역할의 표현 강도가 적절한가?
+- `Web Design`, `Web Publishing`, `Frontend Development`, `Content Architecture` 공개 역할을 승인했다.
+- 사이트 개편 방향, 요구사항, v0 템플릿 선정과 디자인 방향 조정 역할을 승인했다.
+- 브랜드 색상, 정보 구조와 콘텐츠 컬렉션 구조 결정 역할을 승인했다.
+- Astro 마이그레이션 범위와 단계, 공개 정책과 자산 보존 기준 결정 역할을 승인했다.
+- 반응형 화면과 접근성 검수, 구현 결과 검토와 수정 방향 결정 역할을 승인했다.
 
 ## 8. AI/Codex 작업과 사용자 역할 구분 검토
 
-초안은 사용자의 역할을 요구사항·디자인 방향·콘텐츠 구조·마이그레이션 순서·안전 조건 결정과 결과 검토로 설명한다. Codex는 파일 작성, 코드 구현 보조, 반복 검증과 문서 정리를 수행한 것으로 구분한다.
-
-다음 표현을 owner가 확인해야 한다.
-
-- 자동화 보조가 포함된 구현을 사용자의 단독 수작업처럼 읽히게 하지 않는가?
-- 반대로 사용자가 결정한 기획·디자인·기술 정책과 검증 역할이 충분히 드러나는가?
-- 공개 포트폴리오에서 AI 보조 사실을 현재 정도로 설명하는 것이 적절한가?
+사용자가 요구사항, 디자인 방향, 콘텐츠 구조, 마이그레이션 정책과 검증 기준을 결정하고 최종 검수를 담당했다는 표현을 승인했다. Codex는 코드 작성과 반복 검증을 보조한 것으로 한 번만 간결하게 설명한다. 자동화 보조를 사용자의 단독 수작업으로 표현하지 않으면서 기획·디자인·기술 의사결정이 중심에 오도록 정리한 문장을 승인했다.
 
 ## 9. 시작일 확인 항목
 
-Astro 마이그레이션 분석이 처음 기록된 commit은 2026-07-16의 `5e503bf`다. 그러나 이 날짜가 owner가 정의하는 실제 프로젝트 시작일과 같다고 확정할 수 없어 `startedAt`을 생략했다. 공개 전에 정확한 시작 기준과 날짜를 확인한다.
+v0 메인 디자인 작업을 포함한 전체 리디자인 작업의 시작 기준으로 `2026-07-15`를 승인했다. frontmatter에 `startedAt: 2026-07-15`를 반영했다.
 
 ## 10. 공개 가능한 저장소 URL 확인
 
-로컬 git remote와 frontmatter는 `https://github.com/cheezcyj/cheezcyj.github.io`를 가리킨다. 저장소 링크를 포트폴리오에 공개해도 되는지, 공개 시점에도 이 URL을 유지할지 owner 승인이 필요하다.
+로컬 git remote와 frontmatter가 가리키는 `https://github.com/cheezcyj/cheezcyj.github.io`를 공개 가능한 저장소 URL로 승인했다.
 
 ## 11. 대표 이미지 준비 항목
 
@@ -138,27 +134,40 @@ Astro 마이그레이션 분석이 처음 기록된 commit은 2026-07-16의 `5e5
 
 ## 14. 공개 전 frontmatter 변경 조건
 
-- `draft: true` → `draft: false`
+승인 반영 완료:
+
 - `sourceStatus: inventory-only` → `sourceStatus: verified`
+- `startedAt: 2026-07-15` 추가
+- 프로젝트 제목, 한 줄 설명과 본문 사실관계 승인
+- 역할과 AI/Codex 구분 표현 승인
+- 기술 스택과 repository URL 승인
+
+공개 전 남은 조건:
+
+- `draft: true` → `draft: false`
 - `featured` 활성화 여부 결정
 - 승인된 `cover`와 alt 추가
-- 한 줄 설명과 본문 전체 owner 승인
-- repository와 향후 demo 등 실제 링크 검증
-- 정확한 기준일이 확인되면 `startedAt` 추가
+- 향후 demo 등 추가 링크가 생기면 실제 목적지 검증
 - 프로젝트 카드와 상세 route 구현
 - Linux CI 결과 확인
 
 ## 검토 체크리스트
 
-- [ ] 프로젝트 제목 승인
-- [ ] 한 줄 설명 승인
-- [ ] 본문 사실관계 승인
-- [ ] 역할 표현 승인
-- [ ] AI/Codex와 사용자 역할 구분 승인
-- [ ] 시작일 확인
-- [ ] 기술 스택 확인
-- [ ] 저장소 공개 여부 확인
+- [x] 프로젝트 제목 승인
+- [x] 한 줄 설명 승인
+- [x] 본문 사실관계 승인
+- [x] 역할 표현 승인
+- [x] AI/Codex와 사용자 역할 구분 승인
+- [x] 시작일 확인
+- [x] 기술 스택 확인
+- [x] 저장소 공개 여부 확인
+- [x] `sourceStatus: verified` 전환 승인
 - [ ] 대표 이미지 승인
 - [ ] 상세 이미지 승인
 - [ ] 공개 가능한 성과 확인
-- [ ] 공개 승인
+- [ ] `featured` 여부 결정
+- [ ] `draft` 해제
+- [ ] Linux CI 확인
+- [ ] 프로젝트 카드 구현
+- [ ] 상세 route 구현
+- [ ] 최종 공개 승인
