@@ -14,6 +14,11 @@ Gemfile.lock
 .bundle/
 vendor/bundle/
 
+# Astro / Node
+node_modules/
+dist/
+.astro/
+
 # Local environment and secret material
 .env
 .env.*

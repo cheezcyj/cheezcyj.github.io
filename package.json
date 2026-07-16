@@ -1,0 +1,24 @@
+{
+  "name": "cheezcyj-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write \"src/**/*.{astro,ts,css}\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md",
+    "format:check": "prettier --check \"src/**/*.{astro,ts,css}\" astro.config.mjs package.json tsconfig.json .prettierrc.mjs .github/workflows/astro-check.yml docs/astro-foundation-report.md"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "@tailwindcss/vite": "4.3.2",
+    "astro": "7.0.9",
+    "prettier": "3.9.5",
+    "prettier-plugin-astro": "0.14.1",
+    "tailwindcss": "4.3.2",
+    "typescript": "6.0.3"
+  }
+}
