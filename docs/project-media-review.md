@@ -1,4 +1,202 @@
-# Phase 4B-3 프로젝트 미디어 후보 검토
+# Phase 4B-3.1 프로젝트 미디어 후보 검토
+
+- 작성일: 2026-07-18
+- 대상 브랜치: `redesign/astro-v0`
+- 대상 프로젝트: `CHEEZCYJ Portfolio Redesign`
+- 현재 승인 기준: `revision-2`
+
+이 문서의 현재 추천은 `docs/media-review/cheezcyj-portfolio-redesign/revision-2/`의 네 PNG를 기준으로 한다. 기존 Phase 4B-3 이미지 여섯 장은 비교 기록으로 그대로 보존하지만 production 후보로 승격하지 않는다. 이번 단계에서도 WebP 변환, `public` 복사, frontmatter 연결, `draft`·`featured` 변경은 수행하지 않았다.
+
+## 1. Revision 2 생성 이유
+
+첫 캡처는 프로젝트의 실제 화면과 반응형 구조를 확인하는 데는 충분했지만 다음 보완이 필요했다.
+
+- 한글 제목·설명·본문에 어절 보존 규칙이 없어 좁은 화면에서 음절 단위 줄바꿈 위험이 있었다.
+- media fallback이 프로젝트 전체 제목과 진행 상태를 카드 본문과 중복해 표시했다.
+- 기존 상세 후보에는 개발 전용 `Draft Preview`가 포함돼 공개 미디어로 사용할 수 없었다.
+- 홈 전체 후보는 비어 있는 Featured Design의 비중이 커 프로젝트 자체를 설명하기 어려웠다.
+
+Revision 2는 카드 rail, 상세 desktop, 모바일 메뉴와 상세 mobile만 다시 캡처해 장면 중복을 줄였다. 기존 레이아웃과 콘텐츠 사실관계는 유지했다.
+
+## 2. 타이포그래피 보정
+
+다음 영역에 언어별 안전 줄바꿈을 적용했다.
+
+| 영역                     | 적용 기준                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| ProjectCard 제목         | `word-break: keep-all`, `overflow-wrap: break-word`, `text-wrap: balance`      |
+| ProjectCard 설명         | `word-break: keep-all`, `overflow-wrap: break-word`, `text-wrap: pretty`       |
+| 상세 hero 제목           | `keep-all` + `break-word` + `balance`                                          |
+| 상세 설명                | `keep-all` + `break-word` + `pretty`                                           |
+| breadcrumb               | 한 줄 ellipsis를 유지하면서 `min-width: 0`, `max-width: 100%`, `keep-all` 적용 |
+| highlights·Markdown 본문 | 제목은 `balance`, 문장과 목록은 `pretty`, 모두 한글 어절 보존                  |
+| 모바일 meta              | `keep-all`, `break-word`, `pretty` 적용                                        |
+| 긴 영문 URL·inline code  | 컨테이너 이탈 방지를 위해 `overflow-wrap: anywhere` 적용                       |
+
+320, 390, 768, 1024, 1280, 1440px에서 검사했다. 모든 폭에서 페이지 전체 가로 overflow는 `0`이었고 한글 설명, highlights와 본문에서 `포트 / 폴리오`, `프로 / 젝트`, `입니 / 다` 형태의 음절 단위 분리는 발견되지 않았다. 영문 프로젝트명은 단어 경계에서 자연스럽게 줄바꿈되며 강제 `<br>`이나 화면별 하드코딩 줄바꿈은 추가하지 않았다.
+
+## 3. ProjectMedia fallback 변경
+
+fallback의 정보 역할을 짧은 브랜드 시그니처로 제한했다.
+
+- 유지: `CHEEZCYJ`
+- 유지: `ASTRO × PORTFOLIO`
+- 제거: 전체 프로젝트 제목 반복
+- 제거: 진행 상태 반복
+- 제외 유지: 설명, stack badge, 링크, `Draft Preview`
+
+실제 제목, 상태, 설명, 날짜, stack과 링크는 기존 ProjectCard 본문 순서대로 유지된다. 상세 media에도 같은 두 줄을 사용하되 viewport에 따라 글자 크기만 반응형으로 계산한다. 신규 이미지나 외부 자산은 추가하지 않았다.
+
+## 4. Revision 2 캡처 환경과 목록
+
+- Astro 7 개발 서버: `pnpm dev`
+- 브라우저: Codex in-app browser, Developer mode의 full CDP 사용
+- 데스크톱: `1440 × 900`, DPR `1`
+- 모바일: `390 × 844`, DPR `1`
+- Console error: `0`
+- 페이지 전체 가로 overflow: `0`
+- Astro 개발 툴바, 브라우저 chrome과 개발자 도구 패널: 캡처 제외
+
+| 파일                                       | Route                                    | PNG 픽셀 | 주요 UI                                                |
+| ------------------------------------------ | ---------------------------------------- | -------- | ------------------------------------------------------ |
+| `revision-2/01-project-rail-desktop.png`   | `/`                                      | 1440×900 | header, Development Projects, View All, 실제 카드 전체 |
+| `revision-2/02-project-detail-desktop.png` | `/projects/cheezcyj-portfolio-redesign/` | 1440×900 | breadcrumb, 제목, 설명, 저장소 링크, media와 meta      |
+| `revision-2/03-mobile-menu-open.png`       | `/`                                      | 390×844  | header, 닫기 버튼, 전체 메뉴 항목                      |
+| `revision-2/04-project-detail-mobile.png`  | `/projects/cheezcyj-portfolio-redesign/` | 390×844  | breadcrumb, 제목, 설명, 저장소 링크, media와 meta      |
+
+### 프로젝트 rail desktop
+
+![Revision 2 프로젝트 rail desktop](media-review/cheezcyj-portfolio-redesign/revision-2/01-project-rail-desktop.png)
+
+카드가 하나인 실제 레일을 그대로 보여 준다. 오른쪽 여백을 가짜 카드로 채우지 않았고 media부터 상태, 제목, 설명, 시작일, stack, 상세·GitHub 링크까지 필수 정보를 한 화면에 유지했다.
+
+### 프로젝트 상세 desktop
+
+![Revision 2 프로젝트 상세 desktop](media-review/cheezcyj-portfolio-redesign/revision-2/02-project-detail-desktop.png)
+
+breadcrumb부터 큰 프로젝트명, 설명, 실제 repository, media와 meta의 시작 부분을 함께 보여 준다. 프로젝트 식별력이 가장 높아 cover 원본으로 추천한다.
+
+### 모바일 메뉴
+
+![Revision 2 모바일 메뉴](media-review/cheezcyj-portfolio-redesign/revision-2/03-mobile-menu-open.png)
+
+워드마크, 닫기 버튼과 Design부터 GitHub까지 모든 메뉴가 보인다. body scroll lock과 가로 overflow `0`을 확인했다.
+
+### 프로젝트 상세 mobile
+
+![Revision 2 프로젝트 상세 mobile](media-review/cheezcyj-portfolio-redesign/revision-2/04-project-detail-mobile.png)
+
+breadcrumb, 두 줄 프로젝트 제목, 한글 설명, repository 링크, 16:9 media와 첫 meta를 1열로 보여 준다. 390px에서 설명이 음절 단위로 분리되지 않는다.
+
+## 5. 기존 이미지와 Revision 2 비교
+
+| 비교 항목   | 기존 Phase 4B-3                                 | Revision 2                                          |
+| ----------- | ----------------------------------------------- | --------------------------------------------------- |
+| fallback    | 프로젝트명·상태가 카드 본문과 중복              | 짧은 브랜드 시그니처 두 줄만 사용                   |
+| 한글 줄바꿈 | 브라우저 기본 동작 의존                         | 제목 `balance`, 문장 `pretty`, 어절 `keep-all` 명시 |
+| 상세 캡처   | 개발 전용 `Draft Preview` 포함                  | 캡처 시점에만 badge를 숨겨 공개 후보에 미포함       |
+| 홈 후보     | Featured Design 빈 상태 비중이 큼               | 프로젝트 rail에 집중                                |
+| 해상도      | 페이지 면적이 scrollbar에 따라 축소된 파일 포함 | 지정 viewport와 같은 1440×900, 390×844 PNG          |
+
+기존 PNG 여섯 장은 삭제하거나 덮어쓰지 않았다. Revision 2는 별도 하위 디렉터리에 저장했다.
+
+## 6. 최종 추천
+
+### Cover
+
+`revision-2/02-project-detail-desktop.png`
+
+큰 프로젝트명과 설명, 실제 repository, media와 meta가 한 장에 있어 작은 카드에서도 프로젝트 성격을 가장 빠르게 전달한다.
+
+### Gallery
+
+1. `revision-2/01-project-rail-desktop.png` — 카드와 수평 rail
+2. `revision-2/03-mobile-menu-open.png` — 모바일 내비게이션
+3. `revision-2/04-project-detail-mobile.png` — 모바일 상세 1열 구조
+
+cover와 gallery가 각각 상세 desktop, 카드 rail, 메뉴, 상세 mobile을 담당해 같은 장면의 반복을 피한다.
+
+## 7. 제외 이미지
+
+- 기존 `01-home-desktop.png`: 비어 있는 Featured Design과 홈 전반의 비중이 커 프로젝트 후보에서 제외
+- 기존 `04-home-mobile.png`: 실제 카드가 viewport 아래에 있어 프로젝트 설명력이 낮아 제외
+- 기존 `02`, `03`, `05`, `06`: Revision 2 이전 typography, 중복 fallback 또는 `Draft Preview`를 포함하므로 비교 기록으로만 보존
+- Revision 2 상세 desktop의 gallery 중복 사용: cover와 동일한 장면이므로 gallery에서 제외
+
+Featured Design EmptyState 자체는 삭제하거나 재설계하지 않았다.
+
+## 8. Cover 16:9 crop 기준
+
+원본 `1440 × 900`에서 권장 crop은 다음과 같다.
+
+- 좌표: `x=80`, `y=90`, `width=1280`, `height=720`
+- 비율: 정확한 `16:9`
+- 기준: 전역 header 아래에서 시작해 breadcrumb, 상태, 프로젝트명, 설명, repository 링크, media 상단과 meta 일부를 유지
+- 금지: 프로젝트명을 자르는 좌우 crop, 캡처 확대, 비율 왜곡, `Draft Preview` 재노출
+
+전역 header를 cover 맥락에 포함해야 한다면 대안으로 `x=0`, `y=0`, `width=1440`, `height=810`을 사용한다. production 단계에서는 실제 crop 미리보기를 Owner가 다시 확인한다.
+
+## 9. Production 파일명과 한국어 alt 제안
+
+권장 위치는 아직 만들지 않은 `public/images/projects/cheezcyj-portfolio-redesign/`다.
+
+| Revision 2 원본                 | 제안 파일명                  | 한국어 alt                                                                                              |
+| ------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `02-project-detail-desktop.png` | `cover.webp`                 | 다크 네이비 배경에 CHEEZCYJ Portfolio Redesign 제목, 설명과 프로젝트 미디어를 배치한 데스크톱 상세 화면 |
+| `01-project-rail-desktop.png`   | `project-rail-desktop.webp`  | Development Projects 섹션에 Astro 포트폴리오 리디자인 카드 한 개를 배치한 데스크톱 화면                 |
+| `03-mobile-menu-open.png`       | `mobile-navigation.webp`     | CHOE YOOJEONG 워드마크 아래 Design부터 GitHub까지 표시한 모바일 전체 화면 메뉴                          |
+| `04-project-detail-mobile.png`  | `project-detail-mobile.webp` | 모바일 프로젝트 상세에서 제목과 설명, 저장소 링크, 미디어와 상태 정보를 세로로 표시한 화면              |
+
+이번 단계에서는 위 WebP와 production 디렉터리를 만들지 않았다.
+
+## 10. Draft Preview 제거와 복구 확인
+
+`Draft Preview` 기능과 source UI는 그대로 유지했다. 캡처 직전에 full CDP의 browser runtime에서 `.project-card__preview`와 `.project-preview-badge`에만 임시 `display: none`을 적용했다.
+
+- Astro·CSS·TypeScript 파일을 캡처용으로 변경하지 않음
+- 프로젝트 frontmatter의 `draft: true` 유지
+- `진행 중` 실제 status는 모든 관련 화면에 유지
+- 캡처 네 장에서 `Draft Preview` 미노출 확인
+- 상세와 홈을 각각 새로고침한 뒤 badge가 다시 보이고 inline style이 빈 값으로 복구됨을 확인
+
+따라서 캡처용 변경은 저장소나 새로고침 이후 페이지 상태에 남지 않는다.
+
+## 11. 민감 정보 검사
+
+Revision 2 네 장에서 다음 항목이 보이지 않는 것을 확인했다.
+
+- localhost 주소창과 브라우저 탭 UI
+- Windows 사용자 이름과 로컬 파일 경로
+- 개발자 도구, 터미널과 Astro 개발 툴바
+- 이메일, token, 인증 정보와 브라우저 계정 정보
+- `Draft Preview`
+- 외부에서 임의로 가져온 v0/Jekyll 샘플 이미지
+
+화면의 GitHub 저장소 문구는 Owner가 승인한 공개 repository 링크다.
+
+## 12. Owner 승인 체크리스트
+
+- [ ] `revision-2/02-project-detail-desktop.png`를 cover 원본으로 승인
+- [ ] 권장 16:9 crop 좌표 승인
+- [ ] gallery 세 장과 순서 승인
+- [ ] production 파일명 승인
+- [ ] 한국어 alt 승인
+- [ ] 이미지 공개 범위와 민감 정보 없음 확인
+- [ ] WebP 품질·최적화 방식 승인
+- [ ] frontmatter `cover`·`gallery` 연결 승인
+- [ ] `draft`와 `featured` 공개 상태 별도 승인
+
+## 13. 승인 이후 범위
+
+Owner 승인 후 별도 단계에서만 16:9 crop, WebP 변환, `public` 복사, frontmatter 연결과 공개 상태 변경을 수행한다. 현재 revision 2 PNG는 계속 `docs/media-review/` 아래의 검토 자산으로만 유지한다.
+
+---
+
+## 부록: Phase 4B-3 Revision 1 기록
+
+아래 내용은 최초 여섯 장의 평가 근거를 보존하기 위한 이전 기록이다. 현재 후보 선정과 production 제안은 위 Revision 2 기준을 우선한다.
+
+### Phase 4B-3 프로젝트 미디어 후보 검토
 
 - 작성일: 2026-07-16
 - 대상 브랜치: `redesign/astro-v0`
