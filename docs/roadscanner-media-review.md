@@ -1,4 +1,4 @@
-# Phase 4C-2 RoadScanner 미디어 후보 검토
+# RoadScanner 미디어 후보 검토
 
 - 작성일: 2026-07-18
 - 대상 브랜치: `redesign/astro-v0`
@@ -7,7 +7,7 @@
 - 조사 branch: `main`
 - 현재 콘텐츠 상태: `draft: true`, `featured: false`, `sourceStatus: verified`
 
-이번 조사는 GitHub API로 README, repository tree, 이미지 metadata와 관련 JSP·CSS의 참조만 읽었다. 이미지 GET, 외부 이미지 다운로드, WebP 변환, `public` 복사와 frontmatter 연결은 수행하지 않았다.
+Phase 4C-2에서는 GitHub API로 README, repository tree, 이미지 metadata와 관련 JSP·CSS의 참조만 읽었다. 이미지 GET, 외부 이미지 다운로드, WebP 변환, `public` 복사와 frontmatter 연결은 수행하지 않았다. Phase 4C-3에서는 Owner가 제공한 로컬 원본 43개를 저장소 밖에서 읽기 전용으로 조사했다.
 
 ## 1. 조사한 저장소와 branch
 
@@ -185,7 +185,7 @@ GitHub raw URL이나 asset URL을 production frontmatter에 직접 연결하지 
 - image management: `업로드 이미지의 상태를 확인하고 관리하는 RoadScanner 이미지 데이터 화면`
 - main page: `RoadScanner의 교통표지판 인식 서비스를 안내하는 메인 화면`
 
-## 15. Owner가 직접 제공해야 하는 원본
+## 15. Phase 4C-2 당시 Owner가 직접 제공해야 했던 원본
 
 - 파일 업로드·인식 결과의 원본 PNG 또는 무손실 캡처
 - 피드백 통계 원본
@@ -195,7 +195,7 @@ GitHub raw URL이나 asset URL을 production frontmatter에 직접 연결하지 
 - 각 원본의 촬영자·제작자와 팀 공개 동의 근거
 - 화면에 사용된 교통표지판 이미지의 출처와 공개 허가
 
-GitHub asset을 이번 작업에서 대신 내려받지 않는다. 가능하면 Owner가 보유한 원본을 직접 제공하고, 원본이 없을 때는 권리와 민감 정보가 정리된 환경에서 새로 캡처한다.
+GitHub asset을 대신 내려받지 않았고 Phase 4C-3에서 Owner가 보유한 별도 원본 폴더를 확보했다. 조사 결과 현재 JPG에는 개발 환경과 민감 데이터가 보여, production에는 권리와 민감 정보가 정리된 환경의 clean 재캡처가 필요하다.
 
 ## 16. 다운로드 전에 필요한 승인
 
@@ -235,3 +235,31 @@ GitHub asset을 이번 작업에서 대신 내려받지 않는다. 가능하면 
 - `Fullstack Engineer`
 
 RoadScanner의 `Main Feature Development`, `Machine Learning / Deep Learning Development`, `Q&A Board Development`, `JSP UI Integration`, `Feature Integration`은 프로젝트별 역할이다. 사이트 전역 직무와 목적이 다르므로 충돌로 보지 않으며 이번 단계에서는 전역 roles를 수정하지 않았다.
+
+## 19. Phase 4C-3 원본 미디어 조사 결과
+
+- 원본 폴더: `C:\Users\user\Desktop\portfolio-workspace\roadscanner-media-source`
+- 조사 파일: 이미지 30개와 MP4 13개, 총 43개, 약 29.44 MiB
+- SHA-256 정확한 중복: 없음
+- near-duplicate: perceptual dHash 기준 9쌍
+- 이미지 등급: Safe 0개, Review 0개, Redaction Required 18개, Exclude 12개
+- MP4 등급: frame 미추출과 시각 검수 미완료로 Review 13개
+- JPG 29개: `1920×1080`, EXIF GPS IFD에는 날짜·시각 tag만 있고 좌표 tag는 없음
+- MP4 13개: `1920×1080`, H.264/AVC, 30fps, audio track 있음
+- animated GIF 1개: `800×407`, 87 frames, 7.26초
+- Cover 1순위: `VideoCapture_20231108-170028.jpg`; 인식 결과 설명력은 높지만 localhost, Bandicam, alert와 이미지 권리 위험 때문에 clean 재캡처 필요
+- Gallery 후보: 업로드 진입, 피드백 통계, Q&A 목록, 이미지 관리, 서비스 인트로 순서
+- Video 후보: `ffmpeg`·`ffprobe` 미설치로 frame과 핵심 구간을 확인하지 못해 최종 후보 0개
+- poster: GIF 90%·70% 지점을 육안 후보로만 기록했으며 위험 화면 사본은 저장하지 않음
+- 상세 결과: [RoadScanner 미디어 Owner 검토](roadscanner-media-owner-review.md)
+
+원본 확보와 metadata 조사는 완료했지만 아래 항목은 계속 Owner 승인 대기다.
+
+- [ ] clean Cover 재캡처 또는 비식별화 방향
+- [ ] Gallery 원본과 순서
+- [ ] MP4 frame 추출·시각 검수 방식
+- [ ] 개인정보·계정·관리자 데이터 제거 확인
+- [ ] 팀 UI·로고·그래픽 사용 동의
+- [ ] 교통표지판 이미지와 자동차·도로 footage 권리
+- [ ] production 파일명·alt·crop·인코딩
+- [ ] frontmatter 연결, `draft`와 `featured` 변경

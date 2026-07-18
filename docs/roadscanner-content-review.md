@@ -174,11 +174,11 @@ README와 저장소 메타데이터에서 현재 동작하는 공개 demo URL을
 
 ## 14. cover 준비 항목
 
-현재 cover 연결은 없다. README에서 파일 업로드·교통표지판 인식 결과, 메인 화면과 상단 대표 시각물 후보를 확인했고 핵심 기능을 설명하는 인식 결과를 1순위로 분류했다. GitHub asset의 형식·픽셀 크기·권리는 확정하지 않았으며, Owner가 직접 제공한 원본으로 별도 미디어 검수를 진행해야 한다. 이번 단계에서는 이미지 생성·다운로드·복사를 하지 않았다.
+현재 cover 연결은 없다. Phase 4C-3에서 Owner 제공 원본을 조사해 파일 업로드와 교통표지판 인식 결과가 함께 보이는 `VideoCapture_20231108-170028.jpg`를 1순위로 분류했다. 다만 localhost, Bandicam, alert와 업로드 이미지 권리 위험 때문에 `Redaction Required`이며, 현재 원본 그대로 production에 사용할 수 없다. clean 재캡처 또는 별도 승인된 비식별화와 권리 확인이 필요하다.
 
 ## 15. gallery 준비 항목
 
-현재 gallery 연결은 없다. README에서 피드백 통계, 게시글·답변 CRUD, 이미지 데이터 관리, 메인과 회원 기능 장면을 확인했다. 피드백 통계, 개인정보를 제거한 Q&A와 이미지 관리 화면을 우선 후보로 분류했으며 cover와 같은 인식 결과 장면은 중복 사용하지 않는다. 자세한 URL·위험·권리 검토는 `docs/roadscanner-media-review.md`에 기록했고 README의 외부 호스팅 이미지는 다운로드하지 않았다.
+현재 gallery 연결은 없다. Phase 4C-3 원본 검수에서는 업로드 진입, 피드백 통계, Q&A 목록, 이미지 관리와 서비스 인트로를 권장 순서로 정했다. 모든 후보가 `Redaction Required`이며 계정명, localhost, 서비스 데이터 또는 제3자 이미지 권리 확인이 남아 있다. cover 1순위와 같은 원본은 gallery에서 제외했다. 상세 결과는 `docs/roadscanner-media-owner-review.md`에 기록했다.
 
 ## 16. 공개 가능한 정량 성과
 
@@ -237,3 +237,17 @@ Owner가 다음 항목을 승인했다.
 - 이미지 다운로드, WebP 변환, `public` 추가와 cover/gallery frontmatter 연결은 수행하지 않았다.
 - `draft: true`, `featured: false`, `sourceStatus: verified`를 유지했다.
 - 사이트 전역 roles는 `2D/3D Designer`, `Web Publisher`, `Fullstack Engineer`이며 수정하지 않았다.
+
+## 21. Phase 4C-3 원본 미디어 확보와 공개 대기 상태
+
+- Owner가 제공한 저장소 외부 원본 폴더에서 이미지 30개와 MP4 13개를 확인했다.
+- 원본은 수정·이동·삭제하거나 저장소 안으로 복사하지 않았다.
+- 정확한 중복은 없고 near-duplicate 후보 9쌍을 기록했다.
+- JPG 29개와 animated GIF 1개를 직접 확인해 장면과 위험을 분류했다.
+- Safe 정적 이미지는 0개이며 Redaction Required 18개, Exclude 12개다.
+- MP4 13개는 metadata를 확인했지만 `ffmpeg`·`ffprobe`가 없어 frame 기반 시각 검수는 미완료다.
+- Cover와 Gallery 후보를 정했지만 현재 상태 그대로 공개 승인한 후보는 없다.
+- 개인정보 검수는 정적 이미지에 대해 수행했으나 MP4 검수가 남아 있어 Owner 체크리스트의 개인정보 항목은 완료 처리하지 않았다.
+- 팀 제작물 사용 동의와 교통표지판·자동차·도로 이미지 권리는 미확인이다.
+- `draft: true`, `featured: false`, `sourceStatus: verified`와 cover·gallery 미연결 상태를 유지했다.
+- 상세 후보와 승인 항목은 `docs/roadscanner-media-owner-review.md`를 따른다.
