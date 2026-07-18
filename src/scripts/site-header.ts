@@ -3,6 +3,132 @@ const menu = document.querySelector<HTMLElement>('[data-mobile-menu]')
 const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')
 const closeButton =
   document.querySelector<HTMLButtonElement>('[data-menu-close]')
+const smoothAnchorLinks = document.querySelectorAll<HTMLAnchorElement>(
+  '[data-smooth-anchor][href^="#"]',
+)
+const root = document.documentElement
+let smoothScrollFrame = 0
+let previousRootScrollBehavior: string | null = null
+const headerSectionLinks = Array.from(
+  document.querySelectorAll<HTMLAnchorElement>(
+    '[data-site-header] [data-smooth-anchor], [data-mobile-menu] [data-smooth-anchor]',
+  ),
+)
+const sectionTargets = Array.from(
+  new Set(headerSectionLinks.map((link) => link.hash.slice(1))),
+)
+  .map((id) => document.getElementById(id))
+  .filter((target): target is HTMLElement => target instanceof HTMLElement)
+let activeSectionFrame = 0
+
+const updateActiveSection = () => {
+  activeSectionFrame = 0
+  const marker =
+    (header?.getBoundingClientRect().height ?? 0) +
+    Math.min(window.innerHeight * 0.25, 180)
+  let activeSectionId = ''
+
+  sectionTargets.forEach((target) => {
+    if (target.getBoundingClientRect().top <= marker) {
+      activeSectionId = target.id
+    }
+  })
+
+  headerSectionLinks.forEach((link) => {
+    if (activeSectionId && link.hash === `#${activeSectionId}`) {
+      link.setAttribute('aria-current', 'location')
+    } else if (link.getAttribute('aria-current') === 'location') {
+      link.removeAttribute('aria-current')
+    }
+  })
+}
+
+const scheduleActiveSectionUpdate = () => {
+  if (activeSectionFrame) return
+  activeSectionFrame = window.requestAnimationFrame(updateActiveSection)
+}
+
+if (headerSectionLinks.length > 0) {
+  window.addEventListener('scroll', scheduleActiveSectionUpdate, {
+    passive: true,
+  })
+  window.addEventListener('resize', scheduleActiveSectionUpdate)
+  scheduleActiveSectionUpdate()
+}
+
+const stopSmoothScroll = () => {
+  if (smoothScrollFrame) window.cancelAnimationFrame(smoothScrollFrame)
+  smoothScrollFrame = 0
+
+  if (previousRootScrollBehavior !== null) {
+    root.style.scrollBehavior = previousRootScrollBehavior
+    previousRootScrollBehavior = null
+  }
+}
+
+const scrollToAnchor = (target: HTMLElement, hash: string) => {
+  stopSmoothScroll()
+
+  const startY = window.scrollY
+  const scrollMarginTop = Number.parseFloat(
+    window.getComputedStyle(target).scrollMarginTop,
+  )
+  const maxY = Math.max(0, root.scrollHeight - window.innerHeight)
+  const targetY = Math.min(
+    maxY,
+    Math.max(0, startY + target.getBoundingClientRect().top - scrollMarginTop),
+  )
+  const distance = targetY - startY
+  const duration = Math.min(800, Math.max(500, Math.abs(distance) * 0.45))
+  const startedAt = window.performance.now()
+
+  previousRootScrollBehavior = root.style.scrollBehavior
+  root.style.scrollBehavior = 'auto'
+
+  const finish = () => {
+    root.style.scrollBehavior = previousRootScrollBehavior ?? ''
+    previousRootScrollBehavior = null
+    smoothScrollFrame = 0
+
+    if (window.location.hash !== hash) {
+      window.history.pushState(null, '', hash)
+    }
+  }
+
+  if (Math.abs(distance) < 1) {
+    finish()
+    return
+  }
+
+  const step = (currentTime: number) => {
+    const progress = Math.min((currentTime - startedAt) / duration, 1)
+    const eased =
+      progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2
+
+    window.scrollTo(0, startY + distance * eased)
+
+    if (progress < 1) {
+      smoothScrollFrame = window.requestAnimationFrame(step)
+    } else {
+      finish()
+    }
+  }
+
+  smoothScrollFrame = window.requestAnimationFrame(step)
+}
+
+smoothAnchorLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const target = document.querySelector<HTMLElement>(link.hash)
+
+    if (!target) return
+
+    event.preventDefault()
+    scrollToAnchor(target, link.hash)
+  })
+})
 
 if (header && menu && toggle && closeButton) {
   const mobileMenu = menu

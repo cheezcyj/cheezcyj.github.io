@@ -30,8 +30,13 @@ body[data-menu-open='true'] {
   overflow: hidden;
 }
 
+@layer base {
+  a {
+    color: inherit;
+  }
+}
+
 a {
-  color: inherit;
   text-decoration: none;
 }
 

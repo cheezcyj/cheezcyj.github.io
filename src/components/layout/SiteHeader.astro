@@ -28,6 +28,7 @@ const getNavigationHref = (href: string) =>
               <a
                 href={getNavigationHref(item.href)}
                 aria-current={isCurrent(item.href) ? 'page' : undefined}
+                data-smooth-anchor={currentPath === '/' ? true : undefined}
                 class:list={[
                   'rounded-site-sm py-1 transition-colors',
                   isCurrent(item.href)
@@ -93,6 +94,7 @@ const getNavigationHref = (href: string) =>
             <a
               href={getNavigationHref(item.href)}
               aria-current={isCurrent(item.href) ? 'page' : undefined}
+              data-smooth-anchor={currentPath === '/' ? true : undefined}
               class:list={[
                 'block rounded-site-md py-2 text-3xl font-bold tracking-tight transition-colors sm:text-4xl',
                 isCurrent(item.href)
@@ -122,6 +124,10 @@ const getNavigationHref = (href: string) =>
     border-bottom: var(--site-border-thin) solid var(--site-color-border);
     background: rgb(7 11 22 / 82%);
     backdrop-filter: blur(14px);
+  }
+
+  [data-smooth-anchor][aria-current='location'] {
+    color: var(--site-color-accent);
   }
 
   .menu-toggle,
