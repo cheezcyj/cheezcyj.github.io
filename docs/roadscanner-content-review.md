@@ -251,3 +251,16 @@ Owner가 다음 항목을 승인했다.
 - 팀 제작물 사용 동의와 교통표지판·자동차·도로 이미지 권리는 미확인이다.
 - `draft: true`, `featured: false`, `sourceStatus: verified`와 cover·gallery 미연결 상태를 유지했다.
 - 상세 후보와 승인 항목은 `docs/roadscanner-media-owner-review.md`를 따른다.
+
+## 22. Phase 4C-3.1 비식별화 검토본과 공개 대기 상태
+
+- 정적 원본 5개와 animated GIF 1개에서 검토본 8개를 만들었으며 원본·`public`·RoadScanner frontmatter는 변경하지 않았다.
+- Safe Review Candidate는 Statistics와 Q&A의 2개다. Rights Review Required 5개와 Further Redaction Required 1개는 권리 또는 콘텐츠 승인 전 공개할 수 없다.
+- Cover는 같은 인식 결과 원본의 16:9 crop 2개를 제안했으며 업로드 교통표지판과 팀 UI 권리는 Pending이다.
+- Gallery는 Statistics, Q&A, Upload, 조건부 Image Management 순서로 좁혔다. 통계 수치와 Q&A 비식별화 범위는 Owner 승인 대기다.
+- GIF 5.00초 frame은 poster 대안으로만 유지하고, 검증되지 않은 정량 문구가 보이는 6.42초 frame은 후보에서 제외했다.
+- 설치된 영상 decoder가 없어 MP4 frame·contact sheet는 0개다. MP4 13개의 장면·개인정보·audio 내용 검수는 미완료다.
+- `draft: true`, `featured: false`, `sourceStatus: verified`, cover·gallery 미연결 상태를 유지한다.
+- 상세 결과는 [RoadScanner 비식별화·영상 검토](roadscanner-media-redaction-review.md)에 기록했다.
+
+Owner 승인 대기 항목은 Cover crop, Gallery 순서, 마스크 범위, 집계 수치, Q&A 비식별화, 팀 UI·로고, 교통표지판·데이터셋 이미지, GIF·도로 footage, Video 구간·audio 제거, production 변환과 최종 공개다. 완료되지 않은 체크리스트는 그대로 둔다.

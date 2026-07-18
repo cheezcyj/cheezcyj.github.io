@@ -263,3 +263,17 @@ RoadScanner의 `Main Feature Development`, `Machine Learning / Deep Learning Dev
 - [ ] 교통표지판 이미지와 자동차·도로 footage 권리
 - [ ] production 파일명·alt·crop·인코딩
 - [ ] frontmatter 연결, `draft`와 `featured` 변경
+
+## 20. Phase 4C-3.1 검토본과 MP4 상태
+
+- JPG 5개와 GIF 1개에서 crop·불투명 마스크를 적용한 검토용 결과 8개를 생성했다.
+- Safe Review Candidate 2개, Rights Review Required 5개, Further Redaction Required 1개다.
+- 브라우저 chrome, `localhost`, Bandicam, 계정명, Q&A 제목·작성자·내부 번호는 생성 결과에서 제거했다.
+- MP4 decoder가 없어 MP4 frame 0개, MP4 contact sheet 0개이며 영상별 개인정보 검수는 미완료다.
+- MP4 13개의 audio track은 존재하지만 내용은 Unknown이므로 공개본에는 audio 제거를 권장한다.
+- Cover는 `170028`의 넓은 맥락 crop을 1순위, 기능 중심 crop을 2순위로 제안한다. 모두 교통표지판 이미지와 팀 UI 권리 승인 대기다.
+- Gallery는 Statistics, Q&A, Upload, 조건부 Image Management 순서다. Statistics 수치와 Q&A 마스킹은 Owner 승인이 필요하다.
+- GIF 5.00초 frame은 권리 검토용 poster 대안이며, 6.42초 frame은 미확인 정량 성능 문구 때문에 제외한다.
+- production 승인, `public` 추가, frontmatter 연결, `draft`·`featured` 변경은 수행하지 않았다.
+
+세부 결과와 미완료 Owner 체크리스트는 [RoadScanner 비식별화·영상 검토](roadscanner-media-redaction-review.md)를 따른다.

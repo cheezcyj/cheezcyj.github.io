@@ -276,3 +276,17 @@ animated GIF는 직접 확인한 대체 animation 후보다.
 - [ ] `draft` 상태 별도 승인
 
 위 항목은 아직 승인되지 않았으며 완료로 체크하지 않는다.
+
+## 17. Phase 4C-3.1 비식별화 검토 결과
+
+- 허용된 JPG 5개와 animated GIF 1개만 읽어 검토용 결과 8개를 `docs/media-review/roadscanner/revision-2/`에 생성했다.
+- 원본 43개의 SHA-256을 기존 inventory와 다시 비교했으며 불일치가 없다. 원본 수정·복사와 `public` 추가도 없다.
+- Safe Review Candidate는 Feedback Statistics와 Q&A List 2개다. 이는 기술적 비식별화 검토 등급이며 production 승인이나 권리 승인이 아니다.
+- Rights Review Required는 Cover 2개, Upload, Image Management, GIF 5.00초 frame의 5개다.
+- GIF 6.42초 frame은 미확인 정량 성능 문구 때문에 Further Redaction Required이며 최종 poster 후보에서 제외했다.
+- `ffmpeg`, `ffprobe`, Python OpenCV, `imageio`, `imageio-ffmpeg`가 없어 MP4 frame과 contact sheet는 0개다. 우선 MP4 3개를 포함한 13개 모두 시각 검수가 미완료다.
+- MP4 13개는 audio track 존재와 duration만 확인됐고 실제 음성·음악·시스템 소리·무음 여부는 Unknown이다.
+- 팀 UI·로고, 교통표지판·데이터셋 이미지, GIF 그래픽과 자동차·도로 footage 권리는 모두 Pending이다.
+- 상세 crop, 마스크, 후보 순서와 alt는 [Phase 4C-3.1 비식별화·영상 검토](roadscanner-media-redaction-review.md)에 기록했다.
+
+Owner는 기존 체크리스트에 더해 Cover crop, Statistics 수치, Q&A 마스킹, GIF 5.00초 poster와 추후 MP4 frame·audio 검수를 승인해야 한다. production, frontmatter, `draft`와 `featured` 항목은 완료 처리하지 않는다.
