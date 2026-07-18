@@ -3,6 +3,24 @@ title: 'RoadScanner'
 description: '교통표지판 이미지를 업로드해 인식 결과를 확인하고, 피드백·통계·Q&A·회원 관리 기능을 제공한 8인 팀 웹 프로젝트입니다.'
 draft: true
 featured: false
+cover:
+  src: /images/projects/roadscanner/cover.webp
+  alt: 차량과 전방 감지 카메라 그래픽 위에 RoadScanner 로고가 표시된 시작 화면
+  width: 800
+  height: 407
+gallery:
+  - src: /images/projects/roadscanner/feedback-statistics.webp
+    alt: 사용자 피드백 통계를 막대그래프와 표로 보여 주는 화면
+    width: 1920
+    height: 964
+  - src: /images/projects/roadscanner/qna-list.webp
+    alt: 검색, 답변 상태, 페이지네이션 구조가 보이는 비식별화된 Q&A 게시판 화면
+    width: 1920
+    height: 964
+  - src: /images/projects/roadscanner/upload-entry.webp
+    alt: 교통표지판 이미지를 업로드하는 진입 화면
+    width: 1920
+    height: 964
 tags:
   - Team Project
   - Traffic Sign Recognition
