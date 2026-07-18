@@ -204,6 +204,15 @@ async function walkFiles(directory) {
   return files
 }
 
+async function isDirectory(directory) {
+  try {
+    return (await stat(directory)).isDirectory()
+  } catch (error) {
+    if (error?.code === 'ENOENT') return false
+    throw error
+  }
+}
+
 function compareMetadata(entry, metadata, label) {
   for (const key of ['sha256', 'sizeBytes', 'mimeType', 'width', 'height']) {
     assert(
@@ -315,6 +324,7 @@ async function main() {
 
   const v0SourcePaths = new Set()
   const v0Hashes = new Set()
+  const v0SourceAvailable = await isDirectory(v0PublicRoot)
 
   for (const [index, entry] of v0ReferenceAssets.entries()) {
     const label = `v0ReferenceAssets[${index}] (${entry.sourcePath})`
@@ -325,27 +335,40 @@ async function main() {
       entry.sourceStatus === 'v0-sample-placeholder',
       `${label}: sourceStatus must be v0-sample-placeholder`,
     )
+    assert(
+      entry.sourcePath.startsWith('../cheezcyj-blog-redesign/public/'),
+      `${label}: sourcePath must reference the v0 public directory`,
+    )
+    assert(
+      !v0SourcePaths.has(entry.sourcePath),
+      `${label}: duplicate sourcePath`,
+    )
+    assert(!v0Hashes.has(entry.sha256), `${label}: duplicate SHA-256`)
 
-    const sourceAbsolute = resolve(repositoryRoot, entry.sourcePath)
-    const metadata = await getMetadata(sourceAbsolute, entry.sourcePath)
-    compareMetadata(entry, metadata, label)
+    if (v0SourceAvailable) {
+      const sourceAbsolute = resolve(repositoryRoot, entry.sourcePath)
+      const metadata = await getMetadata(sourceAbsolute, entry.sourcePath)
+      compareMetadata(entry, metadata, label)
+    }
     v0SourcePaths.add(entry.sourcePath)
     v0Hashes.add(entry.sha256)
   }
 
-  const actualV0Files = (await walkFiles(v0PublicRoot))
-    .filter((file) => imageExtensions.has(extname(file).toLowerCase()))
-    .map((file) =>
-      toPosixPath(
-        `../cheezcyj-blog-redesign/public/${relative(v0PublicRoot, file)}`,
-      ),
-    )
+  if (v0SourceAvailable) {
+    const actualV0Files = (await walkFiles(v0PublicRoot))
+      .filter((file) => imageExtensions.has(extname(file).toLowerCase()))
+      .map((file) =>
+        toPosixPath(
+          `../cheezcyj-blog-redesign/public/${relative(v0PublicRoot, file)}`,
+        ),
+      )
 
-  assert(
-    actualV0Files.length === v0SourcePaths.size &&
-      actualV0Files.every((file) => v0SourcePaths.has(file)),
-    'v0ReferenceAssets does not cover every image in the v0 public directory',
-  )
+    assert(
+      actualV0Files.length === v0SourcePaths.size &&
+        actualV0Files.every((file) => v0SourcePaths.has(file)),
+      'v0ReferenceAssets does not cover every image in the v0 public directory',
+    )
+  }
 
   const publicFiles = await walkFiles(publicRoot)
   const publicFilesLowercase = new Map()
@@ -372,6 +395,9 @@ async function main() {
   console.log(`- Legacy assets verified: ${legacyAssets.length}`)
   console.log(`- Source/public SHA-256 matches: ${legacyAssets.length}`)
   console.log(`- v0 reference assets excluded: ${v0ReferenceAssets.length}`)
+  console.log(
+    `- v0 source inventory: ${v0SourceAvailable ? 'verified' : 'manifest-only (source repository unavailable)'}`,
+  )
   console.log('- Duplicate public URLs: 0')
   console.log('- Case-insensitive public path collisions: 0')
 }
