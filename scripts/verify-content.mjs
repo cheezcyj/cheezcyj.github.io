@@ -1,14 +1,17 @@
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import sharp from 'sharp'
 import { parse } from 'yaml'
 import {
   getProjectDateIssues,
+  getProjectMediaIssues,
   isPlaceholderAsset,
   isPlaceholderLink,
   isPlaceholderText,
   isValidDateValue,
   isValidLegacyUrl,
+  isValidRootRelativeAssetPath,
   normalizeLegacyUrl,
 } from '../src/config/content-policy.mjs'
 
@@ -17,6 +20,7 @@ const projectRoot = path.resolve(
   '..',
 )
 const collectionRoot = path.join(projectRoot, 'src', 'content')
+const publicRoot = path.join(projectRoot, 'public')
 const collections = ['design', 'projects', 'study', 'posts']
 
 const sourceStatuses = new Set([
@@ -51,9 +55,19 @@ function normalizePublicUrl(value) {
 }
 
 function imagesFor(collection, data) {
-  return [data.cover, ...(collection === 'design' ? (data.gallery ?? []) : [])]
+  return [
+    data.cover,
+    ...(['design', 'projects'].includes(collection)
+      ? (data.gallery ?? [])
+      : []),
+  ]
     .filter(Boolean)
-    .map((image) => ({ src: image?.src, alt: image?.alt }))
+    .map((image) => ({
+      src: image?.src,
+      alt: image?.alt,
+      width: image?.width,
+      height: image?.height,
+    }))
 }
 
 function linksFor(collection, data) {
@@ -120,6 +134,7 @@ function publicationIssues(collection, data, source) {
   }
   if (collection === 'projects') {
     issues.push(...getProjectDateIssues(data))
+    issues.push(...getProjectMediaIssues(data).map((issue) => issue.code))
   }
 
   return [...new Set(issues)]
@@ -153,6 +168,30 @@ async function findContentFiles(directory) {
   }
 
   return files.sort()
+}
+
+async function validateProjectMediaFiles(data, repositoryPath, errors) {
+  for (const image of imagesFor('projects', data)) {
+    if (!isValidRootRelativeAssetPath(image.src)) continue
+
+    const relativePath = image.src.slice(1).replaceAll('/', path.sep)
+    const absolutePath = path.resolve(publicRoot, relativePath)
+    if (!absolutePath.startsWith(`${publicRoot}${path.sep}`)) {
+      errors.push(`${repositoryPath}: project media escapes public directory`)
+      continue
+    }
+
+    try {
+      const metadata = await sharp(absolutePath).metadata()
+      if (metadata.width !== image.width || metadata.height !== image.height) {
+        errors.push(
+          `${repositoryPath}: media dimensions do not match ${image.src}`,
+        )
+      }
+    } catch {
+      errors.push(`${repositoryPath}: missing public media ${image.src}`)
+    }
+  }
 }
 
 function runSelfTests() {
@@ -225,6 +264,82 @@ function runSelfTests() {
       { ...validProject, legacyUrls: ['javascript:alert(1)'] },
       false,
       'invalid-legacy-url',
+    ],
+    [
+      'invalid project media src',
+      'projects',
+      {
+        ...validProject,
+        cover: {
+          src: 'https://example.com/cover.webp',
+          alt: 'Project cover',
+          width: 1280,
+          height: 720,
+        },
+      },
+      false,
+      'invalid-project-media-src',
+    ],
+    [
+      'duplicate project gallery src',
+      'projects',
+      {
+        ...validProject,
+        gallery: [
+          {
+            src: '/images/projects/example/gallery.webp',
+            alt: 'Gallery one',
+            width: 100,
+            height: 100,
+          },
+          {
+            src: '/images/projects/example/gallery.webp',
+            alt: 'Gallery duplicate',
+            width: 100,
+            height: 100,
+          },
+        ],
+      },
+      false,
+      'duplicate-project-gallery-src',
+    ],
+    [
+      'cover duplicated in project gallery',
+      'projects',
+      {
+        ...validProject,
+        cover: {
+          src: '/images/projects/example/cover.webp',
+          alt: 'Project cover',
+          width: 1280,
+          height: 720,
+        },
+        gallery: [
+          {
+            src: '/images/projects/example/cover.webp',
+            alt: 'Duplicate cover',
+            width: 1280,
+            height: 720,
+          },
+        ],
+      },
+      false,
+      'cover-gallery-src-duplicate',
+    ],
+    [
+      'invalid project media dimensions',
+      'projects',
+      {
+        ...validProject,
+        cover: {
+          src: '/images/projects/example/cover.webp',
+          alt: 'Project cover',
+          width: 0,
+          height: 720,
+        },
+      },
+      false,
+      'invalid-project-media-width',
     ],
     [
       'incomplete study',
@@ -383,6 +498,13 @@ try {
         }
 
         if (collection === 'projects') {
+          for (const issue of getProjectMediaIssues(data)) {
+            errors.push(
+              `${repositoryPath}: invalid project media (${issue.code})`,
+            )
+          }
+          await validateProjectMediaFiles(data, repositoryPath, errors)
+
           for (const issue of getProjectDateIssues(data)) {
             errors.push(`${repositoryPath}: invalid project dates (${issue})`)
           }
