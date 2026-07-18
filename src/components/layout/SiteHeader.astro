@@ -32,7 +32,7 @@ const getNavigationHref = (href: string) =>
                   'rounded-site-sm py-1 transition-colors',
                   isCurrent(item.href)
                     ? 'text-site-accent'
-                    : 'text-site-muted hover:text-site-text',
+                    : 'text-site-muted hover:text-site-accent focus-visible:text-site-accent',
                 ]}
               >
                 {item.label}
