@@ -3,12 +3,14 @@ import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 import {
   getProjectDateIssues,
+  getProjectMediaIssues,
   isPlaceholderAsset,
   isPlaceholderLink,
   isPlaceholderText,
   isValidLegacyUrl,
   normalizeLegacyUrl,
   type ProjectDateIssue,
+  type ProjectMediaIssueCode,
 } from './config/content-policy.mjs'
 
 const sourceStatus = z.enum([
@@ -24,6 +26,11 @@ const cover = z.object({
   alt: nonEmptyString,
   width: z.number().int().positive().optional(),
   height: z.number().int().positive().optional(),
+})
+
+const projectMedia = cover.extend({
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
 })
 
 const legacyUrl = z.string().min(1).refine(isValidLegacyUrl, {
@@ -145,6 +152,20 @@ const projectDateIssueDetails: Record<
   },
 }
 
+const projectMediaIssueMessages: Record<ProjectMediaIssueCode, string> = {
+  'invalid-project-media-src':
+    'Project media src must be a root-relative asset path.',
+  'empty-project-media-alt': 'Project media alt must not be empty.',
+  'invalid-project-media-width':
+    'Project media width must be a positive integer.',
+  'invalid-project-media-height':
+    'Project media height must be a positive integer.',
+  'duplicate-project-gallery-src':
+    'Project gallery src values must be unique within an entry.',
+  'cover-gallery-src-duplicate':
+    'Project cover cannot be repeated in the project gallery.',
+}
+
 const designSchema = z
   .object({
     ...common,
@@ -166,6 +187,8 @@ const designSchema = z
 const projectSchema = z
   .object({
     ...common,
+    cover: projectMedia.optional(),
+    gallery: z.array(projectMedia).default([]),
     status: z.enum(['planned', 'in-progress', 'completed', 'archived']),
     startedAt: z.coerce.date().optional(),
     completedAt: z.coerce.date().optional(),
@@ -183,6 +206,14 @@ const projectSchema = z
     for (const issue of getProjectDateIssues(data)) {
       const details = projectDateIssueDetails[issue]
       context.addIssue({ code: 'custom', ...details })
+    }
+
+    for (const issue of getProjectMediaIssues(data)) {
+      context.addIssue({
+        code: 'custom',
+        path: issue.path,
+        message: projectMediaIssueMessages[issue.code],
+      })
     }
   })
 

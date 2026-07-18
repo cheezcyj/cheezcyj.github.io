@@ -5,6 +5,7 @@ import {
 } from 'astro:content'
 import {
   getProjectDateIssues,
+  getProjectMediaIssues,
   isPlaceholderAsset,
   isPlaceholderLink,
   isPlaceholderText,
@@ -23,7 +24,9 @@ function getImages(entry: SiteEntry): Array<{ src: string; alt: string }> {
   const images: Array<{ src: string; alt: string }> = []
 
   if (entry.data.cover) images.push(entry.data.cover)
-  if (entry.collection === 'design') images.push(...entry.data.gallery)
+  if (entry.collection === 'design' || entry.collection === 'projects') {
+    images.push(...entry.data.gallery)
+  }
 
   return images
 }
@@ -94,6 +97,9 @@ export function getPublicationIssues(entry: SiteEntry): string[] {
         issues.push('invalid-completed-date')
       }
       issues.push(...getProjectDateIssues(entry.data))
+      issues.push(
+        ...getProjectMediaIssues(entry.data).map((issue) => issue.code),
+      )
       break
     case 'study':
       if (entry.data.contentStatus !== 'complete') {

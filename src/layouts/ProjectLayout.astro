@@ -20,8 +20,15 @@ interface Props {
 }
 
 const { entry, preview = false, previous, next } = Astro.props
-const { demoUrl, description, highlights, repositoryUrl, status, title } =
-  entry.data
+const {
+  demoUrl,
+  description,
+  gallery,
+  highlights,
+  repositoryUrl,
+  status,
+  title,
+} = entry.data
 const canonicalPath = getProjectPath(entry.id)
 const statusLabel = getProjectStatusLabel(status)
 ---
@@ -105,6 +112,41 @@ const statusLabel = getProjectStatusLabel(status)
         <article class="project-prose">
           <slot />
         </article>
+
+        {
+          gallery.length > 0 && (
+            <section
+              class="project-gallery"
+              aria-labelledby="project-gallery-title"
+            >
+              <header class="project-gallery__header">
+                <p class="project-section-eyebrow">Project Gallery</p>
+                <h2 id="project-gallery-title">화면 구성</h2>
+              </header>
+
+              <div class="project-gallery__grid">
+                {gallery.map((image, index) => (
+                  <figure class="project-gallery__item">
+                    <img
+                      data-project-gallery-image
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      loading="lazy"
+                      decoding="async"
+                      sizes={
+                        index === 0
+                          ? '(min-width: 1280px) 1280px, calc(100vw - 2rem)'
+                          : '(min-width: 768px) 50vw, calc(100vw - 2rem)'
+                      }
+                    />
+                  </figure>
+                ))}
+              </div>
+            </section>
+          )
+        }
 
         <footer class="project-detail__footer">
           <a class="project-back-link" href="/projects/">
@@ -401,6 +443,49 @@ const statusLabel = getProjectStatusLabel(status)
     text-underline-offset: 0.2em;
   }
 
+  .project-gallery {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    border-top: var(--site-border-thin) solid var(--site-color-border);
+    padding-block: clamp(4rem, 9vw, 7rem);
+  }
+
+  .project-gallery__header {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .project-gallery__header h2 {
+    margin: 0;
+    color: var(--site-color-text);
+    font-size: var(--site-text-section);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .project-gallery__grid {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .project-gallery__item {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: var(--site-border-thin) solid var(--site-color-border);
+    border-radius: var(--site-radius-xl);
+    background: var(--site-color-surface);
+  }
+
+  .project-gallery__item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
   .project-detail__footer {
     border-top: var(--site-border-thin) solid var(--site-color-border);
     padding-top: 2rem;
@@ -447,6 +532,14 @@ const statusLabel = getProjectStatusLabel(status)
 
     .project-neighbors {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-gallery__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-gallery__item:first-child {
+      grid-column: 1 / -1;
     }
 
     .project-neighbors a:last-child {

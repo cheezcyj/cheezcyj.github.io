@@ -101,6 +101,110 @@ export function normalizeLegacyUrl(value) {
 }
 
 /** @param {unknown} value */
+export function isValidRootRelativeAssetPath(value) {
+  if (
+    typeof value !== 'string' ||
+    value.length === 0 ||
+    !value.startsWith('/') ||
+    value.startsWith('//') ||
+    /[\s\\?#]/.test(value)
+  ) {
+    return false
+  }
+
+  try {
+    const decoded = decodeURI(value)
+    if (decoded.split('/').some((segment) => ['.', '..'].includes(segment))) {
+      return false
+    }
+
+    const url = new URL(value, 'https://assets.invalid')
+    return (
+      url.origin === 'https://assets.invalid' &&
+      url.pathname === value &&
+      url.search === '' &&
+      url.hash === ''
+    )
+  } catch {
+    return false
+  }
+}
+
+/**
+ * @typedef {{ src?: unknown, alt?: unknown, width?: unknown, height?: unknown }} ProjectMediaReference
+ * @typedef {'invalid-project-media-src' | 'empty-project-media-alt' | 'invalid-project-media-width' | 'invalid-project-media-height' | 'duplicate-project-gallery-src' | 'cover-gallery-src-duplicate'} ProjectMediaIssueCode
+ * @typedef {{ code: ProjectMediaIssueCode, path: Array<string | number> }} ProjectMediaIssue
+ */
+
+/**
+ * @param {{ cover?: ProjectMediaReference, gallery?: ProjectMediaReference[] }} project
+ * @returns {ProjectMediaIssue[]}
+ */
+export function getProjectMediaIssues(project) {
+  /** @type {ProjectMediaIssue[]} */
+  const issues = []
+  const gallery = Array.isArray(project.gallery) ? project.gallery : []
+  const coverSource = isValidRootRelativeAssetPath(project.cover?.src)
+    ? project.cover.src.toLowerCase()
+    : undefined
+  const gallerySources = new Set()
+
+  for (const [kind, image, index] of [
+    ['cover', project.cover, undefined],
+    ...gallery.map((item, itemIndex) => ['gallery', item, itemIndex]),
+  ]) {
+    if (!image) continue
+    const pathPrefix = kind === 'cover' ? ['cover'] : ['gallery', index]
+
+    if (!isValidRootRelativeAssetPath(image.src)) {
+      issues.push({
+        code: 'invalid-project-media-src',
+        path: [...pathPrefix, 'src'],
+      })
+    }
+    if (typeof image.alt !== 'string' || image.alt.trim().length === 0) {
+      issues.push({
+        code: 'empty-project-media-alt',
+        path: [...pathPrefix, 'alt'],
+      })
+    }
+    if (!Number.isInteger(image.width) || image.width <= 0) {
+      issues.push({
+        code: 'invalid-project-media-width',
+        path: [...pathPrefix, 'width'],
+      })
+    }
+    if (!Number.isInteger(image.height) || image.height <= 0) {
+      issues.push({
+        code: 'invalid-project-media-height',
+        path: [...pathPrefix, 'height'],
+      })
+    }
+
+    if (kind !== 'gallery' || !isValidRootRelativeAssetPath(image.src)) {
+      continue
+    }
+
+    const source = image.src.toLowerCase()
+    if (source === coverSource) {
+      issues.push({
+        code: 'cover-gallery-src-duplicate',
+        path: [...pathPrefix, 'src'],
+      })
+    }
+    if (gallerySources.has(source)) {
+      issues.push({
+        code: 'duplicate-project-gallery-src',
+        path: [...pathPrefix, 'src'],
+      })
+    }
+    gallerySources.add(source)
+  }
+
+  return issues
+}
+
+/** @param {unknown} value */
 export function isValidDateValue(value) {
   if (value instanceof Date) return !Number.isNaN(value.getTime())
   if (typeof value !== 'string' && typeof value !== 'number') return false

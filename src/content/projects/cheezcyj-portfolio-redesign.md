@@ -3,6 +3,24 @@ title: 'CHEEZCYJ Portfolio Redesign'
 description: '기존 Jekyll 포트폴리오를 Astro 기반의 정적 포트폴리오 및 학습 아카이브로 전환하는 프로젝트입니다.'
 draft: true
 featured: false
+cover:
+  src: /images/projects/cheezcyj-portfolio-redesign/cover.webp
+  alt: 다크 네이비 배경에 CHEEZCYJ Portfolio Redesign 제목과 프로젝트 화면을 배치한 데스크톱 상세 화면
+  width: 1280
+  height: 720
+gallery:
+  - src: /images/projects/cheezcyj-portfolio-redesign/project-rail-desktop.webp
+    alt: Development Projects 섹션에 Astro 포트폴리오 리디자인 카드를 배치한 데스크톱 화면
+    width: 1440
+    height: 900
+  - src: /images/projects/cheezcyj-portfolio-redesign/mobile-navigation.webp
+    alt: CHOE YOOJEONG 워드마크와 Design부터 GitHub까지의 메뉴를 표시한 모바일 전체 화면 내비게이션
+    width: 390
+    height: 844
+  - src: /images/projects/cheezcyj-portfolio-redesign/project-detail-mobile.webp
+    alt: CHEEZCYJ Portfolio Redesign 프로젝트의 제목과 설명, 미디어와 상태 정보를 세로로 배치한 모바일 상세 화면
+    width: 390
+    height: 844
 tags:
   - Astro
   - TypeScript
