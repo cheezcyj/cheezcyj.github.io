@@ -8,7 +8,7 @@
 
 ## 1. 승인된 최종 이미지
 
-Owner가 갤러리 검토본 세 장과 RoadScanner GIF 첫 프레임을 production 변환 대상으로 승인했다. 최초 승인 Cover였던 context crop JPEG는 이후 Owner 요청에 따라 GIF 첫 프레임으로 교체했다.
+Owner가 갤러리 검토본 세 장과 RoadScanner GIF 첫 프레임을 production 변환 대상으로 승인했다. 최초 승인 Cover였던 context crop JPEG는 이후 Owner 요청에 따라 GIF 첫 프레임으로 교체했고, 후속 요청으로 첫 프레임 상단의 브라우저 주소 표시줄 21px만 제거했다.
 
 1. Cover: `263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif` 첫 프레임
 2. Gallery 1: `videocapture-20231108-170610-redacted-review.jpg`
@@ -36,24 +36,24 @@ Owner가 갤러리 검토본 세 장과 RoadScanner GIF 첫 프레임을 product
 | Gallery 2 | `docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170658-redacted-review.jpg` | `public/images/projects/roadscanner/qna-list.webp`            |
 | Gallery 3 | `docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170206-redacted-review.jpg` | `public/images/projects/roadscanner/upload-entry.webp`        |
 
-새 crop, 확대, 추가 마스크와 색상 변경 없이 source dimensions와 비율을 유지했다. Cover는 GIF 첫 프레임만 정지 WebP로 인코딩했고 animation 자체는 public에 추가하지 않았다. Sharp 기본 동작으로 source metadata를 production WebP에 복사하지 않았다.
+Cover는 GIF 첫 프레임의 상단 21px 주소 표시줄만 Owner 승인 crop으로 제거해 800×386 정지 WebP로 인코딩했다. 그 밖의 확대, 추가 crop, 마스크와 색상 변경은 하지 않았고 animation 자체도 public에 추가하지 않았다. Sharp 기본 동작으로 source metadata를 production WebP에 복사하지 않았다.
 
 ## 4. 출력 metadata
 
 | 파일                       | Dimensions |     용량 | SHA-256                                                            |
 | -------------------------- | ---------- | -------: | ------------------------------------------------------------------ |
-| `cover.webp`               | 800×407    | 60,976 B | `b20d701f546a3541ed4269e41103a1ccb0042cca227bacc9757e677176e0cf46` |
+| `cover.webp`               | 800×386    | 60,130 B | `a4618076eaaceb1744d60638573879fa89644874a4bc69590df48dfdab3c321a` |
 | `feedback-statistics.webp` | 1920×964   | 27,468 B | `dfb9309f1416d9b803f4bfaa3ebc6bf8e617d09e984c5981a5be132a77de59a2` |
 | `qna-list.webp`            | 1920×964   | 36,504 B | `e59fbbe09b00e8fadbc02bb4075139d420a9038a80cfbc95ab906a8577a9e6c9` |
 | `upload-entry.webp`        | 1920×964   | 26,568 B | `4ad0e17cf93f63f21c205ae5ec9cb21a09b3f855fa4c93a9d70e3bac3b7c9882` |
 
-네 파일 모두 MIME `image/webp`, 비어 있지 않은 파일, 설정과 일치하는 dimensions로 확인했다. Cover WebP를 원본 크기로 열어 GIF 첫 프레임과 시각적으로 일치하는지 확인했다. 갤러리 WebP도 승인 검토본의 crop·불투명 마스크가 유지되고 추가 왜곡이 없는지 확인했다.
+네 파일 모두 MIME `image/webp`, 비어 있지 않은 파일, 설정과 일치하는 dimensions로 확인했다. Cover WebP를 원본 크기로 열어 주소 표시줄이 완전히 제거되고 나머지 GIF 첫 프레임이 유지되는지 확인했다. 갤러리 WebP도 승인 검토본의 crop·불투명 마스크가 유지되고 추가 왜곡이 없는지 확인했다.
 
 ## 5. Frontmatter 연결 결과
 
 `src/content/projects/roadscanner.md`에 다음을 연결했다.
 
-- Cover: `/images/projects/roadscanner/cover.webp`, `800×407`
+- Cover: `/images/projects/roadscanner/cover.webp`, `800×386`
 - Gallery 1: `/images/projects/roadscanner/feedback-statistics.webp`, `1920×964`
 - Gallery 2: `/images/projects/roadscanner/qna-list.webp`, `1920×964`
 - Gallery 3: `/images/projects/roadscanner/upload-entry.webp`, `1920×964`
@@ -68,7 +68,8 @@ Codex 인앱 브라우저의 실제 `window.innerWidth`를 각각 320, 375, 768,
 - 홈 project rail과 `/projects/` 카드에서 RoadScanner Draft Preview와 새 Cover가 표시됨
 - 개발 환경 상세 페이지에서 새 Cover와 Gallery 세 장이 지정 순서로 표시됨
 - 모든 조합에서 깨진 이미지 0, 빈 alt 0, document 가로 overflow 0
-- Cover의 실제 로드 dimensions는 800×407, Gallery는 각각 1920×964
+- Cover의 실제 로드 dimensions는 800×386, Gallery는 각각 1920×964
+- 주소 표시줄 crop 반영 후 320과 1440에서 홈·목록·상세 Cover를 다시 검수
 - 320과 1440에서 페이지 끝까지 스크롤해 지연 로딩 Gallery 세 장의 `complete`와 `naturalWidth`를 확인
 - Console error 0
 

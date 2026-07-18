@@ -7,7 +7,7 @@ cover:
   src: /images/projects/roadscanner/cover.webp
   alt: 차량과 전방 감지 카메라 그래픽 위에 RoadScanner 로고가 표시된 시작 화면
   width: 800
-  height: 407
+  height: 386
 gallery:
   - src: /images/projects/roadscanner/feedback-statistics.webp
     alt: 사용자 피드백 통계를 막대그래프와 표로 보여 주는 화면

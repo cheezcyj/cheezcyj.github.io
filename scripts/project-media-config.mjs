@@ -106,9 +106,15 @@ export const PROJECT_MEDIA_PROJECTS = Object.freeze([
         inputWidth: 800,
         inputHeight: 407,
         width: 800,
-        height: 407,
+        height: 386,
+        crop: Object.freeze({
+          left: 0,
+          top: 21,
+          width: 800,
+          height: 386,
+        }),
         sha256:
-          'b20d701f546a3541ed4269e41103a1ccb0042cca227bacc9757e677176e0cf46',
+          'a4618076eaaceb1744d60638573879fa89644874a4bc69590df48dfdab3c321a',
       },
       {
         id: 'feedback-statistics',
