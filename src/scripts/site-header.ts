@@ -20,19 +20,43 @@ const sectionTargets = Array.from(
   .map((id) => document.getElementById(id))
   .filter((target): target is HTMLElement => target instanceof HTMLElement)
 let activeSectionFrame = 0
+let activeSectionId = ''
+let previousScrollY = window.scrollY
 
 const updateActiveSection = () => {
   activeSectionFrame = 0
-  const marker =
-    (header?.getBoundingClientRect().height ?? 0) +
-    Math.min(window.innerHeight * 0.25, 180)
-  let activeSectionId = ''
+  const currentScrollY = window.scrollY
+  const headerHeight = header?.getBoundingClientRect().height ?? 0
+  const marker = headerHeight + Math.min(window.innerHeight * 0.25, 180)
+  let nextActiveSectionId = ''
 
   sectionTargets.forEach((target) => {
     if (target.getBoundingClientRect().top <= marker) {
-      activeSectionId = target.id
+      nextActiveSectionId = target.id
     }
   })
+
+  const aboutTarget = sectionTargets.find((target) => target.id === 'about')
+  const isAtPageBottom =
+    currentScrollY + window.innerHeight >= root.scrollHeight - 2
+  const aboutRetentionMarker =
+    headerHeight + Math.min(window.innerHeight * 0.45, 360)
+
+  if (isAtPageBottom && aboutTarget) {
+    nextActiveSectionId = 'about'
+  }
+
+  if (
+    currentScrollY < previousScrollY &&
+    activeSectionId === 'about' &&
+    aboutTarget &&
+    aboutTarget.getBoundingClientRect().top <= aboutRetentionMarker
+  ) {
+    nextActiveSectionId = 'about'
+  }
+
+  previousScrollY = currentScrollY
+  activeSectionId = nextActiveSectionId
 
   headerSectionLinks.forEach((link) => {
     if (activeSectionId && link.hash === `#${activeSectionId}`) {
