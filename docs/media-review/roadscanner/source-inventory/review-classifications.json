@@ -1,0 +1,303 @@
+{
+  "images/VideoCapture_20231108-170028.jpg": {
+    "scene": "Recognition Result",
+    "risk": "Redaction Required",
+    "privacy": "localhost 주소와 브라우저 UI 노출",
+    "copyright": "업로드 교통표지판 이미지의 출처·사용 권리 확인 필요",
+    "notes": "업로드 이미지와 우회전 인식 결과가 함께 보이는 핵심 기능 장면"
+  },
+  "images/VideoCapture_20231108-170100.jpg": {
+    "scene": "Image Management",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, localhost 주소와 브라우저 UI 노출",
+    "copyright": "목록의 교통표지판 이미지 출처·사용 권리 확인 필요",
+    "notes": "여러 이미지와 선택 상태를 한 화면에 보여 주는 관리 목록"
+  },
+  "images/VideoCapture_20231108-170130.jpg": {
+    "scene": "Image Management",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, 내부 이미지 식별 정보와 localhost 주소 노출",
+    "copyright": "상세 화면의 교통표지판 사진 출처·사용 권리 확인 필요",
+    "notes": "개별 이미지 상세와 관리 동작을 보여 주는 modal"
+  },
+  "images/VideoCapture_20231108-170136.jpg": {
+    "scene": "Image Management",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, localhost 주소와 브라우저 UI 노출",
+    "copyright": "목록의 교통표지판 이미지 출처·사용 권리 확인 필요",
+    "notes": "필터가 열린 이미지 관리 목록"
+  },
+  "images/VideoCapture_20231108-170206.jpg": {
+    "scene": "Upload",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, localhost 주소와 브라우저 UI 노출",
+    "copyright": "업로드 유도용 교통표지판 그래픽의 제작·사용 권리 확인 필요",
+    "notes": "파일 업로드 진입 동작을 보여 주는 화면"
+  },
+  "images/VideoCapture_20231108-170221.jpg": {
+    "scene": "Member",
+    "risk": "Exclude",
+    "privacy": "회원 아이디·이메일과 관리자 계정 목록 노출",
+    "copyright": "특이사항 없음",
+    "notes": "회원·관리자 데이터가 함께 노출되어 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-170240.jpg": {
+    "scene": "Member",
+    "risk": "Exclude",
+    "privacy": "회원 아이디·이메일과 관리자 계정 목록 노출",
+    "copyright": "특이사항 없음",
+    "notes": "회원·관리자 데이터가 함께 노출되어 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-170259.jpg": {
+    "scene": "Member",
+    "risk": "Exclude",
+    "privacy": "회원 아이디·이메일과 관리자 계정 목록 노출",
+    "copyright": "특이사항 없음",
+    "notes": "회원 정지 목록과 계정 데이터가 노출되어 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-170334.jpg": {
+    "scene": "Login",
+    "risk": "Redaction Required",
+    "privacy": "localhost 주소와 브라우저 UI 노출",
+    "copyright": "특이사항 없음",
+    "notes": "아이디 찾기와 비밀번호 재설정 진입 화면"
+  },
+  "images/VideoCapture_20231108-170349.jpg": {
+    "scene": "Login",
+    "risk": "Redaction Required",
+    "privacy": "계정 복구 입력값 가능성, localhost 주소와 브라우저 UI 노출",
+    "copyright": "특이사항 없음",
+    "notes": "비밀번호 재설정 입력 화면"
+  },
+  "images/VideoCapture_20231108-170410.jpg": {
+    "scene": "Login",
+    "risk": "Exclude",
+    "privacy": "이메일, 인증번호와 마스킹된 비밀번호 노출",
+    "copyright": "특이사항 없음",
+    "notes": "계정 인증 정보가 포함되어 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-170507.jpg": {
+    "scene": "My Page",
+    "risk": "Exclude",
+    "privacy": "사용자 아이디와 이메일 주소 노출",
+    "copyright": "특이사항 없음",
+    "notes": "개인 계정 정보가 포함되어 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-170523.jpg": {
+    "scene": "Login",
+    "risk": "Redaction Required",
+    "privacy": "localhost 주소와 브라우저 UI 노출",
+    "copyright": "특이사항 없음",
+    "notes": "입력값이 없는 로그인 화면"
+  },
+  "images/VideoCapture_20231108-170540.jpg": {
+    "scene": "Login",
+    "risk": "Exclude",
+    "privacy": "로그인 아이디와 마스킹된 비밀번호 노출",
+    "copyright": "특이사항 없음",
+    "notes": "인증 입력값이 포함되어 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-170610.jpg": {
+    "scene": "Feedback Statistics",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, localhost 주소와 서비스 통계 원본 노출",
+    "copyright": "특이사항 없음",
+    "notes": "피드백 분류별 누적 수를 막대그래프로 보여 주는 화면"
+  },
+  "images/VideoCapture_20231108-170625.jpg": {
+    "scene": "Feedback Statistics",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, localhost 주소와 서비스 통계 원본 노출",
+    "copyright": "특이사항 없음",
+    "notes": "월별 피드백 변화를 선그래프로 보여 주는 화면"
+  },
+  "images/VideoCapture_20231108-170658.jpg": {
+    "scene": "Q&A List",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, 작성자 식별값과 실제 서비스 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "공지와 답변 상태를 포함한 Q&A 목록"
+  },
+  "images/VideoCapture_20231108-170717.jpg": {
+    "scene": "Q&A Answer",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명과 localhost 주소 노출",
+    "copyright": "특이사항 없음",
+    "notes": "Q&A 입력 editor와 답변 동작 화면"
+  },
+  "images/VideoCapture_20231108-170748.jpg": {
+    "scene": "Q&A Detail",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, 작성자 식별값과 게시물 데이터 노출",
+    "copyright": "첨부 교통표지판 이미지 출처·사용 권리 확인 필요",
+    "notes": "첨부 이미지가 포함된 Q&A 상세"
+  },
+  "images/VideoCapture_20231108-170845.jpg": {
+    "scene": "Q&A List",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, 작성자 식별값과 게시물 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "내 문의글 목록"
+  },
+  "images/VideoCapture_20231108-170909.jpg": {
+    "scene": "Admin",
+    "risk": "Exclude",
+    "privacy": "관리자 화면, 작성자 식별값과 게시물 관리 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "관리자 Q&A 목록이므로 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-170921.jpg": {
+    "scene": "Admin",
+    "risk": "Exclude",
+    "privacy": "관리자 화면, 작성자 식별값과 게시물 관리 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "관리자 Q&A 목록이므로 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-171009.jpg": {
+    "scene": "Q&A Detail",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, 작성자 식별값과 게시물 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "답변 입력 영역이 포함된 Q&A 상세"
+  },
+  "images/VideoCapture_20231108-171016.jpg": {
+    "scene": "Q&A Answer",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, 작성자 식별값과 답변 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "등록된 답변이 포함된 Q&A 상세"
+  },
+  "images/VideoCapture_20231108-171036.jpg": {
+    "scene": "Q&A Answer",
+    "risk": "Redaction Required",
+    "privacy": "로그인 계정명, 작성자 식별값과 답변 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "답변 수정 흐름이 포함된 Q&A 상세"
+  },
+  "images/VideoCapture_20231108-171053.jpg": {
+    "scene": "Admin",
+    "risk": "Exclude",
+    "privacy": "관리자 화면, 작성자 식별값과 게시물 관리 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "선택 상태의 관리자 Q&A 목록"
+  },
+  "images/VideoCapture_20231108-171117.jpg": {
+    "scene": "Admin",
+    "risk": "Exclude",
+    "privacy": "관리자 화면, 작성자 식별값과 게시물 관리 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "관리 작업 확인 dialog가 열린 관리자 Q&A 목록"
+  },
+  "images/VideoCapture_20231108-171137.jpg": {
+    "scene": "Admin",
+    "risk": "Exclude",
+    "privacy": "관리자 화면, 실제 형태의 게시물 제목·작성자와 관리 데이터 노출",
+    "copyright": "특이사항 없음",
+    "notes": "관리자 게시물 데이터가 다수 노출되어 공개 후보에서 제외"
+  },
+  "images/VideoCapture_20231108-171408.jpg": {
+    "scene": "Member",
+    "risk": "Exclude",
+    "privacy": "회원가입 입력값과 계정 정보 가능성 노출",
+    "copyright": "특이사항 없음",
+    "notes": "회원가입 데이터 입력 화면이므로 공개 후보에서 제외"
+  },
+  "videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif": {
+    "scene": "Main",
+    "risk": "Redaction Required",
+    "privacy": "localhost 주소와 브라우저 UI 노출",
+    "copyright": "자동차·도로 영상, 교통표지판 이미지와 RoadScanner 그래픽의 제작·사용 권리 확인 필요",
+    "notes": "서비스 인트로와 교통표지판 인식 AI 웹서비스 설명을 담은 7.26초 애니메이션"
+  },
+  "videos/게시글CRUD.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 화면 내 계정·게시물·localhost 노출 여부 미확인",
+    "copyright": "영상 내 첨부 이미지와 팀 제작 화면의 사용 권리 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/게시판 관리.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 관리자·게시물·계정 데이터 노출 여부 미확인",
+    "copyright": "영상 내 첨부 이미지와 팀 제작 화면의 사용 권리 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/공지CRUD.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 관리자·게시물·계정 데이터 노출 여부 미확인",
+    "copyright": "영상 내 첨부 이미지와 팀 제작 화면의 사용 권리 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/내글보기.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 사용자 계정과 게시물 데이터 노출 여부 미확인",
+    "copyright": "영상 내 첨부 이미지와 팀 제작 화면의 사용 권리 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/답변CRUD.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 작성자·답변·계정 데이터 노출 여부 미확인",
+    "copyright": "영상 내 첨부 이미지와 팀 제작 화면의 사용 권리 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/데이터통계.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 계정명과 통계 원본 데이터 노출 여부 미확인",
+    "copyright": "팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/로그인화면.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 로그인 입력값 노출 여부 미확인",
+    "copyright": "팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/마이페이지.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 아이디·이메일 등 계정 정보 노출 여부 미확인",
+    "copyright": "팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/아이디비번찾기.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 이메일·인증번호·비밀번호 노출 여부 미확인",
+    "copyright": "팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/유저관리.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 회원·관리자 계정 목록 노출 여부 미확인",
+    "copyright": "팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/이미지관리.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 계정명과 내부 이미지 식별 정보 노출 여부 미확인",
+    "copyright": "교통표지판 이미지 출처와 팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/파일인식.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 계정명·localhost·업로드 이미지 노출 여부 미확인",
+    "copyright": "업로드 교통표지판 이미지 출처와 팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  },
+  "videos/회원가입.mp4": {
+    "scene": "Unknown",
+    "risk": "Review",
+    "privacy": "영상 frame 미추출로 회원가입 입력값과 계정 정보 노출 여부 미확인",
+    "copyright": "팀 제작 화면의 사용 동의 확인 필요",
+    "notes": "파일명으로 장면을 확정하지 않고 metadata만 기록"
+  }
+}
