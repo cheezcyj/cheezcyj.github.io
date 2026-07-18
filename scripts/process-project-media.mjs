@@ -4,7 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import {
-  PROJECT_MEDIA_ITEMS,
+  PROJECT_MEDIA_PROJECTS,
   PROJECT_MEDIA_WEBP_OPTIONS,
 } from './project-media-config.mjs'
 
@@ -21,18 +21,27 @@ function sha256(buffer) {
   return createHash('sha256').update(buffer).digest('hex')
 }
 
-for (const item of PROJECT_MEDIA_ITEMS) {
+const requestedProjectId = process.argv[2] ?? 'cheezcyj-portfolio-redesign'
+const selectedProjects = PROJECT_MEDIA_PROJECTS.filter(
+  (project) => project.id === requestedProjectId,
+)
+
+if (selectedProjects.length === 0) {
+  throw new Error(`Unknown project media id: ${requestedProjectId}`)
+}
+
+for (const item of selectedProjects.flatMap((project) => project.items)) {
   const inputPath = absolutePath(item.input)
   const outputPath = absolutePath(item.output)
   const inputMetadata = await sharp(inputPath).metadata()
 
   if (
-    inputMetadata.format !== 'png' ||
+    inputMetadata.format !== item.inputFormat ||
     inputMetadata.width !== item.inputWidth ||
     inputMetadata.height !== item.inputHeight
   ) {
     throw new Error(
-      `${item.input}: expected PNG ${item.inputWidth}x${item.inputHeight}, received ${inputMetadata.format ?? 'unknown'} ${inputMetadata.width ?? 0}x${inputMetadata.height ?? 0}`,
+      `${item.input}: expected ${item.inputFormat.toUpperCase()} ${item.inputWidth}x${item.inputHeight}, received ${inputMetadata.format ?? 'unknown'} ${inputMetadata.width ?? 0}x${inputMetadata.height ?? 0}`,
     )
   }
 

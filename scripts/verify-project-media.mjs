@@ -6,26 +6,13 @@ import sharp from 'sharp'
 import { parse } from 'yaml'
 import {
   PROJECT_MEDIA_ITEMS,
+  PROJECT_MEDIA_PROJECTS,
   PROJECT_MEDIA_WEBP_OPTIONS,
 } from './project-media-config.mjs'
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '..',
-)
-const productionDirectory = path.join(
-  projectRoot,
-  'public',
-  'images',
-  'projects',
-  'cheezcyj-portfolio-redesign',
-)
-const contentPath = path.join(
-  projectRoot,
-  'src',
-  'content',
-  'projects',
-  'cheezcyj-portfolio-redesign.md',
 )
 
 function absolutePath(relativePath) {
@@ -52,104 +39,155 @@ function isWebp(buffer) {
 
 const errors = []
 const hashes = new Map()
-const expectedFileNames = new Set(
-  PROJECT_MEDIA_ITEMS.map((item) => path.basename(item.output)),
-)
-const actualFileNames = new Set(await readdir(productionDirectory))
+let localSourceMappingsSkipped = 0
 
-for (const fileName of expectedFileNames) {
-  if (!actualFileNames.has(fileName)) errors.push(`missing file: ${fileName}`)
-}
-for (const fileName of actualFileNames) {
-  if (!expectedFileNames.has(fileName)) {
-    errors.push(`unapproved file in production media directory: ${fileName}`)
-  }
-}
-
-const content = parseFrontmatter(await readFile(contentPath, 'utf8'))
-const contentMedia = [content.cover, ...(content.gallery ?? [])]
-const contentBySource = new Map(
-  contentMedia
-    .filter((item) => item && typeof item.src === 'string')
-    .map((item) => [item.src, item]),
-)
-
-if (contentMedia.length !== PROJECT_MEDIA_ITEMS.length) {
-  errors.push(
-    `frontmatter media count mismatch: expected ${PROJECT_MEDIA_ITEMS.length}, received ${contentMedia.length}`,
+for (const project of PROJECT_MEDIA_PROJECTS) {
+  const expectedFileNames = new Set(
+    project.items.map((item) => path.basename(item.output)),
   )
-}
-
-for (const item of PROJECT_MEDIA_ITEMS) {
-  const inputPath = absolutePath(item.input)
-  const outputPath = absolutePath(item.output)
 
   try {
-    const outputStat = await stat(outputPath)
-    if (outputStat.size <= 0) errors.push(`${item.output}: zero-byte file`)
+    const actualFileNames = new Set(
+      await readdir(absolutePath(project.productionDirectory)),
+    )
 
-    const outputBuffer = await readFile(outputPath)
-    if (!isWebp(outputBuffer)) errors.push(`${item.output}: invalid WebP MIME`)
-
-    const metadata = await sharp(outputBuffer).metadata()
-    if (metadata.format !== 'webp') {
-      errors.push(`${item.output}: sharp format is not webp`)
-    }
-    if (metadata.width !== item.width || metadata.height !== item.height) {
-      errors.push(
-        `${item.output}: expected ${item.width}x${item.height}, received ${metadata.width ?? 0}x${metadata.height ?? 0}`,
-      )
-    }
-
-    let expectedPipeline = sharp(inputPath)
-    if (item.crop) expectedPipeline = expectedPipeline.extract(item.crop)
-    const expectedBuffer = await expectedPipeline
-      .webp(PROJECT_MEDIA_WEBP_OPTIONS)
-      .toBuffer()
-    if (sha256(expectedBuffer) !== sha256(outputBuffer)) {
-      errors.push(
-        `${item.output}: output does not match approved source mapping`,
-      )
-    }
-
-    const hash = sha256(outputBuffer)
-    if (hashes.has(hash)) {
-      errors.push(`${item.output}: duplicate hash with ${hashes.get(hash)}`)
-    }
-    hashes.set(hash, item.output)
-
-    const frontmatterImage = contentBySource.get(item.publicPath)
-    if (!frontmatterImage) {
-      errors.push(`${item.publicPath}: missing from project frontmatter`)
-    } else {
-      if (
-        frontmatterImage.width !== item.width ||
-        frontmatterImage.height !== item.height
-      ) {
-        errors.push(`${item.publicPath}: frontmatter dimensions do not match`)
+    for (const fileName of expectedFileNames) {
+      if (!actualFileNames.has(fileName)) {
+        errors.push(`${project.id}: missing file: ${fileName}`)
       }
-      if (
-        typeof frontmatterImage.alt !== 'string' ||
-        frontmatterImage.alt.trim().length === 0
-      ) {
-        errors.push(`${item.publicPath}: empty frontmatter alt`)
+    }
+    for (const fileName of actualFileNames) {
+      if (!expectedFileNames.has(fileName)) {
+        errors.push(
+          `${project.id}: unapproved file in production media directory: ${fileName}`,
+        )
       }
     }
   } catch (error) {
     errors.push(error instanceof Error ? error.message : String(error))
   }
-}
 
-const ownerReview = await readFile(
-  path.join(projectRoot, 'docs', 'project-media-review.md'),
-  'utf8',
-)
-if (
-  !ownerReview.includes('Revision 2') ||
-  !ownerReview.includes('Draft Preview') ||
-  !ownerReview.includes('미노출')
-) {
-  errors.push('Owner review does not record approved Draft Preview removal.')
+  try {
+    const content = parseFrontmatter(
+      await readFile(absolutePath(project.content), 'utf8'),
+    )
+    const contentMedia = [content.cover, ...(content.gallery ?? [])].filter(
+      Boolean,
+    )
+    const contentBySource = new Map(
+      contentMedia
+        .filter((item) => item && typeof item.src === 'string')
+        .map((item) => [item.src, item]),
+    )
+
+    if (contentMedia.length !== project.items.length) {
+      errors.push(
+        `${project.id}: frontmatter media count mismatch: expected ${project.items.length}, received ${contentMedia.length}`,
+      )
+    }
+
+    for (const item of project.items) {
+      const inputPath = absolutePath(item.input)
+      const outputPath = absolutePath(item.output)
+
+      try {
+        const outputStat = await stat(outputPath)
+        if (outputStat.size <= 0) errors.push(`${item.output}: zero-byte file`)
+
+        const outputBuffer = await readFile(outputPath)
+        if (!isWebp(outputBuffer)) {
+          errors.push(`${item.output}: invalid WebP MIME`)
+        }
+
+        const metadata = await sharp(outputBuffer).metadata()
+        if (metadata.format !== 'webp') {
+          errors.push(`${item.output}: sharp format is not webp`)
+        }
+        if (metadata.width !== item.width || metadata.height !== item.height) {
+          errors.push(
+            `${item.output}: expected ${item.width}x${item.height}, received ${metadata.width ?? 0}x${metadata.height ?? 0}`,
+          )
+        }
+
+        const hash = sha256(outputBuffer)
+        if (item.sha256 && item.sha256 !== hash) {
+          errors.push(`${item.output}: approved SHA-256 mismatch`)
+        }
+
+        let sourceAvailable = true
+        try {
+          await stat(inputPath)
+        } catch (error) {
+          if (
+            project.sourcesLocalOnly &&
+            error instanceof Error &&
+            'code' in error &&
+            error.code === 'ENOENT'
+          ) {
+            sourceAvailable = false
+            localSourceMappingsSkipped += 1
+          } else {
+            throw error
+          }
+        }
+
+        if (sourceAvailable) {
+          let expectedPipeline = sharp(inputPath)
+          if (item.crop) expectedPipeline = expectedPipeline.extract(item.crop)
+          const expectedBuffer = await expectedPipeline
+            .webp(PROJECT_MEDIA_WEBP_OPTIONS)
+            .toBuffer()
+          if (sha256(expectedBuffer) !== hash) {
+            errors.push(
+              `${item.output}: output does not match approved source mapping`,
+            )
+          }
+        }
+
+        if (hashes.has(hash)) {
+          errors.push(`${item.output}: duplicate hash with ${hashes.get(hash)}`)
+        }
+        hashes.set(hash, item.output)
+
+        const frontmatterImage = contentBySource.get(item.publicPath)
+        if (!frontmatterImage) {
+          errors.push(`${item.publicPath}: missing from project frontmatter`)
+        } else {
+          if (
+            frontmatterImage.width !== item.width ||
+            frontmatterImage.height !== item.height
+          ) {
+            errors.push(
+              `${item.publicPath}: frontmatter dimensions do not match`,
+            )
+          }
+          if (
+            typeof frontmatterImage.alt !== 'string' ||
+            frontmatterImage.alt.trim().length === 0
+          ) {
+            errors.push(`${item.publicPath}: empty frontmatter alt`)
+          }
+        }
+      } catch (error) {
+        errors.push(error instanceof Error ? error.message : String(error))
+      }
+    }
+
+    const ownerReview = await readFile(
+      absolutePath(project.ownerReview.path),
+      'utf8',
+    )
+    const missingMarkers = project.ownerReview.markers.filter(
+      (marker) => !ownerReview.includes(marker),
+    )
+    if (missingMarkers.length > 0) {
+      errors.push(
+        `${project.id}: Owner review is missing markers: ${missingMarkers.join(', ')}`,
+      )
+    }
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : String(error))
+  }
 }
 
 if (errors.length > 0) {
@@ -158,11 +196,13 @@ if (errors.length > 0) {
   process.exitCode = 1
 } else {
   console.log('Project media verification passed.')
+  console.log(`- Approved projects: ${PROJECT_MEDIA_PROJECTS.length}`)
   console.log(`- Approved WebP files: ${PROJECT_MEDIA_ITEMS.length}`)
   console.log('- Missing files: 0')
   console.log('- Invalid MIME types: 0')
   console.log('- Dimension mismatches: 0')
   console.log('- Duplicate hashes: 0')
+  console.log(`- Local source mappings skipped: ${localSourceMappingsSkipped}`)
   console.log('- Frontmatter media mismatches: 0')
   console.log('- Unapproved sample files: 0')
 }
