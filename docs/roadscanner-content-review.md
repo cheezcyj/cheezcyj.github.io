@@ -1,6 +1,6 @@
 # RoadScanner 콘텐츠 Owner 검토
 
-이 문서는 RoadScanner 프로젝트 초안의 근거와 미확인 항목을 분리해 기록한다. 현재 콘텐츠는 `draft: true`, `sourceStatus: inventory-only`이며 공개 대상이 아니다.
+이 문서는 RoadScanner 프로젝트 초안의 근거와 미확인 항목을 분리해 기록한다. Owner가 콘텐츠 사실관계와 역할을 승인해 현재 상태는 `draft: true`, `sourceStatus: verified`다. 미디어와 최종 공개 승인은 아직 완료되지 않아 공개 대상이 아니다.
 
 ## 1. 확인한 로컬 경로
 
@@ -56,7 +56,7 @@ tags:
   - Traffic Sign Recognition
   - Image Upload
   - Q&A
-sourceStatus: inventory-only
+sourceStatus: verified
 status: completed
 startedAt: 2023-07-05
 completedAt: 2023-08-29
@@ -69,6 +69,8 @@ stack:
   - JavaScript
   - AWS S3
 roles:
+  - Main Feature Development
+  - Machine Learning / Deep Learning Development
   - Q&A Board Development
   - JSP UI Integration
   - Feature Integration
@@ -123,7 +125,15 @@ README는 최유정을 8인 팀원 중 한 명으로 기록한다. `cheezcyj`가
 - JSP, JavaScript, CSS와 공통 레이아웃 통합
 - 파일 업로드 검증과 main 브랜치 기능 통합
 
-현재 `roles`는 이 커밋 범위에 맞춰 작성했다. Owner는 역할명이 실제 팀 내 표현과 맞는지, 공동 작업을 개인 단독 구현처럼 보이게 하지 않는지 검토해야 한다.
+공개 커밋에서 확인한 역할과 별도로 Owner는 메인 기능 개발과 머신러닝·딥러닝 개발에 참여했다고 확인했다. 현재 `roles`는 저장소 근거와 Owner 직접 확인을 함께 반영한다.
+
+- `Main Feature Development`: Owner 직접 확인
+- `Machine Learning / Deep Learning Development`: Owner 직접 확인
+- `Q&A Board Development`: 공개 커밋으로 확인
+- `JSP UI Integration`: 공개 커밋으로 확인
+- `Feature Integration`: 공개 커밋으로 확인
+
+공동 프로젝트라는 표현은 유지하며 개인 단독 개발로 기술하지 않는다. 모델 학습 코드와 데이터셋은 공개 저장소에서 확인되지 않으므로 머신러닝·딥러닝의 세부 구현 방식과 성능은 별도 근거 없이 확장하지 않는다.
 
 ## 9. 기술 스택 확인 항목
 
@@ -139,6 +149,8 @@ README는 최유정을 8인 팀원 중 한 명으로 기록한다. `cheezcyj`가
 
 Flask는 예측 API 호출 대상 코드로 확인되지만, 별도 Flask 서버 소스와 의존성 파일은 현재 저장소에서 확인되지 않아 frontmatter `stack`에는 넣지 않았다. Chart.js는 JSP와 JavaScript에서 확인되며 본문에만 기록했다.
 
+머신러닝·딥러닝 개발 참여는 Owner가 역할로 승인했지만, 공개 저장소에서 학습 환경을 재현할 dependency와 소스가 확인되지 않아 frontmatter `stack`에는 추측해 추가하지 않았다.
+
 ## 10. 프로젝트 기간 확인
 
 - 시작일: 2023년 7월 5일
@@ -153,7 +165,7 @@ README에 종료일이 명시되어 있어 `status: completed`로 분류했다. 
 
 ## 12. repository 공개 승인
 
-저장소가 Public인 사실과 URL은 확인했다. 콘텐츠에 `repositoryUrl`을 포함했지만 프로젝트 카드와 상세는 draft 정책으로 공개되지 않는다. 최종 공개 전에 Owner가 저장소 내부의 설정 파일, 빌드 산출물과 모델 파일까지 외부에 연결해도 되는지 다시 승인해야 한다.
+저장소가 Public인 사실과 URL을 확인했고 Owner가 콘텐츠의 저장소 연결을 승인했다. `repositoryUrl`은 유지하지만 프로젝트 카드와 상세는 draft 정책으로 공개되지 않는다. 최종 공개 승인은 미디어와 외부 노출 범위를 다시 확인한 뒤 별도로 진행한다.
 
 ## 13. demo URL 여부
 
@@ -171,36 +183,39 @@ README와 저장소 메타데이터에서 현재 동작하는 공개 demo URL을
 
 현재 공개 가능한 정확도, 속도, 사용자 수, Lighthouse 점수, 수상 내역과 같은 정량 성과는 확인되지 않았다. 수치가 필요하면 측정 방법과 원본 근거를 Owner가 제공해야 한다.
 
-## 17. sourceStatus verified 전환 조건
+## 17. sourceStatus verified 전환 결과
 
-- 제목과 한 줄 설명 승인
-- 팀 구성, 기간, 목표와 기능 사실관계 승인
-- 사용자 역할과 기여 범위 승인
-- 기술 스택 승인
-- 저장소 링크 공개 승인
-- cover와 gallery의 소유권·개인정보·공개 범위 승인
-- 본문에 포함할 문제 해결과 회고를 Owner가 직접 확인
+Owner가 다음 항목을 승인했다.
 
-조건을 충족한 뒤에만 `sourceStatus: verified` 전환을 별도 단계로 진행한다.
+- 제목과 한 줄 설명
+- 8인 팀 구성, 기간, 목표와 기능 사실관계
+- 기존 공개 커밋으로 확인한 역할과 기여 범위
+- 메인 기능 개발과 머신러닝·딥러닝 개발 참여
+- 기술 스택과 프로젝트 완료 상태
+- 시작일과 완료일
+- 공개 GitHub 저장소 연결
+- 현재 본문 내용
+
+이에 따라 `sourceStatus: verified`로 전환했다. 현재 연결된 cover와 gallery는 없으며, 미디어 승인과 정량 성과, demo URL 및 최종 공개 승인은 이 전환에 포함하지 않았다.
 
 ## 18. draft 해제 조건
 
-`sourceStatus: verified` 전환, 대표 이미지 준비, 상세 페이지 시각 검수, 외부 링크 안전성 확인과 Owner의 최종 공개 승인이 모두 필요하다. 이번 단계에서는 `draft: true`를 유지한다.
+대표 이미지 준비, 상세 페이지 시각 검수, 외부 링크 안전성 확인과 Owner의 최종 공개 승인이 모두 필요하다. 이번 단계에서는 `draft: true`, `featured: false`를 유지한다.
 
 ## 19. Owner 체크리스트
 
-- [ ] 프로젝트 제목
-- [ ] 한 줄 설명
-- [ ] 사실관계
-- [ ] 사용자 역할
-- [ ] 기술 스택
-- [ ] 프로젝트 상태
-- [ ] 시작일
-- [ ] 완료일
-- [ ] 저장소 공개 여부
+- [x] 프로젝트 제목
+- [x] 한 줄 설명
+- [x] 사실관계
+- [x] 사용자 역할
+- [x] 기술 스택
+- [x] 프로젝트 상태
+- [x] 시작일
+- [x] 완료일
+- [x] 저장소 공개 여부
 - [ ] demo URL
 - [ ] 대표 이미지
 - [ ] 상세 이미지
 - [ ] 공개 가능한 성과
-- [ ] sourceStatus verified 전환
+- [x] sourceStatus verified 전환
 - [ ] 최종 공개 승인
