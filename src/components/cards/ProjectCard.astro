@@ -142,6 +142,9 @@ const statusLabel = getProjectStatusLabel(status)
     color: var(--site-color-text);
     font-size: var(--site-text-xl);
     line-height: 1.3;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
   }
 
   .project-card__title a {
@@ -160,6 +163,9 @@ const statusLabel = getProjectStatusLabel(status)
     color: var(--site-color-text-muted);
     font-size: var(--site-text-sm);
     line-height: 1.65;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+    word-break: keep-all;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
@@ -187,6 +193,7 @@ const statusLabel = getProjectStatusLabel(status)
     color: var(--site-color-text-muted);
     font-size: var(--site-text-xs);
     font-weight: 600;
+    overflow-wrap: break-word;
   }
 
   .project-card__links {

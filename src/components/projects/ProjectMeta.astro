@@ -68,6 +68,9 @@ const period = getProjectPeriod(entry)
     margin: 0;
     color: var(--site-color-text);
     line-height: 1.55;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+    word-break: keep-all;
   }
 
   .project-meta__stack {
@@ -87,5 +90,6 @@ const period = getProjectPeriod(entry)
     color: var(--site-color-text-muted);
     font-size: var(--site-text-xs);
     font-weight: 600;
+    overflow-wrap: break-word;
   }
 </style>

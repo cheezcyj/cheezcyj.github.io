@@ -1,6 +1,5 @@
 ---
 import type { ProjectEntry } from '../../utils/projects'
-import { getProjectStatusLabel } from '../../utils/projects'
 
 interface Props {
   entry: ProjectEntry
@@ -13,8 +12,7 @@ const {
   eager = false,
   sizes = '(min-width: 1024px) 50vw, 100vw',
 } = Astro.props
-const { cover, status, title } = entry.data
-const statusLabel = getProjectStatusLabel(status)
+const { cover, title } = entry.data
 ---
 
 <div class="project-media" data-project-media>
@@ -40,8 +38,7 @@ const statusLabel = getProjectStatusLabel(status)
         <div class="project-media__grid" aria-hidden="true" />
         <div class="project-media__fallback-content" aria-hidden="true">
           <span class="project-media__wordmark">CHEEZCYJ</span>
-          <strong>Astro / Portfolio Redesign</strong>
-          <span>{statusLabel}</span>
+          <strong>ASTRO × PORTFOLIO</strong>
         </div>
       </div>
     )
@@ -107,12 +104,11 @@ const statusLabel = getProjectStatusLabel(status)
   .project-media__fallback-content strong {
     color: var(--site-color-text);
     font-size: clamp(1rem, 2.4vw, 1.5rem);
+    letter-spacing: 0.08em;
     line-height: 1.2;
-  }
-
-  .project-media__fallback-content > span:last-child {
-    color: var(--site-color-text-muted);
-    font-size: var(--site-text-sm);
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
   }
 
   .project-media__wordmark {
