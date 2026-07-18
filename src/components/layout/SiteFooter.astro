@@ -30,14 +30,6 @@ const currentYear = new Date().getFullYear()
               <li>
                 <a
                   href={item.href}
-                  target={
-                    'external' in item && item.external ? '_blank' : undefined
-                  }
-                  rel={
-                    'external' in item && item.external
-                      ? 'noopener noreferrer'
-                      : undefined
-                  }
                   class="rounded-site-sm text-site-muted transition-colors hover:text-site-accent"
                 >
                   {item.label}

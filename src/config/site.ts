@@ -15,5 +15,4 @@ export const navigation = [
   { label: 'Study', href: '/study/' },
   { label: 'Posts', href: '/posts/' },
   { label: 'About', href: '/about/' },
-  { label: 'GitHub', href: siteConfig.github, external: true },
 ] as const

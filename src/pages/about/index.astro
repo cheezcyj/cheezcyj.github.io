@@ -1,0 +1,40 @@
+---
+import SiteFooter from '../../components/layout/SiteFooter.astro'
+import SiteHeader from '../../components/layout/SiteHeader.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const description =
+  '웹디자인, 웹퍼블리싱과 프론트엔드 작업을 이어가는 최유정의 소개 페이지입니다.'
+---
+
+<BaseLayout title="About" description={description}>
+  <div class="relative z-[var(--site-z-content)] min-h-screen">
+    <SiteHeader />
+    <main id="main-content" data-site-main tabindex="-1">
+      <section class="section-shell" aria-labelledby="page-title">
+        <div class="site-container">
+          <header class="max-w-3xl">
+            <p
+              class="mb-2 text-site-xs font-semibold tracking-[0.2em] text-site-accent uppercase"
+            >
+              About
+            </p>
+            <h1
+              id="page-title"
+              class="text-site-section leading-tight font-bold tracking-tight text-site-text"
+            >
+              CHOE YOOJEONG
+            </h1>
+            <p class="mt-4 text-site-base leading-relaxed text-site-muted">
+              {description}
+            </p>
+            <p class="mt-8 text-site-base leading-relaxed text-site-muted">
+              상세 소개 콘텐츠를 정리 중입니다.
+            </p>
+          </header>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

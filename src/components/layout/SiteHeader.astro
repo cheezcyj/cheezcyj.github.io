@@ -3,6 +3,8 @@ import { navigation, siteConfig } from '../../config/site'
 
 const currentPath = Astro.url.pathname
 const isCurrent = (href: string) => href !== '/' && currentPath.startsWith(href)
+const getNavigationHref = (href: string) =>
+  currentPath === '/' ? `#${href.split('/').filter(Boolean).join('/')}` : href
 ---
 
 <header class="site-header" data-site-header>
@@ -24,15 +26,7 @@ const isCurrent = (href: string) => href !== '/' && currentPath.startsWith(href)
           navigation.map((item) => (
             <li>
               <a
-                href={item.href}
-                target={
-                  'external' in item && item.external ? '_blank' : undefined
-                }
-                rel={
-                  'external' in item && item.external
-                    ? 'noopener noreferrer'
-                    : undefined
-                }
+                href={getNavigationHref(item.href)}
                 aria-current={isCurrent(item.href) ? 'page' : undefined}
                 class:list={[
                   'rounded-site-sm py-1 transition-colors',
@@ -97,15 +91,7 @@ const isCurrent = (href: string) => href !== '/' && currentPath.startsWith(href)
         navigation.map((item) => (
           <li>
             <a
-              href={item.href}
-              target={
-                'external' in item && item.external ? '_blank' : undefined
-              }
-              rel={
-                'external' in item && item.external
-                  ? 'noopener noreferrer'
-                  : undefined
-              }
+              href={getNavigationHref(item.href)}
               aria-current={isCurrent(item.href) ? 'page' : undefined}
               class:list={[
                 'block rounded-site-md py-2 text-3xl font-bold tracking-tight transition-colors sm:text-4xl',
