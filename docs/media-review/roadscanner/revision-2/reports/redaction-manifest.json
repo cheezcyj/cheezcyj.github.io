@@ -1,0 +1,997 @@
+{
+  "generated_at": "2026-07-18T09:54:57.081068+00:00",
+  "source_root": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source",
+  "output_root": "C:\\Users\\user\\Desktop\\portfolio-workspace\\cheezcyj.github.io\\docs\\media-review\\roadscanner\\revision-2",
+  "source_protection": {
+    "source_files_modified": false,
+    "source_files_copied": false,
+    "source_metadata_modified": false
+  },
+  "method": {
+    "image_library": "Pillow 12.2.0",
+    "crop_before_mask_priority": true,
+    "mask_type": "fully opaque solid rectangles",
+    "blur_used": false,
+    "generative_editing_used": false,
+    "fake_data_inserted": false
+  },
+  "outputs": [
+    {
+      "id": "cover-function",
+      "classification": "Rights Review Required",
+      "rights": ["uploaded traffic-sign image: Pending", "team UI: Pending"],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/images/VideoCapture_20231108-170028.jpg",
+      "source_sha256": "eb2148534d6cdb8535ebc78440d2840183cef71a109c7ce73dc5132daec0c8a4",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/proposed-crops/videocapture-20231108-170028-function-crop-preview.jpg",
+      "output_sha256": "82d67c00cd982401f951f0de7782aa1f6cd3c22f6183e37ed2f65a6862242e89",
+      "crop": {
+        "x": 160,
+        "y": 176,
+        "width": 1440,
+        "height": 810
+      },
+      "output_width": 1440,
+      "output_height": 810,
+      "masks": [
+        {
+          "label": "localhost alert/dialog",
+          "source_coordinates": {
+            "x": 710,
+            "y": 90,
+            "width": 500,
+            "height": 145
+          },
+          "output_coordinates": {
+            "x": 550,
+            "y": 0,
+            "width": 500,
+            "height": 59
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        }
+      ],
+      "metadata_removed": true
+    },
+    {
+      "id": "cover-context",
+      "classification": "Rights Review Required",
+      "rights": ["uploaded traffic-sign image: Pending", "team UI: Pending"],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/images/VideoCapture_20231108-170028.jpg",
+      "source_sha256": "eb2148534d6cdb8535ebc78440d2840183cef71a109c7ce73dc5132daec0c8a4",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/proposed-crops/videocapture-20231108-170028-context-crop-preview.jpg",
+      "output_sha256": "e8eb71639b72a5cbaa09d3c53cbb9c9face950e479d79f54e4bb70b52d4db80b",
+      "crop": {
+        "x": 96,
+        "y": 96,
+        "width": 1728,
+        "height": 972
+      },
+      "output_width": 1728,
+      "output_height": 972,
+      "masks": [
+        {
+          "label": "localhost alert/dialog",
+          "source_coordinates": {
+            "x": 710,
+            "y": 90,
+            "width": 500,
+            "height": 145
+          },
+          "output_coordinates": {
+            "x": 614,
+            "y": 0,
+            "width": 500,
+            "height": 139
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        }
+      ],
+      "metadata_removed": true
+    },
+    {
+      "id": "gallery-upload",
+      "classification": "Rights Review Required",
+      "rights": ["upload graphic: Pending", "team UI: Pending"],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/images/VideoCapture_20231108-170206.jpg",
+      "source_sha256": "bdfe32b9a47958f0278e8e2130b5d7649d0e435e8edce8192c2175650f015a32",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170206-redacted-review.jpg",
+      "output_sha256": "c2e6b2c4bb8aedee7419e701ec68fec4eaa7e291190704869094f4c50d3631c8",
+      "crop": {
+        "x": 0,
+        "y": 96,
+        "width": 1920,
+        "height": 964
+      },
+      "output_width": 1920,
+      "output_height": 964,
+      "masks": [
+        {
+          "label": "signed-in account name and account menu",
+          "source_coordinates": {
+            "x": 1360,
+            "y": 96,
+            "width": 555,
+            "height": 81
+          },
+          "output_coordinates": {
+            "x": 1360,
+            "y": 0,
+            "width": 555,
+            "height": 81
+          },
+          "fill": "#e3e3e3",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "browser status localhost URL",
+          "source_coordinates": {
+            "x": 0,
+            "y": 1028,
+            "width": 190,
+            "height": 32
+          },
+          "output_coordinates": {
+            "x": 0,
+            "y": 932,
+            "width": 190,
+            "height": 32
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        }
+      ],
+      "metadata_removed": true
+    },
+    {
+      "id": "gallery-statistics",
+      "classification": "Safe Review Candidate",
+      "rights": [
+        "team UI: Pending",
+        "aggregate statistics publication: Pending"
+      ],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/images/VideoCapture_20231108-170610.jpg",
+      "source_sha256": "a41aea38694f265367540b4933c88ff4db4b7f3a46c9727c8eee07c53685264d",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170610-redacted-review.jpg",
+      "output_sha256": "3dc4896236eb6f5b8b8d35cc35c49d470493bbf2b21e1c27499604d298575904",
+      "crop": {
+        "x": 0,
+        "y": 96,
+        "width": 1920,
+        "height": 964
+      },
+      "output_width": 1920,
+      "output_height": 964,
+      "masks": [
+        {
+          "label": "signed-in account name and account menu",
+          "source_coordinates": {
+            "x": 1360,
+            "y": 96,
+            "width": 555,
+            "height": 81
+          },
+          "output_coordinates": {
+            "x": 1360,
+            "y": 0,
+            "width": 555,
+            "height": 81
+          },
+          "fill": "#e3e3e3",
+          "method": "fully opaque solid mask"
+        }
+      ],
+      "metadata_removed": true
+    },
+    {
+      "id": "gallery-qna",
+      "classification": "Safe Review Candidate",
+      "rights": ["team UI: Pending"],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/images/VideoCapture_20231108-170658.jpg",
+      "source_sha256": "d6b0dab57d5f52509b711b52d8e5faab63e2a3c9cd654bdd8645e57df3a31e7e",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170658-redacted-review.jpg",
+      "output_sha256": "443288766f8d6113fdf261b8087084ff599ea54874fde3471ee4533b1a84f97e",
+      "crop": {
+        "x": 0,
+        "y": 96,
+        "width": 1920,
+        "height": 964
+      },
+      "output_width": 1920,
+      "output_height": 964,
+      "masks": [
+        {
+          "label": "signed-in account name and account menu",
+          "source_coordinates": {
+            "x": 1360,
+            "y": 96,
+            "width": 555,
+            "height": 81
+          },
+          "output_coordinates": {
+            "x": 1360,
+            "y": 0,
+            "width": 555,
+            "height": 81
+          },
+          "fill": "#e3e3e3",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 374,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 278,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 374,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 278,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 374,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 278,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 412,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 316,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 412,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 316,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 412,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 316,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 450,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 354,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 450,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 354,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 450,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 354,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 488,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 392,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 488,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 392,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 488,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 392,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 526,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 430,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 526,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 430,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 526,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 430,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 564,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 468,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 564,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 468,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 564,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 468,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 602,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 506,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 602,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 506,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 602,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 506,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 640,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 544,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 640,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 544,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 640,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 544,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 678,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 582,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 678,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 582,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 678,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 582,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 716,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 620,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 716,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 620,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 716,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 620,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 754,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 658,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 754,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 658,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 754,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 658,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 792,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 696,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 792,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 696,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 792,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 696,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A internal number",
+          "source_coordinates": {
+            "x": 306,
+            "y": 830,
+            "width": 112,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 306,
+            "y": 734,
+            "width": 112,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A post title",
+          "source_coordinates": {
+            "x": 548,
+            "y": 830,
+            "width": 500,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 548,
+            "y": 734,
+            "width": 500,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "Q&A author identifier",
+          "source_coordinates": {
+            "x": 1040,
+            "y": 830,
+            "width": 220,
+            "height": 27
+          },
+          "output_coordinates": {
+            "x": 1040,
+            "y": 734,
+            "width": 220,
+            "height": 27
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        }
+      ],
+      "metadata_removed": true
+    },
+    {
+      "id": "gallery-image-management",
+      "classification": "Rights Review Required",
+      "rights": ["traffic-sign images: Pending", "team UI: Pending"],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/images/VideoCapture_20231108-170100.jpg",
+      "source_sha256": "07fe13b316db17136963d6003f8186866a73b9e70e029955fa335ec1fe097532",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170100-redacted-review.jpg",
+      "output_sha256": "545d0349e2a726008d56ec60209a402ade0f5190fe6d4f90b6c0007961318aba",
+      "crop": {
+        "x": 0,
+        "y": 96,
+        "width": 1920,
+        "height": 964
+      },
+      "output_width": 1920,
+      "output_height": 964,
+      "masks": [
+        {
+          "label": "signed-in account name and account menu",
+          "source_coordinates": {
+            "x": 1360,
+            "y": 96,
+            "width": 555,
+            "height": 81
+          },
+          "output_coordinates": {
+            "x": 1360,
+            "y": 0,
+            "width": 555,
+            "height": 81
+          },
+          "fill": "#e3e3e3",
+          "method": "fully opaque solid mask"
+        },
+        {
+          "label": "localhost alert/dialog",
+          "source_coordinates": {
+            "x": 710,
+            "y": 90,
+            "width": 500,
+            "height": 145
+          },
+          "output_coordinates": {
+            "x": 710,
+            "y": 0,
+            "width": 500,
+            "height": 139
+          },
+          "fill": "#ffffff",
+          "method": "fully opaque solid mask"
+        }
+      ],
+      "metadata_removed": true
+    },
+    {
+      "id": "gif-poster-70",
+      "classification": "Rights Review Required",
+      "rights": [
+        "RoadScanner logo: Pending",
+        "road/car footage: Pending",
+        "team graphics: Pending"
+      ],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif",
+      "source_sha256": "f3a70a3e236d7ccbd03c8436ba107008ffae0c0c9d35762ad0677256c95ebe40",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/video-frames/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd-frame-70.jpg",
+      "output_sha256": "4805fa6f8bb7d4dc28b6e686cb05088cd4797735886fa20f49445d5db1d9742a",
+      "requested_timestamp_seconds": 5.0,
+      "actual_frame_start_seconds": 5.0,
+      "frame_index": 60,
+      "percentage_label": 70,
+      "crop": {
+        "x": 56,
+        "y": 20,
+        "width": 688,
+        "height": 387
+      },
+      "output_width": 688,
+      "output_height": 387,
+      "masks": [],
+      "metadata_removed": true
+    },
+    {
+      "id": "gif-poster-90",
+      "classification": "Further Redaction Required",
+      "rights": [
+        "RoadScanner logo: Pending",
+        "road/car footage: Pending",
+        "team graphics: Pending",
+        "quantitative performance claim publication: Pending"
+      ],
+      "source": "C:/Users/user/Desktop/portfolio-workspace/roadscanner-media-source/videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif",
+      "source_sha256": "f3a70a3e236d7ccbd03c8436ba107008ffae0c0c9d35762ad0677256c95ebe40",
+      "output": "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/revision-2/video-frames/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd-frame-90.jpg",
+      "output_sha256": "9cbfa95e104b3cae0572a8afcf0f1b5dba5039317dae479e925b12c80a2f5a3d",
+      "requested_timestamp_seconds": 6.42,
+      "actual_frame_start_seconds": 6.42,
+      "frame_index": 77,
+      "percentage_label": 90,
+      "crop": {
+        "x": 56,
+        "y": 20,
+        "width": 688,
+        "height": 387
+      },
+      "output_width": 688,
+      "output_height": 387,
+      "masks": [],
+      "metadata_removed": true
+    }
+  ]
+}
