@@ -1,7 +1,7 @@
 ---
 title: 'RoadScanner'
 description: '교통표지판 이미지를 업로드해 인식 결과를 확인하고, 피드백·통계·Q&A·회원 관리 기능을 제공한 8인 팀 웹 프로젝트입니다.'
-draft: true
+draft: false
 featured: false
 cover:
   src: /images/projects/roadscanner/cover.webp
