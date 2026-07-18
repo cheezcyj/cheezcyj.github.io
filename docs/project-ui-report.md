@@ -65,9 +65,9 @@ v0의 Next.js/React 코드, 샘플 프로젝트 데이터와 샘플 이미지는
 
 ## 6. Cover fallback
 
-현재 프로젝트에는 승인 cover가 없다. fallback은 기존 토큰을 사용한 네이비 gradient, 절제된 grid pattern, `CHEEZCYJ`, `Astro / Portfolio Redesign`과 상태만 표시한다. 실제 작품 이미지나 v0/Jekyll 샘플 이미지로 오인되지 않는 추상 브랜드 패널이며, 접근성 이름도 프로젝트용 추상 그래픽임을 설명한다.
+현재 프로젝트는 승인된 `cover.webp`를 공통 `ProjectMedia`로 렌더링한다. 카드와 상세 hero 모두 frontmatter의 alt, width와 height를 사용하고 16:9 공간을 예약하므로 layout shift를 줄인다. 목록 이미지는 lazy loading을 사용하며 기존 500ms 확대, focus 상태와 reduced-motion 규칙을 유지한다.
 
-향후 승인 cover가 추가되면 같은 `ProjectMedia`가 이미지를 렌더링하고 fallback은 자동으로 사라진다.
+cover가 없는 다른 프로젝트에서는 기존 neutral fallback이 계속 표시된다. 특정 프로젝트를 위한 하드코딩 분기는 추가하지 않았다.
 
 ## 7. 목록 grid
 
@@ -83,9 +83,9 @@ v0의 Next.js/React 코드, 샘플 프로젝트 데이터와 샘플 이미지는
 
 상세 route는 `src/pages/projects/[...id].astro`이며 frontmatter slug가 아니라 collection-relative `entry.id`를 사용한다. 현재 개발 미리보기 URL은 `/projects/cheezcyj-portfolio-redesign/`이다.
 
-`ProjectLayout`은 breadcrumb, 상태, 큰 제목, 설명, 외부 링크, 16:9 media, 역할·기술·기간 meta, highlights, Markdown 본문, 목록 복귀와 향후 previous/next 링크를 지원한다. 1024px 이상에서는 media와 meta가 2열, 모바일에서는 1열이다. 본문 폭은 약 47rem으로 제한했다.
+`ProjectLayout`은 breadcrumb, 상태, 큰 제목, 설명, 외부 링크, 승인 cover, 역할·기술·기간 meta, highlights, Markdown 본문, gallery, 목록 복귀와 향후 previous/next 링크를 지원한다. 1024px 이상에서는 media와 meta가 2열, 모바일에서는 1열이다. 본문 폭은 약 47rem으로 제한했다.
 
-Markdown의 기존 heading 순서는 수정하지 않고 렌더링했다. 프로젝트 제목과 highlights 뒤에 원문의 `프로젝트 개요`부터 하위 heading이 이어지며 건너뛴 heading level은 확인되지 않았다.
+Markdown의 `# 프로젝트 개요`를 `## 프로젝트 개요`로 보정했다. layout의 프로젝트 제목만 `h1`이며 본문과 gallery 제목 `화면 구성`은 `h2`라 상세 페이지의 heading hierarchy가 하나의 `h1` 아래로 정리된다.
 
 ## 9. Dev-only draft preview
 
@@ -132,10 +132,10 @@ production query는 기존 publication policy를 우회하지 않는다. `draft:
 
 375px 상세 화면은 1열, 16:9 fallback, 줄바꿈되는 큰 제목과 meta를 유지했고 1440px에서는 media/meta 2열을 확인했다. 홈, 목록과 상세의 브라우저 console error는 0건이었다. 검증 브라우저가 reduced-motion을 선호해 scroll snap은 비활성화되고 focus·레이아웃은 그대로 유지되는 것도 확인했다.
 
-## 13. 이미지 승인 상태와 다음 단계
+## 13. Phase 4B-4 gallery 구현
 
-실제 cover와 gallery는 아직 준비·승인되지 않았다. 파일 규칙, 캡처 후보, alt와 민감 정보 점검 기준은 `docs/project-media-plan.md`에 기록했다.
+승인된 세 gallery 이미지를 Markdown 본문 다음, 목록 복귀 footer 이전에 배치했다. 첫 desktop rail은 전체 너비이고 두 모바일 이미지는 768px 이상에서 2열, 그보다 작은 화면에서 1열이다. 각 항목은 semantic `figure`와 비율을 강제 crop하지 않는 `img`로 구성하며 lazy loading, 한국어 alt, 실제 width와 height를 사용한다. 기존 border, radius와 surface token만 사용했고 modal, 클릭 확대와 별도 프레임 효과는 추가하지 않았다.
 
-다음 단계는 실제 Astro 데스크톱·모바일 화면을 촬영하고 Owner가 이미지, alt, 공개 범위와 `featured`/`draft` 변경 여부를 승인하는 것이다. 카드가 여러 개가 된 뒤 rail 버튼의 실제 overflow 이동도 다시 검증한다.
+카드와 상세 cover, gallery, 정확히 하나인 `h1`, 이미지 로드와 가로 overflow를 320, 375, 390, 768, 1024, 1280, 1440px 개발 화면에서 검증했다. 모든 폭에서 가로 overflow와 깨진 이미지가 0건이었고 Console error도 0건이었다. 세부 결과는 `project-media-integration-report.md`에 기록했다.
 
-Linux 원격 CI, GitHub Pages 배포와 production 공개 승인은 아직 실행하거나 완료로 간주하지 않는다.
+`draft: true`, `featured: false`와 `sourceStatus: verified`는 유지한다. 정량 성과, Linux 원격 CI, GitHub Pages 배포, main 병합과 production 공개 승인은 아직 완료로 간주하지 않는다.

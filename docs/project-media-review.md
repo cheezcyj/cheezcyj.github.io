@@ -5,7 +5,7 @@
 - 대상 프로젝트: `CHEEZCYJ Portfolio Redesign`
 - 현재 승인 기준: `revision-2`
 
-이 문서의 현재 추천은 `docs/media-review/cheezcyj-portfolio-redesign/revision-2/`의 네 PNG를 기준으로 한다. 기존 Phase 4B-3 이미지 여섯 장은 비교 기록으로 그대로 보존하지만 production 후보로 승격하지 않는다. 이번 단계에서도 WebP 변환, `public` 복사, frontmatter 연결, `draft`·`featured` 변경은 수행하지 않았다.
+이 문서의 현재 승인은 `docs/media-review/cheezcyj-portfolio-redesign/revision-2/`의 네 PNG를 기준으로 한다. 기존 Phase 4B-3 이미지 여섯 장은 비교 기록으로 그대로 보존하며 production 후보로 승격하지 않는다. Phase 4B-4에서 승인본을 WebP로 변환해 `public`에 추가하고 frontmatter에 연결했지만 `draft: true`, `featured: false`와 `sourceStatus: verified`는 변경하지 않았다.
 
 ## 1. Revision 2 생성 이유
 
@@ -134,11 +134,11 @@ Featured Design EmptyState 자체는 삭제하거나 재설계하지 않았다.
 - 기준: 전역 header 아래에서 시작해 breadcrumb, 상태, 프로젝트명, 설명, repository 링크, media 상단과 meta 일부를 유지
 - 금지: 프로젝트명을 자르는 좌우 crop, 캡처 확대, 비율 왜곡, `Draft Preview` 재노출
 
-전역 header를 cover 맥락에 포함해야 한다면 대안으로 `x=0`, `y=0`, `width=1440`, `height=810`을 사용한다. production 단계에서는 실제 crop 미리보기를 Owner가 다시 확인한다.
+Phase 4B-4에서 위 좌표를 그대로 사용해 `1280 × 720` cover를 생성했다. 비율 왜곡, 확대와 추가 합성은 수행하지 않았다.
 
 ## 9. Production 파일명과 한국어 alt 제안
 
-권장 위치는 아직 만들지 않은 `public/images/projects/cheezcyj-portfolio-redesign/`다.
+승인된 production 위치는 `public/images/projects/cheezcyj-portfolio-redesign/`다.
 
 | Revision 2 원본                 | 제안 파일명                  | 한국어 alt                                                                                              |
 | ------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------- |
@@ -147,7 +147,7 @@ Featured Design EmptyState 자체는 삭제하거나 재설계하지 않았다.
 | `03-mobile-menu-open.png`       | `mobile-navigation.webp`     | CHOE YOOJEONG 워드마크 아래 Design부터 GitHub까지 표시한 모바일 전체 화면 메뉴                          |
 | `04-project-detail-mobile.png`  | `project-detail-mobile.webp` | 모바일 프로젝트 상세에서 제목과 설명, 저장소 링크, 미디어와 상태 정보를 세로로 표시한 화면              |
 
-이번 단계에서는 위 WebP와 production 디렉터리를 만들지 않았다.
+위 네 WebP를 생성했으며 표의 의미를 유지한 한국어 alt, 실제 width와 height를 project frontmatter에 연결했다.
 
 ## 10. Draft Preview 제거와 복구 확인
 
@@ -176,19 +176,21 @@ Revision 2 네 장에서 다음 항목이 보이지 않는 것을 확인했다.
 
 ## 12. Owner 승인 체크리스트
 
-- [ ] `revision-2/02-project-detail-desktop.png`를 cover 원본으로 승인
-- [ ] 권장 16:9 crop 좌표 승인
-- [ ] gallery 세 장과 순서 승인
-- [ ] production 파일명 승인
-- [ ] 한국어 alt 승인
-- [ ] 이미지 공개 범위와 민감 정보 없음 확인
-- [ ] WebP 품질·최적화 방식 승인
-- [ ] frontmatter `cover`·`gallery` 연결 승인
+- [x] `revision-2/02-project-detail-desktop.png`를 cover 원본으로 승인
+- [x] 권장 16:9 crop 좌표 승인
+- [x] gallery 세 장과 순서 승인
+- [x] production 파일명 승인
+- [x] 한국어 alt 승인
+- [x] 이미지 공개 범위와 민감 정보 없음 확인
+- [x] WebP 품질·최적화 방식 승인
+- [x] frontmatter `cover`·`gallery` 연결 승인
 - [ ] `draft`와 `featured` 공개 상태 별도 승인
 
 ## 13. 승인 이후 범위
 
-Owner 승인 후 별도 단계에서만 16:9 crop, WebP 변환, `public` 복사, frontmatter 연결과 공개 상태 변경을 수행한다. 현재 revision 2 PNG는 계속 `docs/media-review/` 아래의 검토 자산으로만 유지한다.
+Phase 4B-4에서 승인된 16:9 crop, WebP 변환, `public` 추가, frontmatter 연결, gallery UI와 heading hierarchy 보정을 완료했다. Revision 2 PNG는 삭제하거나 덮어쓰지 않고 `docs/media-review/` 아래 검토 원본으로 유지한다.
+
+계속 미완료인 항목은 `draft` 해제, `featured` 활성화, 정량 성과 승인, Linux 원격 CI, GitHub Pages 배포, main 병합과 최종 공개 승인이다.
 
 ---
 

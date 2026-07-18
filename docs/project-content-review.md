@@ -146,9 +146,8 @@ v0 메인 디자인 작업을 포함한 전체 리디자인 작업의 시작 기
 
 - `draft: true` → `draft: false`
 - `featured` 활성화 여부 결정
-- 승인된 `cover`와 alt 추가
-- 승인된 `gallery`와 각 alt 추가
 - 향후 demo 등 추가 링크가 생기면 실제 목적지 검증
+- 공개 가능한 정량 성과가 생기면 근거와 함께 승인
 - Linux CI 결과 확인
 - GitHub Pages 배포와 최종 공개 승인
 
@@ -163,6 +162,22 @@ v0 메인 디자인 작업을 포함한 전체 리디자인 작업의 시작 기
 - [x] 실제 이미지가 없을 때 neutral media fallback 적용
 - [x] cover와 gallery 요구사항 문서화
 
+## 16. Phase 4B-4 미디어 연결 상태
+
+- [x] Revision 2 cover 원본과 16:9 crop 승인 반영
+- [x] gallery 세 장과 순서, production 파일명과 한국어 alt 반영
+- [x] cover와 gallery의 실제 width·height frontmatter 연결
+- [x] 프로젝트 gallery UI 구현
+- [x] Markdown 첫 heading을 `h2`로 보정해 상세 페이지 `h1`을 하나로 정리
+- [x] 기존 검토 PNG 보존
+- [ ] 공개 가능한 정량 성과 승인
+- [ ] `featured` 활성화
+- [ ] `draft` 해제
+- [ ] Linux 원격 CI
+- [ ] GitHub Pages 배포
+- [ ] main 병합
+- [ ] 최종 공개 승인
+
 production에서는 기존 `getPublishedEntries('projects')`를 그대로 사용하므로 `draft: true`인 현재 프로젝트가 홈과 목록 HTML 또는 상세 route에 포함되지 않는다. 상세 route와 미리보기 UI 구현은 콘텐츠 공개 승인을 의미하지 않는다.
 
 ## 검토 체크리스트
@@ -176,8 +191,8 @@ production에서는 기존 `getPublishedEntries('projects')`를 그대로 사용
 - [x] 기술 스택 확인
 - [x] 저장소 공개 여부 확인
 - [x] `sourceStatus: verified` 전환 승인
-- [ ] 대표 이미지 승인
-- [ ] 상세 이미지 승인
+- [x] 대표 이미지 승인 및 연결
+- [x] 상세 이미지 승인 및 연결
 - [x] media 요구사항 문서화
 - [ ] 공개 가능한 성과 확인
 - [ ] `featured` 여부 결정
@@ -186,5 +201,7 @@ production에서는 기존 `getPublishedEntries('projects')`를 그대로 사용
 - [x] 프로젝트 카드 구현
 - [x] 상세 route 구현
 - [x] dev-only draft 미리보기 구현
+- [x] 프로젝트 gallery UI 구현
+- [x] 상세 heading hierarchy 보정
 - [ ] GitHub Pages 배포
 - [ ] 최종 공개 승인
