@@ -7,8 +7,12 @@ const smoothAnchorLinks = document.querySelectorAll<HTMLAnchorElement>(
   '[data-smooth-anchor][href^="#"]',
 )
 const root = document.documentElement
+const headerReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)',
+)
 let smoothScrollFrame = 0
 let previousRootScrollBehavior: string | null = null
+let closeMobileMenuForAnchor: (() => void) | undefined
 const headerSectionLinks = Array.from(
   document.querySelectorAll<HTMLAnchorElement>(
     '[data-site-header] [data-smooth-anchor], [data-mobile-menu] [data-smooth-anchor]',
@@ -90,6 +94,26 @@ const stopSmoothScroll = () => {
   }
 }
 
+const focusAnchorTarget = (target: HTMLElement) => {
+  const addedTemporaryTabIndex =
+    target.tabIndex < 0 && !target.hasAttribute('tabindex')
+
+  if (addedTemporaryTabIndex) target.setAttribute('tabindex', '-1')
+
+  target.focus({ preventScroll: true })
+
+  if (!addedTemporaryTabIndex) return
+
+  if (document.activeElement !== target) {
+    target.removeAttribute('tabindex')
+    return
+  }
+
+  target.addEventListener('blur', () => target.removeAttribute('tabindex'), {
+    once: true,
+  })
+}
+
 const scrollToAnchor = (target: HTMLElement, hash: string) => {
   stopSmoothScroll()
 
@@ -103,9 +127,6 @@ const scrollToAnchor = (target: HTMLElement, hash: string) => {
     Math.max(0, startY + target.getBoundingClientRect().top - scrollMarginTop),
   )
   const distance = targetY - startY
-  const duration = Math.min(800, Math.max(500, Math.abs(distance) * 0.45))
-  const startedAt = window.performance.now()
-
   previousRootScrollBehavior = root.style.scrollBehavior
   root.style.scrollBehavior = 'auto'
 
@@ -117,12 +138,21 @@ const scrollToAnchor = (target: HTMLElement, hash: string) => {
     if (window.location.hash !== hash) {
       window.history.pushState(null, '', hash)
     }
+
+    smoothScrollFrame = window.requestAnimationFrame(() => {
+      smoothScrollFrame = 0
+      focusAnchorTarget(target)
+    })
   }
 
-  if (Math.abs(distance) < 1) {
+  if (headerReducedMotion.matches || Math.abs(distance) < 1) {
+    window.scrollTo(0, targetY)
     finish()
     return
   }
+
+  const duration = Math.min(800, Math.max(500, Math.abs(distance) * 0.45))
+  const startedAt = window.performance.now()
 
   const step = (currentTime: number) => {
     const progress = Math.min((currentTime - startedAt) / duration, 1)
@@ -150,6 +180,10 @@ smoothAnchorLinks.forEach((link) => {
     if (!target) return
 
     event.preventDefault()
+    if (link.hasAttribute('data-menu-link')) {
+      closeMobileMenuForAnchor?.()
+      link.blur()
+    }
     scrollToAnchor(target, link.hash)
   })
 })
@@ -163,7 +197,6 @@ if (header && menu && toggle && closeButton) {
       '[data-site-main], [data-site-footer]',
     ),
   )
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const desktop = window.matchMedia('(min-width: 48rem)')
   let isOpen = false
   let previousBodyOverflow = ''
@@ -253,7 +286,7 @@ if (header && menu && toggle && closeButton) {
       if (!isOpen) mobileMenu.hidden = true
     }
 
-    if (reducedMotion.matches) {
+    if (headerReducedMotion.matches) {
       finishClose()
     } else {
       hideTimer = window.setTimeout(finishClose, 300)
@@ -262,10 +295,14 @@ if (header && menu && toggle && closeButton) {
     if (restoreFocus) menuToggle.focus()
   }
 
+  closeMobileMenuForAnchor = () => closeMenu(false)
+
   menuToggle.addEventListener('click', openMenu)
   menuCloseButton.addEventListener('click', () => closeMenu(true))
   mobileMenu
-    .querySelectorAll<HTMLAnchorElement>('[data-menu-link]')
+    .querySelectorAll<HTMLAnchorElement>(
+      '[data-menu-link]:not([data-smooth-anchor])',
+    )
     .forEach((link) => {
       link.addEventListener('click', () => closeMenu(false))
     })
