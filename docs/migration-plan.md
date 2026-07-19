@@ -66,7 +66,7 @@ GitHub Actions
 | /posts/                       | 기타 글 목록                          | posts              |
 | /posts/[...slug]/             | 기타 글 상세                          | posts entry        |
 | /about/                       | 소개, 기술, 경력/연락 링크            | static page/data   |
-| /feed.xml                     | posts와 공개 study의 feed             | generated endpoint |
+| /feed.xml                     | 상세 route가 있는 공개 project feed   | generated endpoint |
 | /404.html                     | 정적 404                              | static             |
 | `/project-1/` … `/project-6/` | legacy feed ID 호환 page              | mapping data       |
 
@@ -512,3 +512,17 @@ main이 아닌 feature branch에서만 진행한다.
 2026-07-16에 Content Collections foundation을 구현하면서 계획의 공식 `glob` loader와 `**/*.{md,mdx}` pattern은 그대로 적용했다. 다만 현재 Windows + pnpm isolated node linker + Astro 7/Vite 8 조합에서 loader의 CommonJS `picomatch`를 Vite module runner가 평가할 때 `require is not defined`가 발생했다.
 
 공식 loader를 자체 loader로 교체하지 않기 위해 `picomatch`를 직접 devDependency로 선언하고 `scripts/picomatch-interop.mjs`를 Vite alias로 연결했다. 이 래퍼는 build-time Node interop에만 사용된다. 또한 독립 frontmatter 검증 script를 위해 `yaml`을 devDependency로 명시했다. 두 변경 모두 콘텐츠 모델이나 공개 정책을 바꾸지 않으며 Next.js/React 의존성은 추가하지 않는다.
+
+## 14. Phase 5A-5 완료 메모
+
+2026-07-19에 Jekyll 제거 뒤 남아 있던 REVIEW 두 파일을 해소했다.
+
+- `_includes/modals.html`의 46개 계층형 목차를 비공개 study inventory와 hash 고정 manifest로 이전
+- `draft: true`, `sourceStatus: inventory-only`, `contentStatus: inventory-only`로 공개 차단
+- 공식 `@astrojs/rss` endpoint로 `/feed.xml` URL 교체
+- 현재 상세 route가 있는 공개 RoadScanner만 RSS에 포함
+- draft project와 study inventory는 RSS와 상세 route에서 제외
+- `verify:study-inventory`와 `verify:feed`를 로컬 및 두 Ubuntu build workflow에 연결
+- root REVIEW 파일 두 개를 대체 검증 후 제거
+
+원격 `legacy-jekyll` rollback 브랜치에는 원본이 고정 SHA로 보존돼 있다. PR은 Draft이며 전체 Files changed 검토와 Owner merge 승인은 아직 완료하지 않았다. main merge와 production Pages 배포도 수행하지 않았다.

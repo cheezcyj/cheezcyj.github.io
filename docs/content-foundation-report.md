@@ -218,3 +218,19 @@ canonical collection ID는 frontmatter 값이 아니라 `src/content/<collection
 - Phase 4A의 format, check, asset, content, build gate가 계속 통과함
 
 현재는 기반 구현만 완료됐으며 실제 콘텐츠 등록과 상세 페이지 구현은 시작하지 않았다.
+
+## 13. Phase 5A-5 현재 상태 갱신
+
+위 1~12절은 Phase 4A 당시의 기반 구현 기록이다. 2026-07-19 기준 현재 콘텐츠 상태는 다음과 같다.
+
+- content entries: 3
+- published entries: 1
+- projects: RoadScanner 공개, CHEEZCYJ Portfolio Redesign draft
+- study: 이어드림스쿨 6기 학습 목차 inventory 1개
+- design과 posts: 비어 있음
+
+이어드림 entry는 `src/content/study/yeardream-school-6-inventory.md`에 있으며 `draft: true`, `sourceStatus: inventory-only`, `contentStatus: inventory-only`다. 실제 학습 본문, 완료일과 성과를 만들지 않았고 공개 query에서 세 조건으로 차단한다. 원본 46개 계층과 hash는 `docs/legacy-study-inventory.json`에 보존하고 `pnpm verify:study-inventory`로 검증한다.
+
+`/feed.xml`은 공식 `@astrojs/rss` 정적 endpoint로 생성한다. 현재 RSS에는 공개 상태이고 상세 route가 있는 RoadScanner만 포함되며 draft project와 study inventory는 제외된다. `pnpm verify:feed`는 build 산출물을 실제 XML parser로 읽어 metadata, item, project route parity와 누출 방지 조건을 검증한다.
+
+Ubuntu의 일반 검증 workflow와 Pages build workflow에도 두 신규 검증을 추가했다. Pages deploy 조건은 계속 main push로 제한된다.
