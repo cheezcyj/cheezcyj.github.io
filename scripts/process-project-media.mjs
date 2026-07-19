@@ -4,6 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import {
+  EXTERNAL_MEDIA_SOURCE_PREFIX,
   PROJECT_MEDIA_PROJECTS,
   PROJECT_MEDIA_WEBP_OPTIONS,
 } from './project-media-config.mjs'
@@ -14,6 +15,18 @@ const projectRoot = path.resolve(
 )
 
 function absolutePath(relativePath) {
+  if (relativePath.startsWith(EXTERNAL_MEDIA_SOURCE_PREFIX)) {
+    const externalSourceRoot = process.env.ROADSCANNER_MEDIA_SOURCE?.trim()
+    if (!externalSourceRoot) {
+      throw new Error(
+        'RoadScanner 원본 변환에는 ROADSCANNER_MEDIA_SOURCE 환경 변수가 필요합니다.',
+      )
+    }
+    return path.join(
+      path.resolve(externalSourceRoot),
+      ...relativePath.slice(EXTERNAL_MEDIA_SOURCE_PREFIX.length).split('/'),
+    )
+  }
   return path.join(projectRoot, ...relativePath.split('/'))
 }
 

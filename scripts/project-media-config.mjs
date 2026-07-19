@@ -3,6 +3,9 @@ export const PROJECT_MEDIA_WEBP_OPTIONS = Object.freeze({
   effort: 6,
 })
 
+export const EXTERNAL_MEDIA_SOURCE_PREFIX =
+  '<external-media-source>/roadscanner/'
+
 function defineProject(project) {
   return Object.freeze({
     ...project,
@@ -99,7 +102,7 @@ export const PROJECT_MEDIA_PROJECTS = Object.freeze([
       {
         id: 'cover',
         input:
-          '../roadscanner-media-source/videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif',
+          '<external-media-source>/roadscanner/videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif',
         inputFormat: 'gif',
         output: 'public/images/projects/roadscanner/cover.webp',
         publicPath: '/images/projects/roadscanner/cover.webp',

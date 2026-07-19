@@ -11,6 +11,53 @@ from typing import Iterable
 from PIL import Image, ImageDraw, ImageOps
 
 
+EXTERNAL_MEDIA_ROOT = "<external-media-source>/roadscanner"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[5]
+
+
+def portable_manifest_value(value: object, source_root: Path) -> object:
+    if isinstance(value, dict):
+        return {
+            key: portable_manifest_value(item, source_root)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [portable_manifest_value(item, source_root) for item in value]
+    if not isinstance(value, str):
+        return value
+
+    candidate = Path(value)
+    if not candidate.is_absolute():
+        portable_value = value
+        for actual_root, label in (
+            (source_root.resolve(), EXTERNAL_MEDIA_ROOT),
+            (REPOSITORY_ROOT, "<repository-root>"),
+        ):
+            for representation in {str(actual_root), actual_root.as_posix()}:
+                portable_value = portable_value.replace(representation, label)
+        return (
+            portable_value.replace("\\", "/")
+            if portable_value != value
+            else value
+        )
+
+    resolved = candidate.resolve()
+    try:
+        relative = resolved.relative_to(source_root)
+        return (
+            EXTERNAL_MEDIA_ROOT
+            if relative == Path(".")
+            else f"{EXTERNAL_MEDIA_ROOT}/{relative.as_posix()}"
+        )
+    except ValueError:
+        pass
+
+    try:
+        return resolved.relative_to(REPOSITORY_ROOT).as_posix()
+    except ValueError:
+        return f"<external-output>/{resolved.name}"
+
+
 @dataclass(frozen=True)
 class Rectangle:
     x: int
@@ -359,8 +406,9 @@ def main() -> None:
         },
         "outputs": outputs,
     }
+    public_manifest = portable_manifest_value(manifest, source_root)
     (reports_directory / "redaction-manifest.json").write_text(
-        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+        json.dumps(public_manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(json.dumps({"output_count": len(outputs)}, ensure_ascii=False))

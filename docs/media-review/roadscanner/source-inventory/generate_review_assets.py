@@ -36,6 +36,52 @@ CODEC_LABELS = {
     "av01": "AV1",
     "mp4v": "MPEG-4 Visual",
 }
+EXTERNAL_MEDIA_ROOT = "<external-media-source>/roadscanner"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[4]
+
+
+def portable_manifest_value(value: Any, source_root: Path) -> Any:
+    if isinstance(value, dict):
+        return {
+            key: portable_manifest_value(item, source_root)
+            for key, item in value.items()
+            if key != "absolute_path"
+        }
+    if isinstance(value, list):
+        return [portable_manifest_value(item, source_root) for item in value]
+    if not isinstance(value, str):
+        return value
+
+    candidate = Path(value)
+    if not candidate.is_absolute():
+        portable_value = value
+        for actual_root, label in (
+            (source_root.resolve(), EXTERNAL_MEDIA_ROOT),
+            (REPOSITORY_ROOT, "<repository-root>"),
+        ):
+            for representation in {str(actual_root), actual_root.as_posix()}:
+                portable_value = portable_value.replace(representation, label)
+        return (
+            portable_value.replace("\\", "/")
+            if portable_value != value
+            else value
+        )
+
+    resolved = candidate.resolve()
+    try:
+        relative = resolved.relative_to(source_root)
+        return (
+            EXTERNAL_MEDIA_ROOT
+            if relative == Path(".")
+            else f"{EXTERNAL_MEDIA_ROOT}/{relative.as_posix()}"
+        )
+    except ValueError:
+        pass
+
+    try:
+        return resolved.relative_to(REPOSITORY_ROOT).as_posix()
+    except ValueError:
+        return f"<external-output>/{resolved.name}"
 
 
 def iso_datetime(timestamp: float) -> str:
@@ -456,7 +502,6 @@ def make_video_metadata_sheet(entries: list[dict[str, Any]], destination: Path) 
 def write_csv(entries: list[dict[str, Any]], destination: Path) -> None:
     fields = [
         "relative_path",
-        "absolute_path",
         "filename",
         "kind",
         "extension",
@@ -613,8 +658,10 @@ def build_inventory(source_root: Path, output_root: Path) -> dict[str, Any]:
         "video_contact_sheets": [video_contact_sheet],
         "files": entries,
     }
+    public_inventory = portable_manifest_value(inventory, source_root)
     (output_root / "inventory.json").write_text(
-        json.dumps(inventory, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(public_inventory, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
     )
     write_csv(entries, output_root / "inventory.csv")
     (poster_directory / "README.md").write_text(

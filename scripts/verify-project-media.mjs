@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { parse } from 'yaml'
 import {
+  EXTERNAL_MEDIA_SOURCE_PREFIX,
   PROJECT_MEDIA_ITEMS,
   PROJECT_MEDIA_PROJECTS,
   PROJECT_MEDIA_WEBP_OPTIONS,
@@ -14,8 +15,17 @@ const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '..',
 )
+const externalMediaSourceRoot =
+  process.env.ROADSCANNER_MEDIA_SOURCE?.trim() || null
 
 function absolutePath(relativePath) {
+  if (relativePath.startsWith(EXTERNAL_MEDIA_SOURCE_PREFIX)) {
+    if (!externalMediaSourceRoot) return null
+    return path.join(
+      path.resolve(externalMediaSourceRoot),
+      ...relativePath.slice(EXTERNAL_MEDIA_SOURCE_PREFIX.length).split('/'),
+    )
+  }
   return path.join(projectRoot, ...relativePath.split('/'))
 }
 
@@ -89,6 +99,9 @@ for (const project of PROJECT_MEDIA_PROJECTS) {
     for (const item of project.items) {
       const inputPath = absolutePath(item.input)
       const outputPath = absolutePath(item.output)
+      const isExternalInput = item.input.startsWith(
+        EXTERNAL_MEDIA_SOURCE_PREFIX,
+      )
 
       try {
         const outputStat = await stat(outputPath)
@@ -114,24 +127,34 @@ for (const project of PROJECT_MEDIA_PROJECTS) {
           errors.push(`${item.output}: approved SHA-256 mismatch`)
         }
 
-        let sourceAvailable = true
-        try {
-          await stat(inputPath)
-        } catch (error) {
-          if (
-            project.sourcesLocalOnly &&
-            error instanceof Error &&
-            'code' in error &&
-            error.code === 'ENOENT'
-          ) {
-            sourceAvailable = false
+        let sourceAvailable = inputPath !== null
+        if (!sourceAvailable) {
+          if (project.sourcesLocalOnly) {
             localSourceMappingsSkipped += 1
           } else {
-            throw error
+            errors.push(`${item.input}: 외부 원본 경로가 설정되지 않았습니다.`)
+          }
+        }
+        if (sourceAvailable) {
+          try {
+            await stat(inputPath)
+          } catch (error) {
+            if (
+              project.sourcesLocalOnly &&
+              !isExternalInput &&
+              error instanceof Error &&
+              'code' in error &&
+              error.code === 'ENOENT'
+            ) {
+              sourceAvailable = false
+              localSourceMappingsSkipped += 1
+            } else {
+              throw error
+            }
           }
         }
 
-        if (sourceAvailable) {
+        if (sourceAvailable && inputPath) {
           let expectedPipeline = sharp(inputPath)
           if (item.crop) expectedPipeline = expectedPipeline.extract(item.crop)
           const expectedBuffer = await expectedPipeline
