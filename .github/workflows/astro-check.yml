@@ -46,5 +46,11 @@ jobs:
       - name: Verify content publication policy
         run: pnpm verify:content
 
+      - name: Verify legacy study inventory
+        run: pnpm verify:study-inventory
+
       - name: Build static site
         run: pnpm build
+
+      - name: Verify RSS feed
+        run: pnpm verify:feed
