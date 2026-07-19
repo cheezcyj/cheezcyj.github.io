@@ -5,19 +5,21 @@ Thumbs.db
 .agents/
 .codex/
 
-_site
-.sass-cache
-.jekyll-cache
+# Legacy Jekyll build/cache outputs kept for rollback worktrees
+_site/
+.sass-cache/
+.jekyll-cache/
 .jekyll-metadata
 
 Gemfile.lock
 .bundle/
 vendor/bundle/
 
-# Astro / Node
+# Astro / Node generated output
 node_modules/
 dist/
 .astro/
+.pnpm-store/
 
 # Local environment and secret material
 .env
