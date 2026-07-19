@@ -101,6 +101,9 @@ function publicationIssues(collection, data, source) {
 
   for (const image of imagesFor(collection, data)) {
     if (!isNonEmpty(image.alt)) issues.push('empty-image-alt')
+    if (collection !== 'projects' && !isValidRootRelativeAssetPath(image.src)) {
+      issues.push('invalid-media-src')
+    }
     if (isNonEmpty(image.src) && isPlaceholderAsset(image.src)) {
       issues.push('placeholder-image')
     }
@@ -209,6 +212,62 @@ function runSelfTests() {
 
   const cases = [
     ['valid project', 'projects', validProject, true, undefined],
+    [
+      'valid common media src',
+      'design',
+      {
+        title: 'Verified design',
+        description: 'A complete design record.',
+        draft: false,
+        sourceStatus: 'verified',
+        year: 2026,
+        disciplines: ['Visual design'],
+        cover: {
+          src: '/images/example.webp',
+          alt: 'Design cover',
+        },
+      },
+      true,
+      undefined,
+    ],
+    [
+      'protocol-relative common media src',
+      'design',
+      {
+        title: 'Verified design',
+        description: 'A complete design record.',
+        draft: false,
+        sourceStatus: 'verified',
+        year: 2026,
+        disciplines: ['Visual design'],
+        cover: {
+          src: '//external.example/image.webp',
+          alt: 'Design cover',
+        },
+      },
+      false,
+      'invalid-media-src',
+    ],
+    [
+      'HTTPS design gallery media src',
+      'design',
+      {
+        title: 'Verified design',
+        description: 'A complete design record.',
+        draft: false,
+        sourceStatus: 'verified',
+        year: 2026,
+        disciplines: ['Visual design'],
+        gallery: [
+          {
+            src: 'https://example.com/image.webp',
+            alt: 'Design gallery',
+          },
+        ],
+      },
+      false,
+      'invalid-media-src',
+    ],
     [
       'draft project',
       'projects',
@@ -407,6 +466,34 @@ function runSelfTests() {
   ) {
     throw new Error('legacy URL self-test failed: normalized duplicate key')
   }
+
+  const assetPathCases = [
+    ['/images/projects/roadscanner/cover.webp', true],
+    ['/images/example.webp', true],
+    ['//external.example/image.webp', false],
+    ['http://example.com/image.webp', false],
+    ['https://example.com/image.webp', false],
+    ['images/example.webp', false],
+    ['/images/with space.webp', false],
+    ['\\images\\example.webp', false],
+    ['/images\\example.webp', false],
+    ['/images/with%20space.webp', false],
+    ['/images/%5Cexample.webp', false],
+    ['/images/example.webp?size=large', false],
+    ['/images/example.webp#preview', false],
+    ['/images/../example.webp', false],
+    ['/images/%2e%2e/example.webp', false],
+    ['javascript:alert(1)', false],
+    ['data:image/webp;base64,AAAA', false],
+    ['', false],
+    ['/', false],
+  ]
+
+  for (const [value, expected] of assetPathCases) {
+    if (isValidRootRelativeAssetPath(value) !== expected) {
+      throw new Error(`asset path self-test failed: ${JSON.stringify(value)}`)
+    }
+  }
 }
 
 const errors = []
@@ -476,6 +563,12 @@ try {
         for (const image of imagesFor(collection, data)) {
           if (!isNonEmpty(image.alt)) {
             errors.push(`${repositoryPath}: empty image alt`)
+          }
+          if (
+            collection !== 'projects' &&
+            !isValidRootRelativeAssetPath(image.src)
+          ) {
+            errors.push(`${repositoryPath}: invalid root-relative media path`)
           }
           if (
             sourceStatus === 'verified' &&
@@ -610,4 +703,5 @@ if (errors.length > 0) {
   console.log(`- Duplicate legacy URLs: 0`)
   console.log(`- Placeholder publication violations: 0`)
   console.log(`- Date errors: 0`)
+  console.log(`- Root-relative media path self-tests: passed`)
 }

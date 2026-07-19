@@ -8,6 +8,7 @@ import {
   isPlaceholderLink,
   isPlaceholderText,
   isValidLegacyUrl,
+  isValidRootRelativeAssetPath,
   normalizeLegacyUrl,
   type ProjectDateIssue,
   type ProjectMediaIssueCode,
@@ -21,14 +22,20 @@ const sourceStatus = z.enum([
 
 const nonEmptyString = z.string().trim().min(1)
 
-const cover = z.object({
-  src: z.string().trim().regex(/^\/.+/),
+const mediaReference = z.object({
+  src: z.string(),
   alt: nonEmptyString,
   width: z.number().int().positive().optional(),
   height: z.number().int().positive().optional(),
 })
 
-const projectMedia = cover.extend({
+const cover = mediaReference.extend({
+  src: z.string().refine(isValidRootRelativeAssetPath, {
+    message: 'Use a root-relative asset path without spaces or backslashes.',
+  }),
+})
+
+const projectMedia = mediaReference.extend({
   width: z.number().int().positive(),
   height: z.number().int().positive(),
 })

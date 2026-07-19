@@ -11,6 +11,7 @@ import {
   isPlaceholderText,
   isValidDateValue,
   isValidLegacyUrl,
+  isValidRootRelativeAssetPath,
 } from '../config/content-policy.mjs'
 
 export type SiteCollection = CollectionKey
@@ -64,6 +65,12 @@ export function getPublicationIssues(entry: SiteEntry): string[] {
 
   for (const image of getImages(entry)) {
     if (!isNonEmpty(image.alt)) issues.push('empty-image-alt')
+    if (
+      entry.collection !== 'projects' &&
+      !isValidRootRelativeAssetPath(image.src)
+    ) {
+      issues.push('invalid-media-src')
+    }
     if (isPlaceholderAsset(image.src)) {
       issues.push('placeholder-image')
     }

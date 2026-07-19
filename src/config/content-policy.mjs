@@ -104,7 +104,7 @@ export function normalizeLegacyUrl(value) {
 export function isValidRootRelativeAssetPath(value) {
   if (
     typeof value !== 'string' ||
-    value.length === 0 ||
+    value.length <= 1 ||
     !value.startsWith('/') ||
     value.startsWith('//') ||
     /[\s\\?#]/.test(value)
@@ -114,7 +114,10 @@ export function isValidRootRelativeAssetPath(value) {
 
   try {
     const decoded = decodeURI(value)
-    if (decoded.split('/').some((segment) => ['.', '..'].includes(segment))) {
+    if (
+      /[\s\\]/.test(decoded) ||
+      decoded.split('/').some((segment) => ['.', '..'].includes(segment))
+    ) {
       return false
     }
 
