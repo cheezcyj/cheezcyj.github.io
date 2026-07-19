@@ -111,12 +111,12 @@ Deploy job은 `github-pages` environment를 사용한다. 배포 URL은 `actions
 
 - Pages URL: `https://cheezcyj.github.io/`
 - 상태: `built`
-- build type: `legacy`
-- source: `main` branch의 `/`
+- build type: `workflow`
+- API source metadata: `main` branch의 `/`
 - custom domain: 없음
 - HTTPS 강제: 활성화
 
-현재 repository setting은 아직 branch 기반 legacy build다. 새 workflow 자체는 저장소 설정을 변경하지 않는다. Draft PR 검토 중 Pages source를 GitHub Actions custom workflow로 전환할 시점과 승인을 확인해야 하며, 이 확인 전에는 main merge를 승인하지 않는다.
+Pages Source를 GitHub Actions custom workflow로 전환했다. 실제 배포는 계속 `pages.yml`의 `main` push 조건으로 제한되며 Draft PR에서는 build와 artifact만 검증한다.
 
 ## 15. 로컬 검증 결과
 
@@ -152,11 +152,11 @@ Deploy job은 `github-pages` environment를 사용한다. 배포 URL은 `actions
 
 Pages source 설정과 merge 승인이 완료된 뒤 `main`에 변경이 들어오면 build job이 전체 검증과 Astro build를 수행하고 `dist` artifact를 업로드한다. 동일 실행의 deploy job은 main push 조건을 통과해 `github-pages` environment와 `actions/deploy-pages@v4`로 공개 사이트를 갱신한다.
 
-현재 Pages build type이 `legacy`이므로 설정 전환 계획이 확정되기 전 main merge는 blocker로 유지한다.
+현재 Pages build type은 `workflow`다. 원격 rollback snapshot, 최종 Files changed 검토와 Owner 승인이 완료되기 전 main merge는 blocker로 유지한다.
 
 ## 19. Rollback 방식
 
-- `legacy-jekyll` branch를 기존 Jekyll 구현 백업으로 유지한다.
+- 원격 `legacy-jekyll` branch를 기존 Jekyll SHA `63b397e42164bac6d50149c14b7901da5a67e42d`의 백업으로 유지한다.
 - 문제가 생기면 main에 병합된 workflow 전환 commit을 새 revert commit으로 되돌릴 수 있다.
 - 이전 Jekyll workflow는 Git 이력에 보존된다.
 - main 강제 reset은 기본 rollback 방식으로 사용하지 않는다.
