@@ -4,13 +4,13 @@
 
 ## 1. 확인한 로컬 경로
 
-다음 위치에서 RoadScanner 저장소 또는 별도 자료를 검색했으나 로컬 체크아웃은 발견하지 못했다.
+다음과 같은 일반 로컬 개발 위치에서 RoadScanner 저장소 또는 별도 자료를 검색했으나 로컬 체크아웃은 발견하지 못했다.
 
-- `C:\Users\user\Desktop\portfolio-workspace`
-- `C:\Users\user\Documents\GitHub`
-- `C:\Users\user\source\repos`
-- `C:\Users\user\eclipse-workspace`
-- `C:\Users\user\Downloads`
+- `<workspace>`
+- `<user-documents>/GitHub`
+- `<source-repositories>`
+- `<ide-workspace>`
+- `<user-downloads>`
 
 자동 clone은 수행하지 않았다.
 

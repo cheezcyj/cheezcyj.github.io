@@ -100,7 +100,7 @@ schema refinement, 런타임 공개 query, `verify:content`의 세 겹으로 차
 - `#` 링크
 - `localhost` 및 하위 도메인
 - `example.com` 및 하위 도메인
-- `hello@choeyoojeong.dev`
+- v0 템플릿의 샘플 연락처 이메일
 - `Lorem ipsum`, `Start Bootstrap`
 - `project 1`, `project 2` 형태의 template 제목
 - v0의 design/frontend sample 이미지와 placeholder/icon 이미지 경로

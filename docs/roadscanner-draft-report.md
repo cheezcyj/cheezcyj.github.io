@@ -2,7 +2,7 @@
 
 ## 자료 출처
 
-- 로컬 검색 위치: `portfolio-workspace`, `Documents/GitHub`, `source/repos`, `eclipse-workspace`, `Downloads`
+- 로컬 검색 위치: `<workspace>`, `<user-documents>/GitHub`, `<source-repositories>`, `<ide-workspace>`, `<user-downloads>`
 - 로컬 RoadScanner 체크아웃: 발견하지 못함
 - 공개 저장소: <https://github.com/cheezcyj/RoadScanner>
 - 기본 브랜치: `main`

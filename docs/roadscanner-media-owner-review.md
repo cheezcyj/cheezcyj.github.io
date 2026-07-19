@@ -2,8 +2,8 @@
 
 - 작성일: 2026-07-18
 - 대상 브랜치: `redesign/astro-v0`
-- 원본 폴더: `C:\Users\user\Desktop\portfolio-workspace\roadscanner-media-source`
-- 저장소: `C:\Users\user\Desktop\portfolio-workspace\cheezcyj.github.io`
+- 원본 폴더: `<external-media-source>/roadscanner`
+- 저장소: `<workspace>/cheezcyj.github.io`
 - 콘텐츠 상태: `draft: true`, `featured: false`, `sourceStatus: verified`
 
 이 문서는 저장소 밖 원본 폴더를 읽기 전용으로 조사한 결과다. 원본을 수정·이동·삭제하거나 저장소 안으로 복사하지 않았고, production `public` 경로와 RoadScanner frontmatter에도 연결하지 않았다.

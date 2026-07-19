@@ -2,7 +2,7 @@
 
 - 작성일: 2026-07-18
 - 대상 브랜치: `redesign/astro-v0`
-- 원본: `C:\Users\user\Desktop\portfolio-workspace\roadscanner-media-source`
+- 원본: `<external-media-source>/roadscanner`
 - 검토 산출물: `docs/media-review/roadscanner/revision-2/`
 - 공개 상태: `draft: true`, `featured: false`, `sourceStatus: verified`
 

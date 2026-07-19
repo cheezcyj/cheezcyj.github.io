@@ -123,12 +123,12 @@ RoadScanner 본문, 카드와 미디어 경로에서 다음 항목은 0건이다
 - `98%`와 검증되지 않은 성능 수치
 - 인증번호와 관리자 계정 정보
 - revision-2와 media-review 경로
-- `C:\Users\user`와 로컬 절대 경로
+- Windows 사용자 홈과 로컬 절대 경로
 - Draft Preview
 
 검토 JPEG와 source 문서는 dist에 포함되지 않았다. Owner가 승인한 Q&A 화면은 비식별화된 production WebP다.
 
-사이트 공통 footer에는 이번 RoadScanner 콘텐츠와 무관한 기존 공개 연락처 `mailto:cheezmicro@gmail.com`이 모든 HTML 페이지에 한 번씩 출력된다. 이번 단계의 허용 범위가 `roadscanner.md`의 draft 변경으로 제한돼 있어 수정하지 않았으며 push 전 Owner 확인 사항으로 남긴다.
+사이트 공통 footer에는 이번 RoadScanner 콘텐츠와 무관한 기존 공개 연락처 `mailto:cheezmicro@gmail.com`이 모든 HTML 페이지에 한 번씩 출력된다. 이 연락처는 Owner가 공개 유지하도록 승인했으며 이번 단계에서도 변경하지 않았다.
 
 ## 15. Console 결과
 
@@ -219,7 +219,7 @@ Build 과정에서 비어 있는 `design`, `study`, `posts` 컬렉션 경고가 
 
 홈과 목록에는 RoadScanner 상세 링크가 각각 네 번 포함되고 RoadScanner 카드는 한 장이다. 상세 HTML에는 제목, 설명, repository URL, Cover와 Gallery 경로가 포함된다.
 
-Dist 전체 HTML·JavaScript 검사 결과 Draft Preview, localhost, Bandicam, `98%`, revision-2, media-review, 인증번호, 관리자 계정, 로컬 사용자 경로와 영문 placeholder 문자열은 0건이다. Source map도 생성되지 않았다. 공통 footer의 기존 공개 연락처 이메일은 별도 확인 사항이다.
+Dist 전체 HTML·JavaScript 검사 결과 Draft Preview, localhost, Bandicam, `98%`, revision-2, media-review, 인증번호, 관리자 계정, 로컬 사용자 경로와 영문 placeholder 문자열은 0건이다. Source map도 생성되지 않았다. 공통 footer에는 Owner가 승인한 기존 공개 연락처 이메일만 유지된다.
 
 ## 23. 기존 프로젝트 보존
 
@@ -245,7 +245,7 @@ CHEEZCYJ Portfolio Redesign 콘텐츠와 WebP는 수정하지 않았다. 기존 
 
 - RoadScanner `draft: false`, `featured: false` 최종 확인
 - 홈과 목록에서 RoadScanner가 유일한 production 카드인 현재 동작 확인
-- 공통 footer의 공개 연락처 이메일 유지 여부 확인
+- 공통 footer의 기존 공개 연락처 이메일 유지 승인 확인 완료
 - 320px rail 내부 15px 수평 여유를 후속 UI 단계에서 정리할지 확인
 - Open Graph image가 현재 미구현 상태인 점 확인
 - 로컬 커밋 검토 후 별도 지시에 따라 branch push와 Ubuntu CI 실행

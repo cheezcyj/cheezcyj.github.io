@@ -31,7 +31,7 @@ Owner가 갤러리 검토본 세 장과 RoadScanner GIF 첫 프레임을 product
 
 | 용도      | 승인 source                                                                                                   | Production output                                             |
 | --------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| Cover     | `../roadscanner-media-source/videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif` 첫 프레임             | `public/images/projects/roadscanner/cover.webp`               |
+| Cover     | `<external-media-source>/roadscanner/videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif` 첫 프레임     | `public/images/projects/roadscanner/cover.webp`               |
 | Gallery 1 | `docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170610-redacted-review.jpg` | `public/images/projects/roadscanner/feedback-statistics.webp` |
 | Gallery 2 | `docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170658-redacted-review.jpg` | `public/images/projects/roadscanner/qna-list.webp`            |
 | Gallery 3 | `docs/media-review/roadscanner/revision-2/redacted-previews/videocapture-20231108-170206-redacted-review.jpg` | `public/images/projects/roadscanner/upload-entry.webp`        |

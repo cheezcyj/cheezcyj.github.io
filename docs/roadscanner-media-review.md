@@ -238,7 +238,7 @@ RoadScanner의 `Main Feature Development`, `Machine Learning / Deep Learning Dev
 
 ## 19. Phase 4C-3 원본 미디어 조사 결과
 
-- 원본 폴더: `C:\Users\user\Desktop\portfolio-workspace\roadscanner-media-source`
+- 원본 폴더: `<external-media-source>/roadscanner`
 - 조사 파일: 이미지 30개와 MP4 13개, 총 43개, 약 29.44 MiB
 - SHA-256 정확한 중복: 없음
 - near-duplicate: perceptual dHash 기준 9쌍

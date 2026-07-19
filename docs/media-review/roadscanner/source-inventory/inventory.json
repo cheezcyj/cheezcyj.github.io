@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-07-18T09:28:22.873677+00:00",
-  "source_root": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source",
-  "output_root": "C:\\Users\\user\\Desktop\\portfolio-workspace\\cheezcyj.github.io\\docs\\media-review\\roadscanner\\source-inventory",
+  "source_root": "<external-media-source>/roadscanner",
+  "output_root": "docs/media-review/roadscanner/source-inventory",
   "tooling": {
     "image_tool": "Pillow 12.2.0",
     "video_metadata_tool": "read-only ISO BMFF parser in generate_review_assets.py",
@@ -86,14 +86,13 @@
   ],
   "gif_samples": {},
   "image_contact_sheets": [
-    "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/contact-sheets/images-overview.jpg"
+    "docs/media-review/roadscanner/contact-sheets/images-overview.jpg"
   ],
   "video_contact_sheets": [
-    "C:/Users/user/Desktop/portfolio-workspace/cheezcyj.github.io/docs/media-review/roadscanner/contact-sheets/videos-overview.jpg"
+    "docs/media-review/roadscanner/contact-sheets/videos-overview.jpg"
   ],
   "files": [
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170028.jpg",
       "relative_path": "images/VideoCapture_20231108-170028.jpg",
       "filename": "VideoCapture_20231108-170028.jpg",
       "extension": ".jpg",
@@ -131,7 +130,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170100.jpg",
       "relative_path": "images/VideoCapture_20231108-170100.jpg",
       "filename": "VideoCapture_20231108-170100.jpg",
       "extension": ".jpg",
@@ -169,7 +167,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170130.jpg",
       "relative_path": "images/VideoCapture_20231108-170130.jpg",
       "filename": "VideoCapture_20231108-170130.jpg",
       "extension": ".jpg",
@@ -207,7 +204,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170136.jpg",
       "relative_path": "images/VideoCapture_20231108-170136.jpg",
       "filename": "VideoCapture_20231108-170136.jpg",
       "extension": ".jpg",
@@ -245,7 +241,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170206.jpg",
       "relative_path": "images/VideoCapture_20231108-170206.jpg",
       "filename": "VideoCapture_20231108-170206.jpg",
       "extension": ".jpg",
@@ -283,7 +278,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170221.jpg",
       "relative_path": "images/VideoCapture_20231108-170221.jpg",
       "filename": "VideoCapture_20231108-170221.jpg",
       "extension": ".jpg",
@@ -321,7 +315,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170240.jpg",
       "relative_path": "images/VideoCapture_20231108-170240.jpg",
       "filename": "VideoCapture_20231108-170240.jpg",
       "extension": ".jpg",
@@ -359,7 +352,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170259.jpg",
       "relative_path": "images/VideoCapture_20231108-170259.jpg",
       "filename": "VideoCapture_20231108-170259.jpg",
       "extension": ".jpg",
@@ -397,7 +389,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170334.jpg",
       "relative_path": "images/VideoCapture_20231108-170334.jpg",
       "filename": "VideoCapture_20231108-170334.jpg",
       "extension": ".jpg",
@@ -435,7 +426,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170349.jpg",
       "relative_path": "images/VideoCapture_20231108-170349.jpg",
       "filename": "VideoCapture_20231108-170349.jpg",
       "extension": ".jpg",
@@ -473,7 +463,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170410.jpg",
       "relative_path": "images/VideoCapture_20231108-170410.jpg",
       "filename": "VideoCapture_20231108-170410.jpg",
       "extension": ".jpg",
@@ -511,7 +500,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170507.jpg",
       "relative_path": "images/VideoCapture_20231108-170507.jpg",
       "filename": "VideoCapture_20231108-170507.jpg",
       "extension": ".jpg",
@@ -549,7 +537,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170523.jpg",
       "relative_path": "images/VideoCapture_20231108-170523.jpg",
       "filename": "VideoCapture_20231108-170523.jpg",
       "extension": ".jpg",
@@ -587,7 +574,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170540.jpg",
       "relative_path": "images/VideoCapture_20231108-170540.jpg",
       "filename": "VideoCapture_20231108-170540.jpg",
       "extension": ".jpg",
@@ -625,7 +611,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170610.jpg",
       "relative_path": "images/VideoCapture_20231108-170610.jpg",
       "filename": "VideoCapture_20231108-170610.jpg",
       "extension": ".jpg",
@@ -663,7 +648,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170625.jpg",
       "relative_path": "images/VideoCapture_20231108-170625.jpg",
       "filename": "VideoCapture_20231108-170625.jpg",
       "extension": ".jpg",
@@ -701,7 +685,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170658.jpg",
       "relative_path": "images/VideoCapture_20231108-170658.jpg",
       "filename": "VideoCapture_20231108-170658.jpg",
       "extension": ".jpg",
@@ -739,7 +722,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170717.jpg",
       "relative_path": "images/VideoCapture_20231108-170717.jpg",
       "filename": "VideoCapture_20231108-170717.jpg",
       "extension": ".jpg",
@@ -777,7 +759,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170748.jpg",
       "relative_path": "images/VideoCapture_20231108-170748.jpg",
       "filename": "VideoCapture_20231108-170748.jpg",
       "extension": ".jpg",
@@ -815,7 +796,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170845.jpg",
       "relative_path": "images/VideoCapture_20231108-170845.jpg",
       "filename": "VideoCapture_20231108-170845.jpg",
       "extension": ".jpg",
@@ -853,7 +833,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170909.jpg",
       "relative_path": "images/VideoCapture_20231108-170909.jpg",
       "filename": "VideoCapture_20231108-170909.jpg",
       "extension": ".jpg",
@@ -891,7 +870,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-170921.jpg",
       "relative_path": "images/VideoCapture_20231108-170921.jpg",
       "filename": "VideoCapture_20231108-170921.jpg",
       "extension": ".jpg",
@@ -929,7 +907,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-171009.jpg",
       "relative_path": "images/VideoCapture_20231108-171009.jpg",
       "filename": "VideoCapture_20231108-171009.jpg",
       "extension": ".jpg",
@@ -967,7 +944,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-171016.jpg",
       "relative_path": "images/VideoCapture_20231108-171016.jpg",
       "filename": "VideoCapture_20231108-171016.jpg",
       "extension": ".jpg",
@@ -1005,7 +981,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-171036.jpg",
       "relative_path": "images/VideoCapture_20231108-171036.jpg",
       "filename": "VideoCapture_20231108-171036.jpg",
       "extension": ".jpg",
@@ -1043,7 +1018,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-171053.jpg",
       "relative_path": "images/VideoCapture_20231108-171053.jpg",
       "filename": "VideoCapture_20231108-171053.jpg",
       "extension": ".jpg",
@@ -1081,7 +1055,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-171117.jpg",
       "relative_path": "images/VideoCapture_20231108-171117.jpg",
       "filename": "VideoCapture_20231108-171117.jpg",
       "extension": ".jpg",
@@ -1119,7 +1092,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-171137.jpg",
       "relative_path": "images/VideoCapture_20231108-171137.jpg",
       "filename": "VideoCapture_20231108-171137.jpg",
       "extension": ".jpg",
@@ -1157,7 +1129,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\images\\VideoCapture_20231108-171408.jpg",
       "relative_path": "images/VideoCapture_20231108-171408.jpg",
       "filename": "VideoCapture_20231108-171408.jpg",
       "extension": ".jpg",
@@ -1195,7 +1166,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif",
       "relative_path": "videos/263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif",
       "filename": "263704183-d9e78da4-732d-4f06-8a29-d00c654763cd.gif",
       "extension": ".gif",
@@ -1233,7 +1203,6 @@
       }
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\게시글CRUD.mp4",
       "relative_path": "videos/게시글CRUD.mp4",
       "filename": "게시글CRUD.mp4",
       "extension": ".mp4",
@@ -1249,7 +1218,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 16.619,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1267,7 +1236,7 @@
           "duration_seconds": 16.567,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1285,7 +1254,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\게시판 관리.mp4",
       "relative_path": "videos/게시판 관리.mp4",
       "filename": "게시판 관리.mp4",
       "extension": ".mp4",
@@ -1301,7 +1269,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 17.515,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1319,7 +1287,7 @@
           "duration_seconds": 17.467,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1337,7 +1305,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\공지CRUD.mp4",
       "relative_path": "videos/공지CRUD.mp4",
       "filename": "공지CRUD.mp4",
       "extension": ".mp4",
@@ -1353,7 +1320,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 19.413,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1371,7 +1338,7 @@
           "duration_seconds": 19.367,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1389,7 +1356,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\내글보기.mp4",
       "relative_path": "videos/내글보기.mp4",
       "filename": "내글보기.mp4",
       "extension": ".mp4",
@@ -1405,7 +1371,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 3.051,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1420,10 +1386,10 @@
           "rotation_degrees": 0,
           "handler": "vide",
           "timescale": 30000,
-          "duration_seconds": 3.0,
+          "duration_seconds": 3,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1441,7 +1407,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\답변CRUD.mp4",
       "relative_path": "videos/답변CRUD.mp4",
       "filename": "답변CRUD.mp4",
       "extension": ".mp4",
@@ -1457,7 +1422,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 11.179,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1475,7 +1440,7 @@
           "duration_seconds": 11.133,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1493,7 +1458,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\데이터통계.mp4",
       "relative_path": "videos/데이터통계.mp4",
       "filename": "데이터통계.mp4",
       "extension": ".mp4",
@@ -1509,7 +1473,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 8.32,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1527,7 +1491,7 @@
           "duration_seconds": 8.267,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1545,7 +1509,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\로그인화면.mp4",
       "relative_path": "videos/로그인화면.mp4",
       "filename": "로그인화면.mp4",
       "extension": ".mp4",
@@ -1561,7 +1524,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 6.528,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1579,7 +1542,7 @@
           "duration_seconds": 6.467,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1597,7 +1560,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\마이페이지.mp4",
       "relative_path": "videos/마이페이지.mp4",
       "filename": "마이페이지.mp4",
       "extension": ".mp4",
@@ -1613,7 +1575,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 11.115,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1631,7 +1593,7 @@
           "duration_seconds": 11.067,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1649,7 +1611,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\아이디비번찾기.mp4",
       "relative_path": "videos/아이디비번찾기.mp4",
       "filename": "아이디비번찾기.mp4",
       "extension": ".mp4",
@@ -1665,7 +1626,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 16.448,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1683,7 +1644,7 @@
           "duration_seconds": 16.4,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1701,7 +1662,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\유저관리.mp4",
       "relative_path": "videos/유저관리.mp4",
       "filename": "유저관리.mp4",
       "extension": ".mp4",
@@ -1717,7 +1677,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 36.245,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1735,7 +1695,7 @@
           "duration_seconds": 36.2,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1753,7 +1713,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\이미지관리.mp4",
       "relative_path": "videos/이미지관리.mp4",
       "filename": "이미지관리.mp4",
       "extension": ".mp4",
@@ -1769,7 +1728,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 18.645,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1787,7 +1746,7 @@
           "duration_seconds": 18.6,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1805,7 +1764,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\파일인식.mp4",
       "relative_path": "videos/파일인식.mp4",
       "filename": "파일인식.mp4",
       "extension": ".mp4",
@@ -1821,7 +1779,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 10.496,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1839,7 +1797,7 @@
           "duration_seconds": 10.433,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,
@@ -1857,7 +1815,6 @@
       "frame_extraction_status": "not generated: ffmpeg/ffprobe unavailable"
     },
     {
-      "absolute_path": "C:\\Users\\user\\Desktop\\portfolio-workspace\\roadscanner-media-source\\videos\\회원가입.mp4",
       "relative_path": "videos/회원가입.mp4",
       "filename": "회원가입.mp4",
       "extension": ".mp4",
@@ -1873,7 +1830,7 @@
       "encoded_width": 1920,
       "encoded_height": 1080,
       "duration_seconds": 17.387,
-      "frame_rate": 30.0,
+      "frame_rate": 30,
       "codec_fourcc": "avc1",
       "codec": "H.264/AVC",
       "audio_present": true,
@@ -1891,7 +1848,7 @@
           "duration_seconds": 17.333,
           "codec_fourcc": "avc1",
           "codec": "H.264/AVC",
-          "frame_rate": 30.0
+          "frame_rate": 30
         },
         {
           "track_id": 2,

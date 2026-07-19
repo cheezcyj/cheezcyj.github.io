@@ -195,7 +195,7 @@ CursorSpotlight (화면 고정 효과)
 - 디자인/개발 이미지 8개는 전부 1024×1024의 v0 샘플 asset
 - 개발 저장소 URL은 GitHub root, Live URL은 `#`
 - 게시물·학습 항목에는 본문이 없다
-- `hello@choeyoojeong.dev`는 Jekyll의 `cheezmicro@gmail.com`과 충돌하므로 소유자 확인이 필요
+- v0 템플릿의 샘플 연락처는 제외하고 Owner가 승인한 기존 공개 연락처 `cheezmicro@gmail.com`을 유지한다
 - 아이콘과 placeholder도 최종 브랜드 asset이 아니다
 
 따라서 디자인을 옮길 때 데이터 shape만 참고하고, 값은 기존 저장소에서 검증한 콘텐츠 또는 새로 확인한 실제 콘텐츠로 교체한다.
@@ -262,7 +262,7 @@ src/
 ## 9. 결정이 필요한 항목
 
 1. 공개 이름: `CHEEZCYJ`와 `CHOE YOOJEONG` 중 canonical 표기
-2. 공개 이메일: 기존 Gmail과 v0 샘플 도메인 중 실제 주소
+2. 공개 이메일: 기존 Gmail 유지, v0 템플릿 샘플 연락처 제외
 3. 한글 글꼴 전략과 self-host 여부
 4. 디자인 카드의 modal preview 유지 여부
 5. v0 생성 샘플 이미지의 완전 교체 시점
