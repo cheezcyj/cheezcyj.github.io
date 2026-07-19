@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 1,
+  "sourceRef": "origin/legacy-jekyll",
+  "sourceCommit": "63b397e42164bac6d50149c14b7901da5a67e42d",
+  "sourcePath": "_includes/modals.html",
+  "sourceBlobSha": "bb232b80eeb02ca9b6017da9fd954fd4c25c1d9c",
+  "sourceContentSha256": "c34ddf32262b1e92f8dfad8998ec35c4011554ae38488bd7cc312570950263cd",
+  "sourceByteLength": 15664,
+  "itemCount": 46,
+  "groups": [
+    {
+      "name": "커리큘럼",
+      "itemCount": 23,
+      "weekSequences": [1, 7, 13, 19]
+    },
+    {
+      "name": "AI실무기본",
+      "itemCount": 23,
+      "weekSequences": [24, 39, 45, 46]
+    }
+  ],
+  "entries": [
+    {
+      "sequence": 1,
+      "kind": "week",
+      "group": "커리큘럼",
+      "parentSequence": null,
+      "displayTitle": "1주차",
+      "dataTitle": "1주차",
+      "dataWeek": "커리큘럼",
+      "dataSummary": "1주차 학습 항목을 확인합니다."
+    },
+    {
+      "sequence": 2,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 1,
+      "displayTitle": "01_IT리터러시",
+      "dataTitle": "01_IT리터러시",
+      "dataWeek": "1주차"
+    },
+    {
+      "sequence": 3,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 1,
+      "displayTitle": "02_핵심운영체제와리눅스기초",
+      "dataTitle": "02_핵심운영체제와리눅스기초",
+      "dataWeek": "1주차"
+    },
+    {
+      "sequence": 4,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 1,
+      "displayTitle": "03_네트워크",
+      "dataTitle": "03_네트워크",
+      "dataWeek": "1주차"
+    },
+    {
+      "sequence": 5,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 1,
+      "displayTitle": "04_파이썬기본문법1",
+      "dataTitle": "04_파이썬기본문법1",
+      "dataWeek": "1주차"
+    },
+    {
+      "sequence": 6,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 1,
+      "displayTitle": "05_파이썬기본문법2",
+      "dataTitle": "05_파이썬기본문법2",
+      "dataWeek": "1주차"
+    },
+    {
+      "sequence": 7,
+      "kind": "week",
+      "group": "커리큘럼",
+      "parentSequence": null,
+      "displayTitle": "2주차",
+      "dataTitle": "2주차",
+      "dataWeek": "커리큘럼",
+      "dataSummary": "2주차 학습 항목을 확인합니다."
+    },
+    {
+      "sequence": 8,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 7,
+      "displayTitle": "01_파이썬중급문법2",
+      "dataTitle": "01_파이썬중급문법2",
+      "dataWeek": "2주차"
+    },
+    {
+      "sequence": 9,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 7,
+      "displayTitle": "02_파이썬라이브러리활용",
+      "dataTitle": "02_파이썬라이브러리활용",
+      "dataWeek": "2주차"
+    },
+    {
+      "sequence": 10,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 7,
+      "displayTitle": "03_생성형AI기초",
+      "dataTitle": "03_생성형AI기초",
+      "dataWeek": "2주차"
+    },
+    {
+      "sequence": 11,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 7,
+      "displayTitle": "04_SQL시작하기",
+      "dataTitle": "04_SQL시작하기",
+      "dataWeek": "2주차"
+    },
+    {
+      "sequence": 12,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 7,
+      "displayTitle": "05_SQL함수와서브쿼리",
+      "dataTitle": "05_SQL함수와서브쿼리",
+      "dataWeek": "2주차"
+    },
+    {
+      "sequence": 13,
+      "kind": "week",
+      "group": "커리큘럼",
+      "parentSequence": null,
+      "displayTitle": "3주차",
+      "dataTitle": "3주차",
+      "dataWeek": "커리큘럼",
+      "dataSummary": "3주차 학습 항목을 확인합니다."
+    },
+    {
+      "sequence": 14,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 13,
+      "displayTitle": "01_집합연산자와계층형질의",
+      "dataTitle": "01_집합연산자와계층형질의",
+      "dataWeek": "3주차"
+    },
+    {
+      "sequence": 15,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 13,
+      "displayTitle": "02_JOIN및서브쿼리심화",
+      "dataTitle": "02_JOIN및서브쿼리심화",
+      "dataWeek": "3주차"
+    },
+    {
+      "sequence": 16,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 13,
+      "displayTitle": "03_그룹함수_윈도우함수",
+      "dataTitle": "03_그룹함수_윈도우함수",
+      "dataWeek": "3주차"
+    },
+    {
+      "sequence": 17,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 13,
+      "displayTitle": "04_데이터베이스개요",
+      "dataTitle": "04_데이터베이스개요",
+      "dataWeek": "3주차"
+    },
+    {
+      "sequence": 18,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 13,
+      "displayTitle": "05_데이터모델링과데이터베이스구현",
+      "dataTitle": "05_데이터모델링과데이터베이스구현",
+      "dataWeek": "3주차"
+    },
+    {
+      "sequence": 19,
+      "kind": "week",
+      "group": "커리큘럼",
+      "parentSequence": null,
+      "displayTitle": "4주차",
+      "dataTitle": "4주차",
+      "dataWeek": "커리큘럼",
+      "dataSummary": "4주차 학습 항목을 확인합니다."
+    },
+    {
+      "sequence": 20,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 19,
+      "displayTitle": "01_데이터리터러시와NumPy기초",
+      "dataTitle": "01_데이터리터러시와NumPy기초",
+      "dataWeek": "4주차"
+    },
+    {
+      "sequence": 21,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 19,
+      "displayTitle": "02_pandas와데이터시각화",
+      "dataTitle": "02_pandas와데이터시각화",
+      "dataWeek": "4주차"
+    },
+    {
+      "sequence": 22,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 19,
+      "displayTitle": "03_통계자료요약",
+      "dataTitle": "03_통계자료요약",
+      "dataWeek": "4주차"
+    },
+    {
+      "sequence": 23,
+      "kind": "item",
+      "group": "커리큘럼",
+      "parentSequence": 19,
+      "displayTitle": "04_확률과통계적추론",
+      "dataTitle": "04_확률과통계적추론",
+      "dataWeek": "4주차"
+    },
+    {
+      "sequence": 24,
+      "kind": "week",
+      "group": "AI실무기본",
+      "parentSequence": null,
+      "displayTitle": "AI실무기본_1주차",
+      "dataTitle": "AI실무기본_1주차",
+      "dataWeek": "AI실무기본"
+    },
+    {
+      "sequence": 25,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 24,
+      "displayTitle": "01_데이터분석프로젝트과정",
+      "dataTitle": "01_데이터분석프로젝트과정",
+      "dataWeek": "AI실무기본_1주차"
+    },
+    {
+      "sequence": 26,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 25,
+      "displayTitle": "01_파이썬데이터분석",
+      "dataTitle": "01_파이썬데이터분석",
+      "dataWeek": "AI실무기본_1주차 / 01_데이터분석프로젝트과정"
+    },
+    {
+      "sequence": 27,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 25,
+      "displayTitle": "02_빅데이터와파이썬",
+      "dataTitle": "02_빅데이터와파이썬",
+      "dataWeek": "AI실무기본_1주차 / 01_데이터분석프로젝트과정"
+    },
+    {
+      "sequence": 28,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 25,
+      "displayTitle": "03_데이터처리",
+      "dataTitle": "03_데이터처리",
+      "dataWeek": "AI실무기본_1주차 / 01_데이터분석프로젝트과정"
+    },
+    {
+      "sequence": 29,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 25,
+      "displayTitle": "04_EDA",
+      "dataTitle": "04_EDA",
+      "dataWeek": "AI실무기본_1주차 / 01_데이터분석프로젝트과정"
+    },
+    {
+      "sequence": 30,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 24,
+      "displayTitle": "02_데이터분석프로젝트",
+      "dataTitle": "02_데이터분석프로젝트",
+      "dataWeek": "AI실무기본_1주차"
+    },
+    {
+      "sequence": 31,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 30,
+      "displayTitle": "01_유가_데이터_주유소_시장분석",
+      "dataTitle": "01_유가_데이터_주유소_시장분석",
+      "dataWeek": "AI실무기본_1주차 / 02_데이터분석프로젝트"
+    },
+    {
+      "sequence": 32,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 30,
+      "displayTitle": "02_지하철_승하차_혼잡도분석",
+      "dataTitle": "02_지하철_승하차_혼잡도분석",
+      "dataWeek": "AI실무기본_1주차 / 02_데이터분석프로젝트"
+    },
+    {
+      "sequence": 33,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 30,
+      "displayTitle": "03_요소수_유통_주유소_재고분석",
+      "dataTitle": "03_요소수_유통_주유소_재고분석",
+      "dataWeek": "AI실무기본_1주차 / 02_데이터분석프로젝트"
+    },
+    {
+      "sequence": 34,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 24,
+      "displayTitle": "03_머신러닝기초",
+      "dataTitle": "03_머신러닝기초",
+      "dataWeek": "AI실무기본_1주차"
+    },
+    {
+      "sequence": 35,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 34,
+      "displayTitle": "01_인공지능과머신러닝소개",
+      "dataTitle": "01_인공지능과머신러닝소개",
+      "dataWeek": "AI실무기본_1주차 / 03_머신러닝기초"
+    },
+    {
+      "sequence": 36,
+      "kind": "item",
+      "group": "AI실무기본",
+      "parentSequence": 34,
+      "displayTitle": "02_머신러닝을준비하기위한라이브러리",
+      "dataTitle": "02_머신러닝을준비하기위한라이브러리",
+      "dataWeek": "AI실무기본_1주차 / 03_머신러닝기초"
+    },
+    {
+      "sequence": 37,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 24,
+      "displayTitle": "04_머신러닝을위한수학I",
+      "dataTitle": "04_머신러닝을위한수학I",
+      "dataWeek": "AI실무기본_1주차"
+    },
+    {
+      "sequence": 38,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 24,
+      "displayTitle": "05_머신러닝을위한수학II",
+      "dataTitle": "05_머신러닝을위한수학II",
+      "dataWeek": "AI실무기본_1주차"
+    },
+    {
+      "sequence": 39,
+      "kind": "week",
+      "group": "AI실무기본",
+      "parentSequence": null,
+      "displayTitle": "AI실무기본_2주차",
+      "dataTitle": "AI실무기본_2주차",
+      "dataWeek": "AI실무기본"
+    },
+    {
+      "sequence": 40,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 39,
+      "displayTitle": "01_머신러닝을위한수학III",
+      "dataTitle": "01_머신러닝을위한수학III",
+      "dataWeek": "AI실무기본_2주차"
+    },
+    {
+      "sequence": 41,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 39,
+      "displayTitle": "02_머신러닝프로젝트진행과정",
+      "dataTitle": "02_머신러닝프로젝트진행과정",
+      "dataWeek": "AI실무기본_2주차"
+    },
+    {
+      "sequence": 42,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 39,
+      "displayTitle": "03_머신러닝적용을위한데이터처리_I",
+      "dataTitle": "03_머신러닝적용을위한데이터처리_I",
+      "dataWeek": "AI실무기본_2주차"
+    },
+    {
+      "sequence": 43,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 39,
+      "displayTitle": "04_머신러닝적용을위한데이터처리_II",
+      "dataTitle": "04_머신러닝적용을위한데이터처리_II",
+      "dataWeek": "AI실무기본_2주차"
+    },
+    {
+      "sequence": 44,
+      "kind": "topic",
+      "group": "AI실무기본",
+      "parentSequence": 39,
+      "displayTitle": "05_머신러닝심화_I",
+      "dataTitle": "05_머신러닝심화_I",
+      "dataWeek": "AI실무기본_2주차"
+    },
+    {
+      "sequence": 45,
+      "kind": "week",
+      "group": "AI실무기본",
+      "parentSequence": null,
+      "displayTitle": "AI실무기본_3주차",
+      "dataTitle": "AI실무기본_3주차",
+      "dataWeek": "AI실무기본"
+    },
+    {
+      "sequence": 46,
+      "kind": "week",
+      "group": "AI실무기본",
+      "parentSequence": null,
+      "displayTitle": "AI실무기본_4주차",
+      "dataTitle": "AI실무기본_4주차",
+      "dataWeek": "AI실무기본"
+    }
+  ]
+}
