@@ -100,7 +100,7 @@ highlights:
 README 기준으로 확인한 내용이다.
 
 - 유형: 자율주행 표지판 인식 사이트
-- 팀원: 최유정, 김정민, 송세림, 오동훈, 이주영, 장태근, 차지욱, 차현경
+- 팀 구성: Owner를 포함한 8인 팀
 - 기간: 2023년 7월 5일~8월 29일
 - 목표: 교통표지판 식별·분류, 인식 성능과 결과 시각화, 사용자 피드백을 통한 평가·개선
 - 기능 시연 목록: 메인, 회원, 업로드·인식, 이미지 데이터 관리, 통계, 게시물·답변·공지 관리
@@ -233,7 +233,7 @@ Owner가 다음 항목을 승인했다.
 - README GitHub asset 16개와 저장소 내부 이미지 15경로를 조사했다.
 - README asset 16개는 확장자 없는 URL이며 HEAD 403으로 형식과 크기를 확정하지 못했다.
 - 저장소 내부 15경로는 고유 이미지 11개이며 대부분 아이콘·버튼·배경으로 cover 우선순위가 낮다.
-- README asset 중 15개가 `hykim-king/f1_new`에 호스팅되고 저장소 라이선스가 없어 Owner와 팀의 원본·사용 권리 확인이 필요하다.
+- README asset 중 15개가 외부 팀 공동작업 저장소에 호스팅되고 저장소 라이선스가 없어 Owner와 팀의 원본·사용 권리 확인이 필요하다.
 - 이미지 다운로드, WebP 변환, `public` 추가와 cover/gallery frontmatter 연결은 수행하지 않았다.
 - `draft: true`, `featured: false`, `sourceStatus: verified`를 유지했다.
 - 사이트 전역 roles는 `2D/3D Designer`, `Web Publisher`, `Fullstack Engineer`이며 수정하지 않았다.
