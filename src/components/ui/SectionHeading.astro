@@ -3,9 +3,10 @@ interface Props {
   eyebrow: string
   title: string
   description?: string
+  titleId?: string
 }
 
-const { eyebrow, title, description } = Astro.props
+const { eyebrow, title, description, titleId } = Astro.props
 const hasAction = Astro.slots.has('action')
 ---
 
@@ -25,6 +26,7 @@ const hasAction = Astro.slots.has('action')
       {eyebrow}
     </p>
     <h2
+      id={titleId}
       class="text-site-section leading-tight font-bold tracking-tight text-site-text"
     >
       {title}

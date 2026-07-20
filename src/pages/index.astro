@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import ProjectCard from '../components/cards/ProjectCard.astro'
 import CursorSpotlight from '../components/effects/CursorSpotlight.astro'
+import AboutPreview from '../components/home/AboutPreview.astro'
 import Hero from '../components/home/Hero.astro'
 import SiteFooter from '../components/layout/SiteFooter.astro'
 import SiteHeader from '../components/layout/SiteHeader.astro'
@@ -128,20 +129,9 @@ const contentSections = [
           </section>
         ))
       }
-      <section
-        id="about"
-        class="section-shell mt-12 scroll-mt-20 border-y border-site-border bg-site-navy-deep/40 sm:mt-16"
-        aria-labelledby="about-title"
-      >
-        <div class="site-container">
-          <div id="about-title">
-            <SectionHeading eyebrow="About" title="About Preview" />
-          </div>
-          <p class="max-w-2xl text-pretty leading-relaxed text-site-muted">
-            소개 콘텐츠가 다음 단계에서 연결됩니다.
-          </p>
-        </div>
-      </section>
+      <div class="mt-12 sm:mt-16">
+        <AboutPreview />
+      </div>
     </main>
     <SiteFooter />
   </div>
