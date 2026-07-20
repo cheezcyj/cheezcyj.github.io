@@ -1,0 +1,148 @@
+---
+import { getCollection } from 'astro:content'
+import ProjectCard from '../components/cards/ProjectCard.astro'
+import CursorSpotlight from '../components/effects/CursorSpotlight.astro'
+import Hero from '../components/home/Hero.astro'
+import SiteFooter from '../components/layout/SiteFooter.astro'
+import SiteHeader from '../components/layout/SiteHeader.astro'
+import EmptyState from '../components/ui/EmptyState.astro'
+import HorizontalRail from '../components/ui/HorizontalRail.astro'
+import SectionHeading from '../components/ui/SectionHeading.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import {
+  getFeaturedEntries,
+  getPublishedEntries,
+  isPublishableEntry,
+  sortEntries,
+} from '../utils/content'
+
+const [designEntries, projectEntries, studyEntries, postEntries] =
+  await Promise.all([
+    getFeaturedEntries('design'),
+    import.meta.env.DEV
+      ? getCollection('projects').then((entries) => sortEntries(entries))
+      : getPublishedEntries('projects'),
+    getPublishedEntries('study'),
+    getPublishedEntries('posts'),
+  ])
+
+const contentSections = [
+  {
+    id: 'design',
+    eyebrow: '2D/3D Work',
+    title: 'Design Portfolio',
+    emptyTitle: '검증된 작업을 정리 중입니다.',
+    emptyDescription: '공개 기준을 통과한 디자인 작업만 소개합니다.',
+    entries: designEntries,
+  },
+  {
+    id: 'projects',
+    eyebrow: 'Fullstack Engineering',
+    title: 'Development Projects',
+    emptyTitle: '개발 프로젝트를 정리 중입니다.',
+    emptyDescription: '검증된 설명과 링크를 갖춘 프로젝트만 소개합니다.',
+    entries: projectEntries,
+  },
+  {
+    id: 'study',
+    eyebrow: 'Learning Archive',
+    title: 'Recent Study Notes',
+    emptyTitle: '학습 기록을 정리 중입니다.',
+    emptyDescription: '완료 상태와 본문을 확인한 학습 기록만 소개합니다.',
+    entries: studyEntries,
+  },
+  {
+    id: 'posts',
+    eyebrow: 'Writing',
+    title: 'Other Posts',
+    emptyTitle: '글을 준비 중입니다.',
+    emptyDescription: '내용과 출처를 검증한 글만 소개합니다.',
+    entries: postEntries,
+  },
+] as const
+---
+
+<BaseLayout>
+  <CursorSpotlight />
+  <div class="relative z-[var(--site-z-content)] min-h-screen">
+    <SiteHeader />
+    <main id="main-content" data-site-main tabindex="-1">
+      <Hero />
+      {
+        contentSections.map((section) => (
+          <section
+            id={section.id}
+            class="section-shell scroll-mt-20"
+            aria-labelledby={`${section.id}-title`}
+          >
+            <div class="site-container">
+              <div id={`${section.id}-title`}>
+                <SectionHeading eyebrow={section.eyebrow} title={section.title}>
+                  {section.id === 'projects' && (
+                    <a
+                      slot="action"
+                      class="inline-flex min-h-11 items-center gap-2 rounded-site-md font-semibold text-site-muted underline decoration-transparent underline-offset-4 transition-colors hover:text-site-accent hover:decoration-current focus-visible:text-site-accent"
+                      href="/projects/"
+                    >
+                      View All <span aria-hidden="true">→</span>
+                    </a>
+                  )}
+                </SectionHeading>
+              </div>
+              {section.entries.length === 0 ? (
+                <EmptyState
+                  title={section.emptyTitle}
+                  description={section.emptyDescription}
+                />
+              ) : section.id === 'projects' ? (
+                <HorizontalRail
+                  id="home-projects-rail"
+                  label="Development Projects"
+                >
+                  {projectEntries.map((entry) => (
+                    <li data-rail-item>
+                      <ProjectCard
+                        entry={entry}
+                        preview={
+                          import.meta.env.DEV && !isPublishableEntry(entry)
+                        }
+                      />
+                    </li>
+                  ))}
+                </HorizontalRail>
+              ) : (
+                <ul class="divide-y divide-site-border border-y border-site-border">
+                  {section.entries.map((entry) => (
+                    <li class="py-6">
+                      <h3 class="text-site-lg font-semibold text-site-text">
+                        {entry.data.title}
+                      </h3>
+                      <p class="mt-2 max-w-2xl text-site-muted">
+                        {entry.data.description}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </section>
+        ))
+      }
+      <section
+        id="about"
+        class="section-shell mt-12 scroll-mt-20 border-y border-site-border bg-site-navy-deep/40 sm:mt-16"
+        aria-labelledby="about-title"
+      >
+        <div class="site-container">
+          <div id="about-title">
+            <SectionHeading eyebrow="About" title="About Preview" />
+          </div>
+          <p class="max-w-2xl text-pretty leading-relaxed text-site-muted">
+            소개 콘텐츠가 다음 단계에서 연결됩니다.
+          </p>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

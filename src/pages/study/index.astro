@@ -1,0 +1,63 @@
+---
+import SiteFooter from '../../components/layout/SiteFooter.astro'
+import SiteHeader from '../../components/layout/SiteHeader.astro'
+import EmptyState from '../../components/ui/EmptyState.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getPublishedEntries } from '../../utils/content'
+
+const entries = await getPublishedEntries('study')
+const description =
+  '학습 날짜와 과정, 주제별로 정리하고 완료 상태를 검증한 공부 기록 아카이브입니다.'
+---
+
+<BaseLayout title="Study Notes" description={description}>
+  <div class="relative z-[var(--site-z-content)] min-h-screen">
+    <SiteHeader />
+    <main id="main-content" data-site-main tabindex="-1">
+      <section class="section-shell" aria-labelledby="page-title">
+        <div class="site-container">
+          <header class="mb-10 max-w-3xl">
+            <p
+              class="mb-2 text-site-xs font-semibold tracking-[0.2em] text-site-accent uppercase"
+            >
+              Learning Archive
+            </p>
+            <h1
+              id="page-title"
+              class="text-site-section leading-tight font-bold tracking-tight text-site-text"
+            >
+              Study Notes
+            </h1>
+            <p class="mt-4 text-site-base leading-relaxed text-site-muted">
+              {description}
+            </p>
+          </header>
+
+          {
+            entries.length === 0 ? (
+              <EmptyState
+                title="학습 기록을 정리 중입니다."
+                description="본문 확인과 완료 상태 검증을 마친 학습 기록만 공개합니다."
+                headingLevel="h2"
+              />
+            ) : (
+              <ul class="divide-y divide-site-border border-y border-site-border">
+                {entries.map((entry) => (
+                  <li class="py-6">
+                    <h2 class="text-site-lg font-semibold text-site-text">
+                      {entry.data.title}
+                    </h2>
+                    <p class="mt-2 max-w-2xl text-site-muted">
+                      {entry.data.description}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

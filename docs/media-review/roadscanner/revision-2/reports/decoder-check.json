@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-07-18",
+  "checkOrder": [
+    "ffmpeg",
+    "ffprobe",
+    "python-opencv",
+    "python-imageio",
+    "python-imageio-ffmpeg"
+  ],
+  "results": {
+    "ffmpeg": "NOT_INSTALLED",
+    "ffprobe": "NOT_INSTALLED",
+    "python": "3.12.13",
+    "pythonOpenCv": false,
+    "pythonImageio": false,
+    "pythonImageioFfmpeg": false
+  },
+  "mp4FrameExtraction": {
+    "attempted": false,
+    "frameCount": 0,
+    "contactSheetCount": 0,
+    "reason": "No installed video decoder was available. Installation and downloads were prohibited for this phase.",
+    "requiredTool": "An existing ffmpeg/ffprobe installation, or a Python environment with OpenCV VideoCapture or imageio-ffmpeg"
+  }
+}

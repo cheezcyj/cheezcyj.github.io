@@ -1,0 +1,109 @@
+:root {
+  color-scheme: dark;
+
+  --site-color-background: #070b16;
+  --site-color-text: #f4ecd8;
+  --site-color-surface: #0d1524;
+  --site-color-surface-muted: #131c2c;
+  --site-color-text-muted: #94a0b0;
+  --site-color-accent: #e6a700;
+  --site-color-accent-strong: #b87900;
+  --site-color-navy: #2c3e50;
+  --site-color-navy-deep: #233140;
+  --site-color-border: rgb(244 236 216 / 10%);
+  --site-color-focus: #e6a700;
+
+  --site-font-sans:
+    Geist, 'Pretendard Variable', Pretendard, 'Noto Sans KR', system-ui,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --site-font-mono:
+    ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', monospace;
+
+  --site-text-xs: 0.75rem;
+  --site-text-sm: 0.875rem;
+  --site-text-base: 1rem;
+  --site-text-lg: 1.125rem;
+  --site-text-xl: 1.25rem;
+  --site-text-section: clamp(1.875rem, 1.65rem + 1vw, 2.25rem);
+  --site-text-hero-name: clamp(3rem, 1.6rem + 6.5vw, 6rem);
+  --site-text-hero-tagline: clamp(1.875rem, 1rem + 4vw, 3.75rem);
+
+  --site-space-page-inline: 1rem;
+  --site-space-section: 4rem;
+  --site-space-section-large: 5rem;
+  --site-space-hero-top: 5rem;
+
+  --site-container: 80rem;
+
+  --site-radius-sm: 0.375rem;
+  --site-radius-md: 0.5rem;
+  --site-radius-lg: 0.625rem;
+  --site-radius-xl: 0.875rem;
+  --site-radius-pill: 9999px;
+
+  --site-border-thin: 1px;
+  --site-duration-fast: 160ms;
+  --site-duration-base: 300ms;
+  --site-duration-image: 500ms;
+  --site-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --site-z-content: 10;
+  --site-z-spotlight: 20;
+  --site-z-header: 40;
+  --site-z-menu: 50;
+  --site-z-skip: 60;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --site-space-page-inline: 1.5rem;
+    --site-space-hero-top: 7rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --site-space-page-inline: 2rem;
+    --site-space-hero-top: 9rem;
+  }
+}
+
+@theme inline {
+  --color-site-bg: var(--site-color-background);
+  --color-site-text: var(--site-color-text);
+  --color-site-surface: var(--site-color-surface);
+  --color-site-surface-muted: var(--site-color-surface-muted);
+  --color-site-muted: var(--site-color-text-muted);
+  --color-site-accent: var(--site-color-accent);
+  --color-site-accent-strong: var(--site-color-accent-strong);
+  --color-site-navy: var(--site-color-navy);
+  --color-site-navy-deep: var(--site-color-navy-deep);
+  --color-site-border: var(--site-color-border);
+  --color-site-focus: var(--site-color-focus);
+
+  --font-sans: var(--site-font-sans);
+  --font-mono: var(--site-font-mono);
+
+  --text-site-xs: var(--site-text-xs);
+  --text-site-sm: var(--site-text-sm);
+  --text-site-base: var(--site-text-base);
+  --text-site-lg: var(--site-text-lg);
+  --text-site-xl: var(--site-text-xl);
+  --text-site-section: var(--site-text-section);
+  --text-site-hero-name: var(--site-text-hero-name);
+  --text-site-hero-tagline: var(--site-text-hero-tagline);
+
+  --spacing-page: var(--site-space-page-inline);
+  --spacing-section: var(--site-space-section);
+  --spacing-section-lg: var(--site-space-section-large);
+  --spacing-hero-top: var(--site-space-hero-top);
+  --container-content: var(--site-container);
+
+  --radius-site-sm: var(--site-radius-sm);
+  --radius-site-md: var(--site-radius-md);
+  --radius-site-lg: var(--site-radius-lg);
+  --radius-site-xl: var(--site-radius-xl);
+  --radius-site-pill: var(--site-radius-pill);
+
+  --ease-site-out: var(--site-ease-out);
+}

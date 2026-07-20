@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: string
+  description: string
+  actionHref?: string
+  actionLabel?: string
+  headingLevel?: 'h2' | 'h3'
+}
+
+const {
+  title,
+  description,
+  actionHref,
+  actionLabel,
+  headingLevel = 'h3',
+} = Astro.props
+const hasAction = Boolean(actionHref && actionLabel)
+const Heading = headingLevel
+---
+
+<div class="empty-state">
+  <div class="max-w-xl">
+    <Heading class="text-site-lg font-semibold text-site-text">{title}</Heading>
+    <p class="mt-2 text-pretty leading-relaxed">{description}</p>
+    {
+      hasAction && (
+        <a
+          class="mt-5 inline-flex min-h-11 items-center rounded-site-md px-4 font-semibold text-site-accent underline decoration-transparent underline-offset-4 transition-colors hover:decoration-current"
+          href={actionHref}
+        >
+          {actionLabel}
+        </a>
+      )
+    }
+  </div>
+</div>
