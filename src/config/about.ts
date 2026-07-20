@@ -9,7 +9,7 @@ export const aboutContent = {
   previewSkills: [
     '2D/3D Design',
     'Web Publishing',
-    'Fullstack Development',
+    'Fullstack Engineering',
     'Accessibility',
   ],
   disciplines: [
