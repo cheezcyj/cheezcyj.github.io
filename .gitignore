@@ -1,0 +1,81 @@
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# IDE / editor metadata
+.idea/
+.vscode/
+.fleet/
+.history/
+*.swp
+*.swo
+*~
+*.code-workspace
+
+# Local Codex/workspace metadata
+.agents/
+.codex/
+
+# 로컬 전용 작업 기록서
+docs/portfolio-work-history.md
+
+# Local-only source and rights-review media
+/roadscanner-media-source/
+/media-source/
+/source-media/
+/docs/media-review/roadscanner/
+
+# Legacy Jekyll build/cache outputs kept for rollback worktrees
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+Gemfile.lock
+.bundle/
+vendor/bundle/
+
+# Astro / Node generated output
+node_modules/
+dist/
+.astro/
+.pnpm-store/
+.cache/
+.vite/
+.turbo/
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+blob-report/
+*.tsbuildinfo
+
+# Local environment and secret material
+.env
+.env.*
+!.env.example
+!.env.*.example
+.envrc
+.direnv/
+.npmrc
+.pypirc
+.netrc
+.secrets/
+secrets/
+credentials/
+credentials.json
+service-account*.json
+auth.json
+*.pem
+*.key
+*.p12
+*.pfx
+*.ppk
+*.jks
+*.keystore
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+*.log

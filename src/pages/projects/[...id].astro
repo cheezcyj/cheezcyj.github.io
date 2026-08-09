@@ -1,0 +1,55 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content'
+import ProjectLayout from '../../layouts/ProjectLayout.astro'
+import {
+  getPublishedEntries,
+  isPublishableEntry,
+  sortEntries,
+} from '../../utils/content'
+
+type ProjectEntry = CollectionEntry<'projects'>
+
+interface ProjectNeighbor {
+  id: string
+  title: string
+}
+
+interface Props {
+  entry: ProjectEntry
+  preview: boolean
+  previous?: ProjectNeighbor
+  next?: ProjectNeighbor
+}
+
+export async function getStaticPaths() {
+  const entries = import.meta.env.DEV
+    ? sortEntries(await getCollection('projects'))
+    : await getPublishedEntries('projects')
+
+  return entries.map((entry, index) => {
+    const previousEntry = entries[index + 1]
+    const nextEntry = entries[index - 1]
+
+    return {
+      params: { id: entry.id },
+      props: {
+        entry,
+        preview: import.meta.env.DEV && !isPublishableEntry(entry),
+        previous: previousEntry
+          ? { id: previousEntry.id, title: previousEntry.data.title }
+          : undefined,
+        next: nextEntry
+          ? { id: nextEntry.id, title: nextEntry.data.title }
+          : undefined,
+      },
+    }
+  })
+}
+
+const { entry, preview, previous, next } = Astro.props
+const { Content } = await render(entry)
+---
+
+<ProjectLayout entry={entry} preview={preview} previous={previous} next={next}>
+  <Content />
+</ProjectLayout>

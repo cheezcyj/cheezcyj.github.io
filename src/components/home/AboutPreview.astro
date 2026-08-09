@@ -1,0 +1,55 @@
+---
+import { aboutContent } from '../../config/about'
+---
+
+<section
+  id="about"
+  class="scroll-mt-20 border-y border-site-border bg-site-navy-deep/40"
+  aria-labelledby="about-preview-title"
+>
+  <div
+    class="site-container grid gap-10 py-section-lg lg:grid-cols-2 lg:gap-16"
+  >
+    <header class="max-w-xl">
+      <p
+        class="mb-3 text-site-xs font-semibold tracking-[0.2em] text-site-accent uppercase"
+      >
+        About
+      </p>
+      <h2
+        id="about-preview-title"
+        class="text-site-section leading-tight font-bold tracking-tight text-balance text-site-text"
+      >
+        {aboutContent.headline}
+      </h2>
+    </header>
+
+    <div class="flex min-w-0 flex-col justify-center">
+      <p
+        class="max-w-2xl text-site-base leading-relaxed text-pretty text-site-muted [word-break:keep-all] sm:text-site-lg"
+      >
+        {aboutContent.introduction}
+      </p>
+
+      <ul
+        class="mt-8 flex list-none flex-wrap gap-2 p-0"
+        aria-label="주요 역량"
+      >
+        {
+          aboutContent.previewSkills.map((skill) => (
+            <li class="rounded-site-pill border border-site-border px-3 py-1.5 text-site-sm font-medium text-site-text/80">
+              {skill}
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        href="/about/"
+        class="mt-10 inline-flex min-h-11 items-center gap-2 self-start rounded-site-pill border border-site-border px-6 py-3 text-site-sm font-semibold text-site-text transition-colors hover:border-site-accent hover:text-site-accent focus-visible:border-site-accent focus-visible:text-site-accent"
+      >
+        더 알아보기 <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>

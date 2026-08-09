@@ -1,0 +1,565 @@
+---
+import type { ProjectEntry } from '../utils/projects'
+import { getProjectPath, getProjectStatusLabel } from '../utils/projects'
+import SiteFooter from '../components/layout/SiteFooter.astro'
+import SiteHeader from '../components/layout/SiteHeader.astro'
+import ProjectMedia from '../components/projects/ProjectMedia.astro'
+import ProjectMeta from '../components/projects/ProjectMeta.astro'
+import BaseLayout from './BaseLayout.astro'
+
+interface ProjectNeighbor {
+  id: string
+  title: string
+}
+
+interface Props {
+  entry: ProjectEntry
+  preview?: boolean
+  previous?: ProjectNeighbor
+  next?: ProjectNeighbor
+}
+
+const { entry, preview = false, previous, next } = Astro.props
+const {
+  demoUrl,
+  description,
+  gallery,
+  highlights,
+  repositoryUrl,
+  status,
+  title,
+} = entry.data
+const canonicalPath = getProjectPath(entry.id)
+const statusLabel = getProjectStatusLabel(status)
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+  robots={preview ? 'noindex, nofollow' : undefined}
+>
+  <div class="relative z-[var(--site-z-content)] min-h-screen">
+    <SiteHeader />
+    <main id="main-content" data-site-main tabindex="-1">
+      <div class="site-container project-detail">
+        <nav class="project-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">홈</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/projects/">프로젝트</a></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page">{title}</li>
+          </ol>
+        </nav>
+
+        <header class="project-hero">
+          <div class="project-hero__copy">
+            <div class="project-hero__status">
+              <span>{statusLabel}</span>
+              {
+                preview && (
+                  <span class="project-preview-badge">Draft Preview</span>
+                )
+              }
+            </div>
+            <h1>{title}</h1>
+            <p>{description}</p>
+
+            <div class="project-actions" aria-label="프로젝트 외부 링크">
+              {
+                repositoryUrl && (
+                  <a href={repositoryUrl} target="_blank" rel="noreferrer">
+                    GitHub 저장소 <span aria-hidden="true">↗</span>
+                  </a>
+                )
+              }
+              {
+                demoUrl && (
+                  <a href={demoUrl} target="_blank" rel="noreferrer">
+                    Live Demo <span aria-hidden="true">↗</span>
+                  </a>
+                )
+              }
+            </div>
+          </div>
+
+          <div class="project-hero__details">
+            <div class="project-hero__media">
+              <ProjectMedia entry={entry} eager />
+            </div>
+            <ProjectMeta entry={entry} />
+          </div>
+        </header>
+
+        {
+          highlights.length > 0 && (
+            <section
+              class="project-highlights"
+              aria-labelledby="highlights-title"
+            >
+              <p class="project-section-eyebrow">Selected Highlights</p>
+              <h2 id="highlights-title">주요 구현</h2>
+              <ul>
+                {highlights.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <article class="project-prose">
+          <slot />
+        </article>
+
+        {
+          gallery.length > 0 && (
+            <section
+              class="project-gallery"
+              aria-labelledby="project-gallery-title"
+            >
+              <header class="project-gallery__header">
+                <p class="project-section-eyebrow">Project Gallery</p>
+                <h2 id="project-gallery-title">화면 구성</h2>
+              </header>
+
+              <div class="project-gallery__grid">
+                {gallery.map((image, index) => (
+                  <figure class="project-gallery__item">
+                    <img
+                      data-project-gallery-image
+                      src={image.src}
+                      alt={image.alt}
+                      width={image.width}
+                      height={image.height}
+                      loading="lazy"
+                      decoding="async"
+                      sizes={
+                        index === 0
+                          ? '(min-width: 1280px) 1280px, calc(100vw - 2rem)'
+                          : '(min-width: 768px) 50vw, calc(100vw - 2rem)'
+                      }
+                    />
+                  </figure>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        <footer class="project-detail__footer">
+          <a class="project-back-link" href="/projects/">
+            <span aria-hidden="true">←</span> 프로젝트 목록으로 돌아가기
+          </a>
+
+          {
+            (previous || next) && (
+              <nav class="project-neighbors" aria-label="이전 및 다음 프로젝트">
+                {previous ? (
+                  <a href={getProjectPath(previous.id)}>
+                    <span>이전 프로젝트</span>
+                    <strong>{previous.title}</strong>
+                  </a>
+                ) : (
+                  <span aria-hidden="true" />
+                )}
+                {next && (
+                  <a href={getProjectPath(next.id)}>
+                    <span>다음 프로젝트</span>
+                    <strong>{next.title}</strong>
+                  </a>
+                )}
+              </nav>
+            )
+          }
+        </footer>
+      </div>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .project-detail {
+    padding-block: clamp(1.5rem, 5vw, 4rem) var(--site-space-section-large);
+  }
+
+  .project-breadcrumb {
+    overflow: hidden;
+    color: var(--site-color-text-muted);
+    font-size: var(--site-text-sm);
+  }
+
+  .project-breadcrumb ol {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-breadcrumb li:last-child {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    white-space: nowrap;
+  }
+
+  .project-breadcrumb a {
+    transition: color var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  .project-breadcrumb a:hover,
+  .project-breadcrumb a:focus-visible {
+    color: var(--site-color-accent);
+  }
+
+  .project-hero {
+    padding-block: clamp(3.5rem, 9vw, 7rem);
+  }
+
+  .project-hero__copy {
+    max-width: 64rem;
+  }
+
+  .project-hero__status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--site-color-accent);
+    font-size: var(--site-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .project-preview-badge {
+    border: var(--site-border-thin) solid
+      color-mix(in srgb, var(--site-color-accent) 50%, transparent);
+    border-radius: var(--site-radius-pill);
+    padding: 0.2rem 0.55rem;
+    background: color-mix(in srgb, var(--site-color-accent) 10%, transparent);
+  }
+
+  .project-hero h1 {
+    max-width: 70rem;
+    margin: 1rem 0 0;
+    color: var(--site-color-text);
+    font-size: clamp(2.6rem, 1.3rem + 5.5vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .project-hero__copy > p {
+    max-width: 48rem;
+    margin: 1.5rem 0 0;
+    color: var(--site-color-text-muted);
+    font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+    line-height: 1.75;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+    word-break: keep-all;
+  }
+
+  .project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .project-actions a,
+  .project-back-link {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.4rem;
+    border: var(--site-border-thin) solid var(--site-color-border);
+    border-radius: var(--site-radius-pill);
+    padding: 0.55rem 1rem;
+    color: var(--site-color-text);
+    font-size: var(--site-text-sm);
+    font-weight: 700;
+    transition:
+      border-color var(--site-duration-fast) var(--site-ease-out),
+      color var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  .project-actions a:hover,
+  .project-actions a:focus-visible,
+  .project-back-link:hover,
+  .project-back-link:focus-visible {
+    border-color: var(--site-color-accent);
+    color: var(--site-color-accent);
+  }
+
+  .project-hero__details {
+    display: grid;
+    gap: 2rem;
+    margin-top: clamp(3rem, 7vw, 5rem);
+  }
+
+  .project-hero__media {
+    overflow: hidden;
+    border: var(--site-border-thin) solid var(--site-color-border);
+    border-radius: var(--site-radius-xl);
+    background: var(--site-color-surface);
+  }
+
+  .project-highlights {
+    display: grid;
+    gap: 1.5rem;
+    border-block: var(--site-border-thin) solid var(--site-color-border);
+    padding-block: clamp(3rem, 7vw, 5rem);
+  }
+
+  .project-section-eyebrow {
+    margin: 0;
+    color: var(--site-color-accent);
+    font-size: var(--site-text-xs);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .project-highlights h2 {
+    margin: 0;
+    color: var(--site-color-text);
+    font-size: var(--site-text-section);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .project-highlights ul {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-highlights li {
+    position: relative;
+    border-top: var(--site-border-thin) solid var(--site-color-border);
+    padding: 1rem 0 1rem 1.5rem;
+    color: var(--site-color-text-muted);
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+    word-break: keep-all;
+  }
+
+  .project-highlights li::before {
+    position: absolute;
+    top: 1.65rem;
+    left: 0;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: var(--site-radius-pill);
+    background: var(--site-color-accent);
+    content: '';
+  }
+
+  .project-prose {
+    max-width: 47rem;
+    margin-inline: auto;
+    padding-block: clamp(4rem, 9vw, 7rem);
+    color: var(--site-color-text-muted);
+  }
+
+  .project-prose :global(h1),
+  .project-prose :global(h2),
+  .project-prose :global(h3) {
+    color: var(--site-color-text);
+    line-height: 1.25;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .project-prose :global(h1) {
+    margin: 0 0 1.5rem;
+    font-size: clamp(2rem, 1.6rem + 1.5vw, 3rem);
+  }
+
+  .project-prose :global(h2) {
+    margin: 4rem 0 1.25rem;
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  }
+
+  .project-prose :global(h3) {
+    margin: 2.75rem 0 1rem;
+    font-size: var(--site-text-xl);
+  }
+
+  .project-prose :global(p),
+  .project-prose :global(li) {
+    line-height: 1.85;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+    word-break: keep-all;
+  }
+
+  .project-prose :global(p) {
+    margin: 1rem 0;
+  }
+
+  .project-prose :global(ul),
+  .project-prose :global(ol) {
+    display: grid;
+    gap: 0.5rem;
+    padding-left: 1.4rem;
+  }
+
+  .project-prose :global(code) {
+    border-radius: var(--site-radius-sm);
+    background: var(--site-color-surface-muted);
+    padding: 0.15em 0.35em;
+    color: var(--site-color-text);
+    font-family: var(--site-font-mono);
+    font-size: 0.92em;
+    overflow-wrap: anywhere;
+  }
+
+  .project-prose :global(a) {
+    color: var(--site-color-accent);
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--site-color-accent) 45%,
+      transparent
+    );
+    text-underline-offset: 0.2em;
+  }
+
+  .project-gallery {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    border-top: var(--site-border-thin) solid var(--site-color-border);
+    padding-block: clamp(4rem, 9vw, 7rem);
+  }
+
+  .project-gallery__header {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .project-gallery__header h2 {
+    margin: 0;
+    color: var(--site-color-text);
+    font-size: var(--site-text-section);
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  .project-gallery__grid {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .project-gallery__item {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: var(--site-border-thin) solid var(--site-color-border);
+    border-radius: var(--site-radius-xl);
+    background: var(--site-color-surface);
+  }
+
+  .project-gallery__item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .project-detail__footer {
+    border-top: var(--site-border-thin) solid var(--site-color-border);
+    padding-top: 2rem;
+  }
+
+  .project-neighbors {
+    display: grid;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .project-neighbors a {
+    display: grid;
+    gap: 0.35rem;
+    border: var(--site-border-thin) solid var(--site-color-border);
+    border-radius: var(--site-radius-lg);
+    padding: 1rem;
+    background: var(--site-color-surface);
+    transition: border-color var(--site-duration-fast) var(--site-ease-out);
+  }
+
+  .project-neighbors a:hover,
+  .project-neighbors a:focus-visible {
+    border-color: var(--site-color-accent);
+  }
+
+  .project-neighbors span {
+    color: var(--site-color-text-muted);
+    font-size: var(--site-text-xs);
+  }
+
+  .project-neighbors strong {
+    color: var(--site-color-text);
+    overflow-wrap: break-word;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+
+  @media (min-width: 48rem) {
+    .project-highlights {
+      grid-template-columns: 0.55fr 1fr 1.5fr;
+      align-items: start;
+    }
+
+    .project-neighbors {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-gallery__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-gallery__item:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .project-neighbors a:last-child {
+      text-align: right;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .project-hero__details {
+      grid-template-columns: minmax(0, 1.65fr) minmax(16rem, 0.65fr);
+      align-items: start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-breadcrumb a,
+    .project-actions a,
+    .project-back-link,
+    .project-neighbors a {
+      transition: none;
+    }
+  }
+</style>
