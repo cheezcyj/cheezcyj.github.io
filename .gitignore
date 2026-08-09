@@ -5,6 +5,9 @@ Thumbs.db
 .agents/
 .codex/
 
+# 로컬 전용 작업 기록서
+docs/portfolio-work-history.md
+
 # Legacy Jekyll build/cache outputs kept for rollback worktrees
 _site/
 .sass-cache/
