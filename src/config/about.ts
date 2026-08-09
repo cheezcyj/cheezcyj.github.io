@@ -40,7 +40,7 @@ export const aboutContent = {
       eyebrow: 'Team Project · 2023',
       title: 'RoadScanner',
       description:
-        '8인 팀에서 메인 기능과 머신러닝·딥러닝 개발에 참여하고, Q&A 게시판과 JSP UI, 기능 통합을 담당했습니다.',
+        '8인 팀에서 메인 기능과 머신러닝·딥러닝 개발에 참여했습니다. 공개 저장소에서는 전체 장면 검출·분류 파이프라인, 보안, 로컬 실행과 테스트 환경을 확인할 수 있습니다.',
       href: '/projects/roadscanner/',
       linkLabel: '프로젝트 자세히 보기',
     },
@@ -68,6 +68,8 @@ export const aboutContent = {
         'Tailwind CSS',
         'Java',
         'Spring MVC',
+        'Python',
+        'Flask',
         'JSP',
         'MyBatis',
       ],
@@ -76,7 +78,10 @@ export const aboutContent = {
       title: 'Data & Delivery',
       items: [
         'Oracle Database',
+        'H2',
         'AWS S3',
+        'TensorFlow',
+        'ONNX Runtime',
         'Git',
         'GitHub Actions',
         'GitHub Pages',
